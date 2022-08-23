@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 15:42:36 by abonard           #+#    #+#             */
-/*   Updated: 2021/12/09 11:52:02 by abonard          ###   ########.fr       */
+/*   Created: 2022/08/04 13:20:56 by abonard           #+#    #+#             */
+/*   Updated: 2022/08/04 18:48:45 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-size_t	ft_strlen(const char *s)
+int main(int argc, char **argv, char **envp)
 {
-	size_t	i;
+	(void)argc;
+	(void)argv;
+	int i;
 
 	i = 0;
-	while (s[i])
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
 		i++;
-	return (i);
+	}
+	return (0);
+
 }
