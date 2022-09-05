@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_number.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 15:03:40 by abonard           #+#    #+#             */
-/*   Updated: 2022/08/04 18:47:28 by abonard          ###   ########.fr       */
+/*   Created: 2022/01/26 14:05:11 by abonard           #+#    #+#             */
+/*   Updated: 2022/01/26 15:20:46 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-/* 
-typedef struct s_bash
+int	ft_number(t_print *print)
 {
-    char    *var;
-    char    *value;
-    struct s_bash  *next;
-    struct s_bash  *prev;
-}t_bash; */
+	int	num;
 
-#endif
+	if (!print)
+		return (0);
+	num = va_arg(print->args, int);
+	ft_putnbr_fd(num, 1);
+	print->total_value += ft_len(num);
+	return (1);
+}
