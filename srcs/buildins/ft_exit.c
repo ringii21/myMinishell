@@ -1,10 +1,10 @@
 #include "../../inc/minishell.h"
 
-int ft_exit(t_env *env, char **cmds)
+int	ft_exit(t_env *env, char **cmds)
 {
-    (void)env;
-    (void)cmds;
+	(void)env;
+	(void)cmds;
 
-    exit(0);
-    return (0);
+	exit(0);
+	return (0);
 }
