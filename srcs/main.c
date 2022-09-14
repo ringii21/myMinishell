@@ -1,5 +1,4 @@
 #include "../inc/minishell.h"
-#include "../libft/libft.h"
 
 int	execute(t_env *env, char **cmds)
 {
@@ -89,8 +88,8 @@ void	ft_command_handler(t_env *env, char *command)
 int	ft_minishell(t_env *env)
 {
 	char	*command;
-	(void)env;
 
+	(void)env;
 	while (1)
 	{
 		ft_putstr_fd(">$", 1);
@@ -104,9 +103,9 @@ int	ft_minishell(t_env *env)
 int	main(int argc, char **argv, char **envp)
 {	
 	t_env	*env;
+
 	(void)argc;
 	(void)argv;
-
 	// if (ft_set_signals() == 1)
 	//   return (1);
 	env = ft_put_env(envp);
