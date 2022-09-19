@@ -6,17 +6,19 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/19 19:23:41 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/19 19:42:11 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PATHS::
 
-ODIR			:=	objs
+PROJ			:=	minishe
 
-SDIR			:=	srcs
+ODIR			:=	$(addprefix $(PROJ)/,objs)
 
-IDIR			:=	inc
+SDIR			:=	$(addprefix $(PROJ)/,srcs)
+
+IDIR			:=	$(addprefix $(PROJ)/,inc)
 
 LDIR 			:=	libft
 
@@ -33,9 +35,9 @@ NAME			:=	minishell
 SRCS			:=	main.c \
 					ft_env_utils.c \
 					ft_signals.c \
-					builtins/ft_env.c \
-					builtins/ft_pwd.c \
-					builtins/ft_exit.c
+					ft_env.c \
+					ft_pwd.c \
+					ft_exit.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
@@ -147,18 +149,18 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
-#	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(OBJS) $(LIB) -o $(NAME)
-#	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
+	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
 
 $(ODIR):
-	mkdir -p $(ODIR)
-#	@echo "$(HIGREEN)objs folder:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+	@mkdir -p $(ODIR)
+	@echo "$(HIGREEN)objs folder:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RULES::
 
@@ -223,7 +225,7 @@ header:
 	@echo " \     \  \/__/  \/__/  \/__/ /__/  \/__/ \/__/  \/______/   \ "
 	@echo "  \     \_____________________________________________________\ "
 	@echo "   \    /                                                     / "
-	@echo "    \  /       $(CYAN) A B O N N A R D  &&  S E O Z C A N \$(NO_COLOR)$(BHIPURPLE)   ____   / "
+	@echo "    \  /         $(CYAN) A B O N A R D  &&  S E O Z C A N \$(NO_COLOR)$(BHIPURPLE)   ____   / "
 	@echo "     \/______________________________________________/\   \_/ "
 	@echo "                                                     \ \___\ "
 	@echo "                                                      \/___/ "

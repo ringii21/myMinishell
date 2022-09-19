@@ -5,16 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/12/09 13:12:51 by abonard           #+#    #+#              #
-#    Updated: 2022/09/19 19:27:39 by seozcan          ###   ########.fr        #
+#    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
+#    Updated: 2022/09/19 19:47:12 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#-*-Makefile-*-
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::TARGET::
 
-S_PATH		= 		srcs
+NAME	:= libft.a
 
-SRCS		= 		ft_isalpha.c\
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
+
+SDIR	:= srcs
+
+SRCS	:= 			ft_isalpha.c\
 					ft_isdigit.c\
 					ft_isalnum.c\
 					ft_isascii.c\
@@ -65,35 +69,110 @@ SRCS		= 		ft_isalpha.c\
 					ft_tablen.c \
 					ft_free_stab.c
 
-HEAD		=		libft.h \
-					ft_struct.h \
-					ft_printf.h
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 
-HEAD_DIR 	= 		./
-OBJS		= ${addprefix $(S_PATH)/,$(SRCS)}:.c=.o}
+ODIR	:= objs
 
-NAME		= libft.a
+OBJS	=  $(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
-CC			= gcc
+DEPS	= $(OBJS:.o=.d)
 
-RM			= rm -f
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
-CFLAGS		= -Wall -Wextra -Werror
+CC		:= clang
 
-.c.o:
-			@${CC} ${CFLAGS} -I ${HEAD_DIR} -c $< -o ${<:.c=.o}
+WFLAGS	:= -MMD -Wall -Wextra -Werror 
 
-${NAME}:	${OBJS}
-			ar -rc libft.a ${OBJS}
+WCONV 	:= -Wconversion
 
-all:		${NAME}
+GFLAG	:=  -g3
+
+SANFLAG	:= -fsanitize=address
+
+AR		:= ar
+
+ARFLAGS	:= rcs
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::HEADERS::
+
+IDIR	:= inc
+
+INC		:= libft.h
+
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COLORS::
+
+NO_COLOR		=	\033[m
+
+BLACK			=	\033[0;30m
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+ORANGE 		 	=	\033[0;33m
+BLUE			=	\033[0;34m
+PURPLE			=	\033[0;35m
+CYAN			=	\033[0;36m
+WHITE			= 	\033[0;37m
+
+# High Intensty
+HIGREEN			=	\033[0;92m
+HIORANGE	 	=	\033[0;93m
+HIPURPLE		=	\033[0;95m
+
+# Bold
+BORANGE 		=	\033[1;33m
+BBLUE			=	\033[1;34m
+BPURPLE			=	\033[1;35m
+BCYAN			=	\033[1;36m
+
+# Bold High Intensity
+BHIGREEN		=	\033[1;92m
+BHIORANGE	 	=	\033[1;93m
+BHIPURPLE		=	\033[1;95m
+
+# Italic
+ICYAN			=	\033[3;36m
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RULES::
+
+vpath %.c $(SDIR)
+vpath %.o $(ODIR)
+
+all:			header message $(NAME)
+
+$(ODIR)/%.o:	%.c
+	@$(CC) $(WFLAGS) -I $(IDIR) -c $< -o $@
+	@echo "$(HIGREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
+
+$(NAME):		$(OBJS)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+	@echo "$(HIGREEN)$(NAME):\t\t\t\t\t\t[OK]$(NO_COLOR)"
+
+$(OBJS):		| $(ODIR)
+
+$(ODIR):
+	@mkdir -p $(ODIR)
+	@echo "$(BHIGREEN)libft objs folder:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 clean:
-			${RM} ${OBJS}
+ifneq ($(wildcard ./$(ODIR)),)
+	@rm -rf $(ODIR)
+	@echo "$(HIORANGE)libft objs folder:\t\t\t\t\t[RM]$(NO_COLOR)"
+else
+	@rm -f $(wildcard %.o)
+	@echo "$(HIORANGE)libft obj files:\t\t\t\t\t[RM]$(NO_COLOR)"
+endif
 
 fclean:		clean
-			${RM} ${NAME}
+	@rm -f $(NAME)
+	@echo "$(HIORANGE)$(NAME):\t\t\t\t\t\t[RM]$(NO_COLOR)"
 
-re:			fclean all
+header:
+	@echo "\n$(BHIPURPLE):::::::::::::::::::::::::::::::::::::::::::::::::::::LIBFT::\n$(NO_COLOR)"
 
-.PHONY:		all	clean	fclean re
+message:
+	@make -q $(NAME) && echo "$(BHIGREEN)All files are already up to date\n$(NO_COLOR)" || true
+
+re:		fclean all
+
+-include $(DEPS)
+
+.PHONY:	all clean fclean re
