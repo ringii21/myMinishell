@@ -3,14 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:12:51 by abonard           #+#    #+#              #
-#    Updated: 2022/02/08 17:28:38 by abonard          ###   ########.fr        #
+#    Updated: 2022/09/19 19:27:39 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #-*-Makefile-*-
+
+S_PATH		= 		srcs
 
 SRCS		= 		ft_isalpha.c\
 					ft_isdigit.c\
@@ -68,7 +70,7 @@ HEAD		=		libft.h \
 					ft_printf.h
 
 HEAD_DIR 	= 		./
-OBJS		= ${SRCS:.c=.o}
+OBJS		= ${addprefix $(S_PATH)/,$(SRCS)}:.c=.o}
 
 NAME		= libft.a
 

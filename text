@@ -1,0 +1,6 @@
+SRCS		=	./srcs/main.c \
+				./srcs/ft_env_utils.c \
+				./srcs/ft_signals.c \
+				./srcs/buildins/ft_env.c \
+				./srcs/buildins/ft_pwd.c \
+				./srcs/buildins/ft_exit.c
