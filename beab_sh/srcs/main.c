@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 12:11:25 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/10 18:51:53 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	prompt(t_main *m)
 		free(m->line);
 		free(m->prompt);
 	}
-	//free(m->line);
-	//free(m->prompt);
-	
+	free(m->line);
+	free(m->prompt);
 }
 
 int	main(int ac, char **av, char **envp)

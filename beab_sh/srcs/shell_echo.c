@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/06 20:08:58 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/10 21:30:30 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	ft_echo(t_main *m)
 		if (ft_exec_echo(m, flag) < 0)
 			return (-1);
 	}
+	ft_free_stab(m->o.cmd_flags);
 	return (0);
 }

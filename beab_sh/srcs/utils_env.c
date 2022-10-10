@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/09 10:50:08 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/10 18:44:24 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*put_env(char **envp)
 	t_env	*tmp;
 	t_env	*res;
 
- 	if (!envp || !envp[0])
+	if (!envp || !envp[0])
 	{
 		res = ft_if_env_empty();
 		return (res);

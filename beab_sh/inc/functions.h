@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/08 16:21:11 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/10 22:09:42 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		ft_unset(t_main *m, bool is_forked);
 int		is_builtin(char **cmds);
 
 //				utils_env.c
-int		ft_get_len_env(t_env *env);
+int		ft_get_env_len(t_env *env);
 char	*get_cont(char *name_var, t_env *env);
 char	**ft_env_to_tab(t_env *env);
 t_env	*fill_env(char *is_env);

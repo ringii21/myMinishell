@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 12:36:22 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/10 22:00:02 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ void	job(t_main *m)
 	//print_list(m->tokens);
 //	parser(); 
 	expansion(m);
+	if (m->o.cmds == NULL)
+	{
+		ft_exit(m, 0);
+	}
 	if (is_builtin(m->o.cmds) == 1)
 	{
 		exec_builtin(m);
@@ -56,6 +60,6 @@ void	job(t_main *m)
 		}
 		waitpid(-1, NULL, 0);
 	}
-	if (getenv("PATH") != NULL)
+ 	if (getenv("PATH") != NULL)
 		ft_free_parent(&m->o);
 }

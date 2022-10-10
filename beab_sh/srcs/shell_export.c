@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/06 19:44:56 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/10 22:00:49 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int	ft_export(t_main *m, bool is_forked)
 		return (ret);
 	}
 	ret = ft_export_var(m, is_forked);
+	ft_free_stab(m->o.cmd_flags);
 	return (ret);
 }

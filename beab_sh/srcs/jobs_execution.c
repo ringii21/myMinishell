@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 12:03:46 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/10 19:19:58 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	execute(t_main *m)
 		ft_free_parent(&m->o);
 		ft_error();
 	}
+	ft_free_stab(m->o.cmd_flags);
 }
 
 // serach for status code for all the builtin created
