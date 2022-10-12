@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/10 22:00:02 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:44:12 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	job(t_main *m)
 	//print_list(m->tokens);
 //	parser(); 
 	expansion(m);
+	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
+	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
 	if (m->o.cmds == NULL)
 	{
 		ft_exit(m, 0);

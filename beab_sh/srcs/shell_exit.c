@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/10 22:13:27 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:42:16 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	ft_exit(t_main *m, bool is_forked)
 		printf("exit\n");
 		exit(ret);
 	}
-	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
 	if (m->o.cmd_flags && m->o.cmd_ac > 2 && is_forked)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);

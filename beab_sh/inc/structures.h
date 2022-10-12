@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/08 15:35:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 14:10:38 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,47 @@ typedef struct s_main
 	t_stack			*lexicon;
 	t_stack			*tokens;
 }	t_main;
+
+/*******************************************************************/
+//					possible structure
+
+enum e_redir_type
+{
+	NOPE,
+	INPUT,
+	OUTPUT,
+	D_INPUT,
+	D_OUTPUT
+};
+
+typedef struct s_redir
+{
+	int				pipe[2];
+	int				fd;
+	enum e_redir_type	type;
+	char			*path;
+	struct s_redir	*next;
+	struct s_redir	*prev;	
+}				t_redir;
+
+typedef struct s_cmd
+{
+	char			**av;
+	char			*path;
+	bool			is_piped;
+	int				ac;
+	int				pipes[2];
+	pid_t			pid;
+	t_redir			*list;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}	t_cmd;
+
+typedef struct s_mainbis
+{
+	t_cmd		*cmds;
+	t_env		*env;
+	//t_parser	*whatever;
+}				t_mainbis;
 
 #endif
