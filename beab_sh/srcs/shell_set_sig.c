@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:10:55 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/28 17:11:15 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:54:00 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	ft_cntlc(int sig)
 void	ft_cntl_slsh(int sig)
 {
 	(void)sig;
-	write(1, "\b\b  \b\b", 6);
-	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
+	ft_putstr_fd("  \b\b", 0);
 }
 
 void	ft_sig_ghost(int sig)
