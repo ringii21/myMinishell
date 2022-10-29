@@ -6,7 +6,7 @@
 #    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/28 17:32:56 by abonard          ###   ########.fr        #
+#    Updated: 2022/10/29 03:06:02 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -169,11 +169,11 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
