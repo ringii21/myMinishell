@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 17:51:17 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/29 02:54:09 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	assign_job(t_main *m)
 
 int	process_args(t_main *m)
 {
+	m->paths = ft_split(get_cont("PATH", m->env), ':');
 	if (!create_lexicon(m))
 		return (0);
 	print_lexer(m->lexicon);
@@ -81,9 +82,8 @@ void	job(t_main *m)
 {	
 	if (!process_args(m))
 		return ;
-	print_parser(m->tokens);
-	assign_job(m);
+//	assign_job(m);
 	free_nodes(&m->lexicon, &free);
 	free_parser(m->tokens);
-	//ft_free_stab(m->paths);
+	ft_free_stab(m->paths);
 }

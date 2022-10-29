@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
+#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/28 18:29:21 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/29 03:06:10 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -163,7 +163,7 @@ vpath %.o $(ODIR)
 all:			header message $(NAME)
 
 $(ODIR)/%.o:	%.c
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) -I $(IDIR) -c $< -o $@
+	@$(CC) $(WFLAGS) $(GFLAG) -I $(IDIR) -c $< -o $@
 	@echo "$(HIGREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)
