@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 16:42:01 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/29 07:19:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ t_types	is_operator(char c, t_main *m)
 {	
 	if ((!ft_isprint(c) || c == ' ') && m->state == S_DEFAULT)
 		return (T_SPACE);
-	if ((c == m->quote && m->state == S_OPEN_QUOTE)
-		|| ((c == DOUBLE_Q || c == SINGLE_Q) && m->state != S_OPEN_QUOTE))
-		return (T_QUOTE);
 	if (ft_strchr("|&><$", c) && m->state == S_DEFAULT)
 		return (T_OPERATOR);
 	return (T_WORD);

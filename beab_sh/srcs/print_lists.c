@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 22:23:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 14:50:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:44:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_lexer(t_node *l)
 	printf("::::::::::::::::::::::::::\n");
 	while (tmp)
 	{
-		printf("node #%d type = %d arg = %c\n", i,
+		printf("node #%02d type = %d arg = %c\n", i,
 			((t_lexer *)tmp->data)->type, ((t_lexer *)tmp->data)->arg);
 		printf(".....................\n");
 		i++;
