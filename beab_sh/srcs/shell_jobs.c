@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/31 14:02:11 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/31 14:03:37 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	job(t_main *m)
 {	
 	if (!process_args(m))
 		return ;
-//	assign_job(m);
+	assign_job(m);
 	free_nodes(&m->lexicon, &free);
 	free_parser(m->tokens);
 	//ft_free_stab(m->paths);
