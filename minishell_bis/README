@@ -1,0 +1,67 @@
+FONCTION AUTORISEES:
+
+V	char	*readline (const char *prompt);
+V	rl_clear_history();
+	rl_on_new_line();
+	rl_replace_line();
+	rl_redisplay();
+V	add_history();
+
+V	printf
+V	malloc
+V	free
+	write
+V	int		access(const char *pathname, int mode);
+
+V	int		open(const char *pathname, int flags, mode_t mode);
+V	ssize_t	read(int fd, void *buf, size_t count);
+V	int		close(int fd);
+
+V   pid_t	fork(void);
+	pid_t	wait(int *wstatus);
+V	pid_t	waitpid(pid_t pid, int *wstatus, int options);
+	pid_t 	wait3(int *wstatus, int options, struct rusage *rusage);
+	pid_t	wait4(pid_t pid, int *wstatus, int options, struct rusage *rusage);
+
+	int		sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);	
+	int		sigemptyset(sigset_t *set);
+	int		sigaddset(sigset_t *set, int signum);
+	int		kill(pid_t pid, int sig);
+
+V	void	exit(int status);
+
+V	char	*getcwd(char *buf, size_t size);
+V	int		chdir(const char *path);
+	DIR				*opendir(const char *name);
+	struct dirent 	*readdir(DIR *dirp);
+	int				closedir(DIR *dirp);
+
+    int		stat(const char *pathname, struct stat *statbuf);
+	int		fstat(int fd, struct stat *statbuf);
+	int		lstat(const char *pathname, struct stat *statbuf);
+
+	int		unlink(const char *pathname);
+V	int		execve(const char *pathname, char *const argv[], char *const envp[]);
+	int		dup(int oldfd);
+V	int		dup2(int oldfd, int newfd);
+V	int		pipe(int pipefd[2]);
+
+V   char	*strerror(int errnum);
+	void	perror(const char *s);
+
+	int		isatty(int fd);
+	char	*ttyname(int fd);
+	int		ttyslot(void);
+
+	int		ioctl(int fd, unsigned long request, ...);
+
+	char	*getenv(const char *name);
+
+	int		tcgetattr(int fd, struct termios *termios_p);
+	int		tcsetattr(int fd, int optional_actions, const struct termios *termios_p);
+			tgetent();
+			tgetflag();
+			tgetnum();
+			tgetstr();
+			tgoto();
+			tputs();
