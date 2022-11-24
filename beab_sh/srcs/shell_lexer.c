@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 20:45:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 16:20:19 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	inside_quotes(t_main *m, t_stack *tmp)
 {
 	while (m->line[m->i] && !is_quote(m->line[m->i], m))
 	{
-		put_back(tmp, is_operator(m->line[m->i], m),
+		put_back(tmp, (unsigned int)is_operator(m->line[m->i], m),
 			ft_substr(m->line, m->i, 1));
 		m->i++;
 	}
@@ -41,7 +41,7 @@ void	find_types(t_main *m, t_stack *tmp)
 	while (m->line[m->i] && ft_isascii(m->line[m->i]))
 	{
 		m->state = is_quote(m->line[m->i], m);
-		put_back(tmp, is_operator(m->line[m->i], m),
+		put_back(tmp, (unsigned int)is_operator(m->line[m->i], m),
 			ft_substr(m->line, m->i, 1));
 		m->i++;
 		if (m->line[m->i] && m->state == OPEN_QUOTE)
@@ -53,41 +53,33 @@ void	find_types(t_main *m, t_stack *tmp)
 
 void	build_token(t_main *m, t_stack *a, t_stack *b)
 {
-	unsigned int	status;
-	unsigned int	start;
-	size_t			len;
-	char			*buff;
-
 	m->i = 0;
-	len = stack_size(a);
-	buff = xmalloc(sizeof(char) * len + 1);
-	buff[len] = '\0';
 	while (a->head)
-	{	
-		start = m->i;
-		m->i = 0;
-		status = a->head->type;
-		if (status != O_SPACE)
-		{
-			while (a->head && status == a->head->type)
-			{
-				buff[m->i] = a->head->arg[0];
-				a->head = a->head->next;
-				m->i++;
-			}
-			put_back(b, status, ft_substr(buff, start, m->i));
-		}
-		else
+	{
+		while (a->head && a->head->type == O_SPACE)
 			a->head = a->head->next;
+		m->i = 0;
+		m->type = a->head->type;
+		m->j = (unsigned int)token_len(m, a->head);
+		m->buff = xmalloc(sizeof(char) * (m->j + 1));
+		m->buff[m->j] = '\0';
+		while (a->head && m->type == a->head->type)
+		{
+			m->buff[m->i] = a->head->arg[0];
+			a->head = a->head->next;
+			m->i++;
+		}
+		put_back(b, m->type, ft_substr(m->buff, 0, m->i));
+		free(m->buff);
 	}
-	free(buff);
 }
 
-void	lexer(t_main *m)
+int	lexer(t_main *m)
 {	
 	t_stack	*tmp_a;
 	t_stack	*tmp_b;
 
+	m->state = DEFAULT;
 	m->lexicon = xmalloc(sizeof(t_stack));
 	m->tokens = xmalloc(sizeof(t_stack));
 	init_stack(m->lexicon);
@@ -95,6 +87,12 @@ void	lexer(t_main *m)
 	tmp_a = m->lexicon;
 	tmp_b = m->tokens;
 	find_types(m, tmp_a);
+	if (m->state == OPEN_QUOTE)
+	{
+		free(m->lexicon);
+		return (0);
+	}
 	build_token(m, tmp_a, tmp_b);
 	free_stack(m->lexicon);
+	return (1);
 }

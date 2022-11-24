@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 14:56:22 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/10 19:19:58 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,21 @@ static char	*get_cmd(char **paths, char *cmd)
 
 void	execute(t_main *m)
 {
-	m->o.cmd_flags = ft_split(m->o.cmds[m->o.index], ' ');
-	m->o.bin_path = get_cmd(m->o.paths, m->o.cmd_flags[0]);
-	m->o.envtab = ft_env_to_tab(m->env);
+	if (getenv("PATH") != NULL)
+	{
+		m->o.cmd_flags = ft_split(m->o.cmds[m->o.index], ' ');
+		m->o.bin_path = get_cmd(m->o.paths, m->o.cmd_flags[0]);
+		m->o.envtab = ft_env_to_tab(m->env);
+	}
+	else
+		printf("commamnd not found\n");
 	if (execve(m->o.bin_path, m->o.cmd_flags, m->o.envtab) != -1)
 	{
 		ft_free_child(&m->o);
 		ft_free_parent(&m->o);
 		ft_error();
 	}
+	ft_free_stab(m->o.cmd_flags);
 }
 
 // serach for status code for all the builtin created
@@ -55,6 +61,7 @@ int	exec_builtin(t_main *m)
 	int	ret;
 
 	ret = -1;
+
 	if (ft_strcmp("env", m->o.cmds[m->o.index]) == 0)
 		ret = ft_env(m->env);
 	if (ft_strcmp("exit", m->o.cmds[m->o.index]) == 0)

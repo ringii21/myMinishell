@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/06 20:08:58 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:42:08 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ int	ft_echo(t_main *m)
 	bool	flag;
 
 	flag = false;
-	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
 	if (m->o.cmd_ac < 2)
 	{
 		ft_putstr_fd("\n", 1);
@@ -74,5 +72,6 @@ int	ft_echo(t_main *m)
 		if (ft_exec_echo(m, flag) < 0)
 			return (-1);
 	}
+	ft_free_stab(m->o.cmd_flags);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_flush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 18:29:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/10 21:39:49 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_close_pipes(t_obj *obj)
 
 void	ft_flush(t_main *m)
 {
-	ft_free_parent(&m->o);
+	//ft_free_parent(&m->o);
 	free(m->line);
 	free(m->cwd);
 	free_env(m->env);

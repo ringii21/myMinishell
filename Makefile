@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
+#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/06 20:39:30 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/10 17:19:04 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
 CC				:=	clang
 
-WFLAGS			:=	-MMD -Wall -Wextra -Werror
+WFLAGS			:=	-MMD -Wall -Wextra -Werror 
 
 WCONV 			:=	-Wconversion
 

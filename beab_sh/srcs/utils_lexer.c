@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:24:16 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 18:33:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 16:21:05 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-unsigned int	is_operator(char c, t_main *m)
+int	is_operator(char c, t_main *m)
 {	
 	if ((!ft_isprint(c) || c == ' ') && m->state == DEFAULT)
 		return (O_SPACE);
@@ -24,7 +24,7 @@ unsigned int	is_operator(char c, t_main *m)
 
 int	is_quote(char c, t_main *m)
 {
-	if ((c == DOUBLE_Q || c == SINGLE_Q) && m->state == DEFAULT)
+	if ((c == DOUBLE_Q || c == SINGLE_Q) && m->state != OPEN_QUOTE)
 	{
 		m->quote = c;
 		return (OPEN_QUOTE);
@@ -34,31 +34,17 @@ int	is_quote(char c, t_main *m)
 	return (DEFAULT);
 }
 
-/* size_t	tokenlen(t_stack *lexicon)
-{
+size_t	token_len(t_main *m, t_node *a)
+{	
 	t_node	*tmp;
 	size_t	len;
-	int		status;
 
-	tmp = lexicon->head;
 	len = 0;
-	status = 0;
-	while (tmp)
+	tmp = a;
+	while (tmp && m->type == tmp->type)
 	{
-		if (tmp->type == O_SPACE)
-		{
-			status = tmp->type;
-			tmp = tmp->next;
-		}
-		if (len == 0 && tmp->type == status)
-			len++;
-		else if (tmp->type != status)
-		{
-			len++;
-			status = tmp->type;
-		}
 		tmp = tmp->next;
+		len++;
 	}
 	return (len);
 }
- */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 19:44:13 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:42:16 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ int	ft_exit(t_main *m, bool is_forked)
 	int	ret;
 
 	ret = 0;
-	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
+	if (m->o.cmds == NULL)
+	{
+		printf("exit\n");
+		exit(ret);
+	}
 	if (m->o.cmd_flags && m->o.cmd_ac > 2 && is_forked)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
@@ -37,7 +40,9 @@ int	ft_exit(t_main *m, bool is_forked)
 	}
 	if (is_forked)
 		printf("exit\n");
-	//ft_flush(m); free TOUT TOUT TOUT 
+	printf("envlen : %i\n", ft_get_env_len(m->env));
+	//free_env(m->env);
+	//printf("----->envlen : %i\n", ft_get_env_len(m->env));
 	exit(ret);
 	return (ret);
 }

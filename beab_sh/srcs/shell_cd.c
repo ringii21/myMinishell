@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 19:42:03 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:41:57 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ char	*ft_path_finder(t_main *m, bool is_forked)
 {
 	char	*path;
 
-	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
 	if (m->o.cmd_ac < 2)
 	{
 		path = get_cont("HOME", m->env);
@@ -88,5 +86,6 @@ int	ft_cd(t_main *m, bool is_forked)
 		free(path);
 	}
 	free(oldpath);
+	ft_free_stab(m->o.cmd_flags);
 	return (ret);
 }

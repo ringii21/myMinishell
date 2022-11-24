@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/06 19:12:41 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/10 18:44:24 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	ft_add_env(char *namevar, char *value, t_env *env)
 		env->total = ft_strjoin(env->total, env->cont);
 		if (env->var == NULL || (value && env->cont == NULL))
 			return (1);
-		return (0);
 	}
 	newline = ft_add_new(namevar, value);
 	if (newline == NULL)
