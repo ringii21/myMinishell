@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:59:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:14:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	*last_error(bool set, int err)
 void	split_args(t_token *t, char *str)
 {
 	int		i;
-	int 	j;
-	char 	**tab;
+	int		j;
+	char	**tab;
 
 	i = 0;
 	while (t->cmds_av && t->cmds_av[i])
@@ -52,7 +52,7 @@ void	split_args(t_token *t, char *str)
 	t->cmds_av = tab;
 }
 
-char *ft_strdupcat(char *s, char *t, int len)
+char	*ft_strdupcat(char *s, char *t, int len)
 {
 	int		i;
 	int		j;

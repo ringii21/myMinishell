@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 19:10:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:46:55 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,16 @@ t_env	*fill_env(char *is_env)
 	t_env	*new;
 	char	**tab;
 
-	new = xmalloc(sizeof(t_env) * 1);
+	new = ft_calloc(1, sizeof(t_env));
+	tab = NULL;
 	new->next = NULL;
 	new->total = is_env;
 	tab = ft_split(new->total, '=');
 	new->var = ft_strdup(tab[0]);
+	if (new->var == NULL)
+		return (NULL);
 	if (tab[1])
 		new->cont = ft_strdup(tab[1]);
-	if (tab == NULL || new->var == NULL || new->cont == NULL)
-		return (NULL);
 	ft_free_stab(tab);
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:02 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:12:36 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_cd(t_token *t, t_env *env, bool is_forked)
 	int		ret;
 	char	*oldpath;
 
-	path = ft_path_finder(t, env,  is_forked);
+	path = ft_path_finder(t, env, is_forked);
 	if (path == NULL)
 		return (4);
 	oldpath = getcwd(NULL, 0);

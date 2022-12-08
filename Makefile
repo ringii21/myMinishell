@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/08 17:21:37 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/08 20:22:03 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SRCS			:=	main.c \
 					utils_export.c \
 					utils_env.c
 
-objs			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
+OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
@@ -158,7 +158,7 @@ ifeq ($(IS_MINILIBX), true)
 	INCLUDE_FLAGS	+= $(addprefix -I , $(MDIR))
 endif
 
-DEPS				= $(objs:.o=.d)
+DEPS				= $(OBJS:.o=.d)
 
 vpath %.c $(SDIR)\
 vpath %.o $(ODIR)\
@@ -171,11 +171,11 @@ $(ODIR)/%.o:	%.c
 	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
-$(NAME):		$(objs)	
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(objs) $(LIB) -o $(NAME)
+$(NAME):		$(OBJS)	
+	@$(CC) $(WFLAGS) $(WCONV) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
-$(objs):		| $(ODIR)
+$(OBJS):		| $(ODIR)
 
 $(ODIR):
 	@mkdir -p $(ODIR)

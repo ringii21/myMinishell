@@ -6,15 +6,15 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:15 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 18:08:16 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 18:12:50 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-int ft_strisdigit(char *str)
+int	ft_strisdigit(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

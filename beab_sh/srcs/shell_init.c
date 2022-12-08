@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:38:15 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:19 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:13:20 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_token	*init_token(void)
 {
-	t_token *cmd;
+	t_token	*cmd;
 
 	cmd = xmalloc(sizeof(t_token));
 	if (cmd == NULL)

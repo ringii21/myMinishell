@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 17:54:49 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 18:21:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	next_token(t_token **cursor, int is_pipe)
 int	quote_manager(t_parsing *p, char *str, t_env *env, int u)
 {
 	char	*name;
-	
+
 	if (str[p->i] == '"' || str[p->i] == '\'')
 	{
 		p->is_quote = p->is_quote |= (str[p->i] == '"');
@@ -56,7 +56,7 @@ int	quote_manager(t_parsing *p, char *str, t_env *env, int u)
 int	fill_token_list(t_parsing *p, t_main *m)
 {
 	int	res;
-	
+
 	res = 0;
 	while (m->line[p->i] == ' ')
 	{
@@ -93,14 +93,14 @@ t_token	*ft_parsing(t_main *m)
 	p.read = NULL;
 	p.cursor = init_token();
 	p.list = p.cursor;
-	p.is_quote = 0; 
+	p.is_quote = 0;
 	p.type = DEFAULT;
-	while(m->line[p.i])
+	while (m->line[p.i])
 	{
 		res = fill_token_list(&p, m);
 		if (res == 1)
-			continue;
-		if (res > 1 )
+			continue ;
+		if (res > 1)
 			return (NULL);
 		if (m->line[p.i])
 			p.read = ft_strdupcat(p.read, m->line + p.i++, 1);
