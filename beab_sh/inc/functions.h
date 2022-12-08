@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:06:00 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ char	*pull_varvalue(char *varname, t_env *env);
 char	*make_token(char *str, int *cursor, char c, t_env *env);
 
 //		shell_structures.c
-void	fill_args(char **str, enum redir_type *type, t_token *parser,
+void	fill_args(char **str, t_type *type, t_token *parser,
 			bool *is_quote);
-void	fill_redir(t_token *parser, char *str, enum redir_type type,
+void	fill_redir(t_token *parser, char *str, t_type type,
 			bool *is_quote);
 
 //		utils.c

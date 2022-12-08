@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:04:37 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ typedef struct s_env
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
-enum	redir_type
+enum	e_type
 {
 	DEFAULT,
 	REDIR_IN,
 	REDIR_OUT,
 	R_REDIR_IN, 
 	R_REDIR_OUT,
-};
+}	t_type;
 
 typedef struct s_redir
 {
 	char				*path;
-	enum				redir_type	type;
+	enum				e_type	type;
 	int					fd;
 	int	 				fd_pipe[2];
 	struct s_redir		*next;
@@ -69,7 +69,7 @@ typedef struct s_parsing
 	char			*var;
 	t_token			*list;
 	t_token			*cursor;
-	enum redir_type	type;
+	enum e_type	type;
 	bool			is_quote;
 }	t_parsing;
 

@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:47:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 15:47:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:06:00 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	fill_redir(t_token *parser, char *str, enum redir_type type, bool *is_quote)
+void	fill_redir(t_token *parser, char *str, t_type type, bool *is_quote)
 {
 	t_redir *new;
 	t_redir *tmp;
@@ -38,7 +38,7 @@ void	fill_redir(t_token *parser, char *str, enum redir_type type, bool *is_quote
 	}
 }
 
-void  fill_args(char **str, enum redir_type *type, t_token *parser, bool *is_quote)
+void  fill_args(char **str, t_type *type, t_token *parser, bool *is_quote)
 {
 	if (*str && **str)
 	{
