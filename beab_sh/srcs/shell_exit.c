@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   shell_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_exit(t_token *o, bool is_forked)
+int	ft_exit(t_token *t, bool is_forked)
 {
 	int	ret;
 
 	ret = 0;
-	if (o->cmds_av && o->cmd_ac > 2 && is_forked)
+	if (t->cmds_av && t->cmd_ac > 2 && is_forked)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
 		return (1);
 	}
-	else if (o->cmds_av && o->cmd_ac >= 2)
+	else if (t->cmds_av && t->cmd_ac >= 2)
 	{
-		if (ft_strisdigit(o->cmds_av[1]) == 1)
-			ret = ft_atoi(o->cmds_av[1]);
+		if (ft_strisdigit(t->cmds_av[1]) == 1)
+			ret = ft_atoi(t->cmds_av[1]);
 		else
 		{
 			if (is_forked)

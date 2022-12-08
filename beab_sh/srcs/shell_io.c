@@ -6,17 +6,17 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 16:17:02 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_close_fd(t_token *o)
+void	ft_close_fd(t_token *t)
 {
 	t_redir	*tmp;
 
-	tmp = o->file;
+	tmp = t->file;
 	while (tmp)
 	{
 		if (tmp->type && tmp->type != DEFAULT && tmp->type != R_REDIR_IN)
@@ -25,12 +25,12 @@ void	ft_close_fd(t_token *o)
 	}
 }
 
-int	ft_input(t_token *o, t_env *env)
+int	ft_input(t_token *t, t_env *env)
 {
 	t_redir	*tmp;
 	(void)env;
 
-	tmp = o->file;
+	tmp = t->file;
 	while (tmp)
 	{
 		if (tmp->type == REDIR_IN)
@@ -51,11 +51,11 @@ int	ft_input(t_token *o, t_env *env)
 	return (0);
 }
 
-int	ft_output(t_token *o)
+int	ft_output(t_token *t)
 {
 	t_redir	*tmp;
 
-	tmp = o->file;
+	tmp = t->file;
 	while (tmp)
 	{
 		if (tmp->type == REDIR_OUT)

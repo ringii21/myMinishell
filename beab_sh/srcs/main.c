@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 14:59:09 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	minishell(t_main *m)
 		m->line = readline(prompt);
 		if (m->line)
 		{
-			m->o = ft_parsing(m);
-			if (m->o == NULL)
+			m->t = ft_parsing(m);
+			if (m->t == NULL)
 				exit(1);
-			ft_fill_ac(m->o);
+			ft_fill_ac(m->t);
 			job(m);
-			ft_flush(m->o);
+			ft_flush(m->t);
 		}
 		add_history(m->line);
 		free(m->line);

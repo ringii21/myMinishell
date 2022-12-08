@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 15:32:07 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	split_args(t_token *parser, char *str)
 
 }
 
-char *ft_strdupcat(char *s, char *o, int len)
+char *ft_strdupcat(char *s, char *t, int len)
 {
 	int		i;
 	int		j;
@@ -56,7 +56,7 @@ char *ft_strdupcat(char *s, char *o, int len)
 	j = 0;
 	while (j < len)
 	{
-		n[i + j] = o[j];
+		n[i + j] = t[j];
 		j++;
 	}
 	n[i + j] = 0;

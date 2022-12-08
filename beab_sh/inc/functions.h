@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 16:40:40 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**ft_env_to_tab(t_env *env);
 t_token	*init_token(void);
 
 //		shell_flush.c
-void	ft_flush(t_token *o);
+void	ft_flush(t_token *t);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 //		shell_parsing.c
@@ -60,41 +60,41 @@ void	fill_redir(t_token *parser, char *str, enum redir_type type,
 
 //		utils.c
 void	split_args(t_token *parser, char *str);
-char 	*ft_strdupcat(char *s, char *o, int len);
+char 	*ft_strdupcat(char *s, char *t, int len);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::EXECUTION::
 //		shell_jobs.c
 int		job(t_main *m);
-int		exec_builtin(t_token *o, t_env *env, bool is_forked);
+int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 
 //		shell_io.c
-int		ft_input(t_token *o, t_env *env);
-int		ft_output(t_token *o);
-void	ft_close_fd(t_token *o);
+int		ft_input(t_token *t, t_env *env);
+int		ft_output(t_token *t);
+void	ft_close_fd(t_token *t);
 
 //		shell_pipes.c
-int		ft_child_play(t_token *o, t_env *env, bool builtin);
-void	ft_close_pipe(t_token *o);
+int		child_process(t_token *t, t_env *env, bool builtin);
+void	ft_close_pipe(t_token *t);
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BUILTINS::
 //		shell_cd.c
-int		ft_cd(t_token *o, t_env *env, bool is_forked);
+int		ft_cd(t_token *t, t_env *env, bool is_forked);
 
 //		shell_echo.c
-int		ft_echo(t_token *o);
+int		ft_echo(t_token *t);
 
 //		shell_export.c
-int		ft_export(t_token *o, t_env *env, bool is_forked);
+int		ft_export(t_token *t, t_env *env, bool is_forked);
 
 //		shell_builtins.c
 int		ft_env(t_env *env);
 int		ft_pwd(t_env *env);
 
 //		shell_exit.c
-int		ft_exit(t_token *o, bool is_forked);
+int		ft_exit(t_token *t, bool is_forked);
 
 //		shell_unset.c
-int		ft_unset(t_token *o, t_env *env, bool is_forked);
+int		ft_unset(t_token *t, t_env *env, bool is_forked);
 
 //		utils_builtins.c
 int		is_builtin(char **cmds);

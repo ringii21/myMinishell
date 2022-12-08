@@ -6,18 +6,18 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 16:17:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_close_pipe(t_token *o)
+void	ft_close_pipe(t_token *t)
 {
 	t_redir	*tmp;
 
-	ft_close_fd(o);
-	tmp = o->file;
+	ft_close_fd(t);
+	tmp = t->file;
 	while (tmp)
 	{
 		if (tmp->type == R_REDIR_IN)
@@ -27,20 +27,20 @@ void	ft_close_pipe(t_token *o)
 		}
 		tmp = tmp->next;
 	}
-	if (o->prev && o->prev->is_pipe == 1)
-		close(o->prev->pipe_fd[0]);
-	if (!o->is_pipe)
+	if (t->prev && t->prev->is_pipe == 1)
+		close(t->prev->pipe_fd[0]);
+	if (!t->is_pipe)
 		return ;
-	close(o->pipe_fd[1]);
-	if (o->next == NULL)
-		close(o->pipe_fd[0]);
+	close(t->pipe_fd[1]);
+	if (t->next == NULL)
+		close(t->pipe_fd[0]);
 }
 
-void	ft_dup_fd(t_token *o)
+void	dup_fd(t_token *t)
 {
 	t_redir	*tmp;
 
-	tmp = o->file;
+	tmp = t->file;
 	while (tmp)
 	{
 		if (tmp->type == R_REDIR_OUT || tmp->type == REDIR_OUT)
@@ -59,28 +59,28 @@ void	ft_dup_fd(t_token *o)
 	}	
 }
 
-int	dup_pipes(t_token *o, int *is_pipe)
+int	dup_pipes(t_token *t, int *is_pipe)
 {
-	if (o->is_pipe && dup2(o->pipe_fd[1], 1) < 0)
+	if (t->is_pipe && dup2(t->pipe_fd[1], 1) < 0)
 		return (0);
-	if (o->prev && o->prev->is_pipe && dup2(o->prev->pipe_fd[0], 0) < 0)
+	if (t->prev && t->prev->is_pipe && dup2(t->prev->pipe_fd[0], 0) < 0)
 		return (0);
-	ft_dup_fd(o);
+	dup_fd(t);
 	*is_pipe = 1;
 	return (1);
 }
 
-int	ft_child_play(t_token *o, t_env *env, bool builtin)
+int	child_process(t_token *t, t_env *env, bool builtin)
 {
-	if (!dup_pipes(o, &(o->is_pipe_o)))
+	if (!dup_pipes(t, &(t->is_pipe_o)))
 		exit(EXIT_FAILURE);
 	if (builtin)
-		exit(exec_builtin(o, env, true));
-	if (!o->cmds_av[0])
+		exit(exec_builtin(t, env, true));
+	if (!t->cmds_av[0])
 		exit(EXIT_FAILURE);
-	if (o->is_pipe)
-		close(o->pipe_fd[0]);
-	if (execve(o->cmds_av[0], o->cmds_av, ft_env_to_tab(env)) == -1)
+	if (t->is_pipe)
+		close(t->pipe_fd[0]);
+	if (execve(t->cmds_av[0], t->cmds_av, ft_env_to_tab(env)) == -1)
 	{
 		if (errno == 13)
 			return (-1);

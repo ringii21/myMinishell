@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jobs_execution.c                                   :+:      :+:    :+:   */
+/*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 	return (NULL); 
 } */
 
-char *ft_mr_bin(t_main *m, char *bin, char **sep)
+char *get_binpath(t_main *m, char *bin, char **sep)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ char *ft_mr_bin(t_main *m, char *bin, char **sep)
 	while (sep[i])
 	{
 		bin = ft_strjoin(sep[i], "/");
-		bin = ft_strjoin(bin, m->o->cmds_av[0]);
+		bin = ft_strjoin(bin, m->t->cmds_av[0]);
 		if (access(bin, X_OK) == 0)
 			return (bin);
 		free(bin);
@@ -53,124 +53,122 @@ char *ft_mr_bin(t_main *m, char *bin, char **sep)
 	return (NULL);
 }
 
-void	ft_get_path(t_token *o, t_main *m)
+void	get_path(t_token *t, t_main *m)
 {
 	char *bin;
 	char **sep_path;
 
 	bin = NULL;
-	o->path = ft_strdup(get_cont("PATH", m->env));
-	if (o->path == NULL)
+	t->path = ft_strdup(get_cont("PATH", m->env));
+	if (t->path == NULL)
 		return ;
-	if (o->cmds_av[0][0] != '/' && ft_strncmp(o->cmds_av[0], "./", 2) != 0)
+	if (t->cmds_av[0][0] != '/' && ft_strncmp(t->cmds_av[0], "./", 2) != 0)
 	{
-		sep_path = ft_split(o->path, ':');
-		bin = ft_mr_bin(m, bin, sep_path);
+		sep_path = ft_split(t->path, ':');
+		bin = get_binpath(m, bin, sep_path);
 		if (bin == NULL)
 		{
 			ft_putstr_fd("command not found\n", 2);
 			return ;
 		}
-		free(o->cmds_av[0]);
-		o->cmds_av[0] = bin;
+		free(t->cmds_av[0]);
+		t->cmds_av[0] = bin;
 		ft_free_stab(sep_path);
 	}
 	else
-		free(m->o->path);
+		free(m->t->path);
 	
 }
 
 /* void	execute(t_main *m)
 {
-	m->o.cmd_flags = ft_split(m->o.cmds[m->o.index], ' ');
-	m->o.bin_path = get_cmd(m->o.paths, m->o.cmd_flags[0]);
-	m->o.envtab = ft_env_to_tab(m->env);
-	if (execve(m->o.bin_path, m->o.cmd_flags, m->o.envtab) != -1)
+	m->t.cmd_flags = ft_split(m->t.cmds[m->t.index], ' ');
+	m->t.bin_path = get_cmd(m->t.paths, m->t.cmd_flags[0]);
+	m->t.envtab = ft_env_to_tab(m->env);
+	if (execve(m->t.bin_path, m->t.cmd_flags, m->t.envtab) != -1)
 	{
-		ft_free_child(&m->o);
-		ft_free_parent(&m->o);
+		ft_free_child(&m->t);
+		ft_free_parent(&m->t);
 		ft_error();
 	}
 } */
 
 // serach for status code for all the builtin created
- int	exec_builtin(t_token *o, t_env *env, bool is_forked)
+ int	exec_builtin(t_token *t, t_env *env, bool is_forked)
 {
 	int	ret;
 
 	ret = -1;
-/* 	printf("%s\n", o->cmds_av[0]);
-	exit(1); */
-	if (ft_strcmp("env", o->cmds_av[0]) == 0)
+
+	if (ft_strcmp("env", t->cmds_av[0]) == 0)
 		ret = ft_env(env);
 		
-	if (ft_strcmp("exit", o->cmds_av[0]) == 0)
-		ret = ft_exit(o, is_forked);
+	if (ft_strcmp("exit", t->cmds_av[0]) == 0)
+		ret = ft_exit(t, is_forked);
 		
-	if (ft_strcmp("pwd", o->cmds_av[0]) == 0)
+	if (ft_strcmp("pwd", t->cmds_av[0]) == 0)
 		ret = ft_pwd(env);
 
-	if (ft_strcmp("cd", o->cmds_av[0]) == 0)
-		ret = ft_cd(o, env, is_forked);
+	if (ft_strcmp("cd", t->cmds_av[0]) == 0)
+		ret = ft_cd(t, env, is_forked);
 
-	if (ft_strcmp("echo", o->cmds_av[0]) == 0)
-		ret = ft_echo(o);
+	if (ft_strcmp("echo", t->cmds_av[0]) == 0)
+		ret = ft_echo(t);
 		
-	if (ft_strcmp("export", o->cmds_av[0]) == 0)
-		ret = ft_export(o, env, is_forked);
+	if (ft_strcmp("export", t->cmds_av[0]) == 0)
+		ret = ft_export(t, env, is_forked);
 		
-	if (ft_strcmp("unset", o->cmds_av[0]) == 0)
-		ret = ft_unset(o, env, is_forked);
+	if (ft_strcmp("unset", t->cmds_av[0]) == 0)
+		ret = ft_unset(t, env, is_forked);
 	return (ret);
 }
 	// serach for status code for all the builtin created
 
-int	which_path(t_main *m, t_token *o)
+int	which_path(t_main *m, t_token *t)
 {
 	int res;
 
 	res = 0;
-	if (o->cmds_av == NULL)
+	if (t->cmds_av == NULL)
 		return (0);
-	if (is_builtin(o->cmds_av) == 1)
-		o->path = ft_strdup("\0");
-	else if (ft_strchr(o->cmds_av[0], '/') != 0)
-		o->path = ft_strdup(o->cmds_av[0]);
+	if (is_builtin(t->cmds_av) == 1)
+		t->path = ft_strdup("\0");
+	else if (ft_strchr(t->cmds_av[0], '/') != 0)
+		t->path = ft_strdup(t->cmds_av[0]);
 	else
-		ft_get_path(o, m);
+		get_path(t, m);
 	return (res);
 }
 
-int	ft_redir(t_token *o, t_env *env)
+int	ft_redir(t_token *t, t_env *env)
 {
-	if (ft_input(o, env) == 1)
+	if (ft_input(t, env) == 1)
 		return (1);
-	if (ft_output(o) == 1)
+	if (ft_output(t) == 1)
 		return (1);
 	return (0);
 }
 
-
-int	ft_cmds_handler(t_token *o, t_env *env, bool builtin)
+int	ft_cmds_handler(t_token *t, t_env *env, bool builtin)
 {
 	int		res;
 	res = 0;
-	o->is_pipe_o = 0;
- 	if (o->is_pipe == 1 || (o->prev && o->prev->is_pipe == 1))
+	t->is_pipe_o = 0;
+ 	if (t->is_pipe == 1 || (t->prev && t->prev->is_pipe == 1))
 	{
-		o->is_pipe_o = 1;
-		if (pipe(o->pipe_fd))
+		t->is_pipe_o = 1;
+		if (pipe(t->pipe_fd))
 			return (-1);
 	}
-	if (ft_redir(o, env))
+	if (ft_redir(t, env))
 		return (4);
-	o->pid = fork();
-	shut_signals(o->pid);
-	if (o->pid == -1)
+	t->pid = fork();
+	shut_signals(t->pid);
+	if (t->pid == -1)
 		return (1); // Erreur fork
-	if (o->pid == 0)
-		ft_child_play(o, env, builtin);
-	ft_close_pipe(o);
+	if (t->pid == 0)
+		child_process(t, env, builtin);
+	ft_close_pipe(t);
 	return (res);
 }
 
@@ -189,21 +187,21 @@ char	*last_error(bool set, int err)
 	return (value);
 }
 
-int	ft_hold_exec(t_token *o, t_env *env)
+int	ft_hold_exec(t_token *t, t_env *env)
 {
 	int	res;
 	int status;
 	
 	res = 130;
-	while(o)
+	while(t)
 	{
 		status = 0;
-		waitpid(o->pid, &status, 0);
+		waitpid(t->pid, &status, 0);
 		if (WIFEXITED(status))
 			res = WEXITSTATUS(status);
-		if (!o->path || ft_strcmp(o->cmds_av[0], "exit") == 0)// && o->path[0] == '\0')
-			exec_builtin(o, env, false); 
-		o = o->next;
+		if (!t->path || ft_strcmp(t->cmds_av[0], "exit") == 0)// && t->path[0] == '\0')
+			exec_builtin(t, env, false); 
+		t = t->next;
 	}
 	set_signals();
 	return (res);
@@ -211,22 +209,21 @@ int	ft_hold_exec(t_token *o, t_env *env)
 
 int	job(t_main *m)
 {
-	int	res;
+	int		res;
 	t_token *list_cmd;
 	
-	list_cmd = m->o;
+	list_cmd = m->t;
 	res = 0;
-
-	while (m->o)
+	while (m->t)
 	{
-		res = which_path(m, m->o);
+		res = which_path(m, m->t);
 		if (res != 0)
 			return (-1); // gere les erreurs
 		else
-			res = ft_cmds_handler(m->o, m->env, m->o->path && m->o->path[0] == '\0');
-		m->o = m->o->next;
+			res = ft_cmds_handler(m->t, m->env, m->t->path && m->t->path[0] == '\0');
+		m->t = m->t->next;
 	}
-	m->o = list_cmd;
+	m->t = list_cmd;
 	res = ft_hold_exec(list_cmd, m->env);
 	return (res);
 }

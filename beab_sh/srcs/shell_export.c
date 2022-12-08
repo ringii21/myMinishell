@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 15:55:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_export_var(t_token *o, t_env *env, bool is_forked)
+int	ft_export_var(t_token *t, t_env *env, bool is_forked)
 {
 	char		*namevar;
 	char		*value;
@@ -20,12 +20,12 @@ int	ft_export_var(t_token *o, t_env *env, bool is_forked)
 	size_t		j;
 
 	i = 1;
-	while (i < o->cmd_ac)
+	while (i < t->cmd_ac)
 	{
 		j = 0;
 		namevar = NULL;
 		value = NULL;
-		namevar = ft_strdup(o->cmds_av[i]);
+		namevar = ft_strdup(t->cmds_av[i]);
 		while (namevar[j])
 		{
 			if (namevar[j] == '=')
@@ -33,7 +33,7 @@ int	ft_export_var(t_token *o, t_env *env, bool is_forked)
 			else
 				j++;
 		}
-		if (o->cmds_av[i][j])
+		if (t->cmds_av[i][j])
 			value = namevar + j + 1;
 		ft_check_and_export(namevar, value, env, is_forked);
 		i++;
@@ -41,17 +41,17 @@ int	ft_export_var(t_token *o, t_env *env, bool is_forked)
 	return (0);
 }
 
-int	ft_export(t_token *o, t_env *env, bool is_forked)
+int	ft_export(t_token *t, t_env *env, bool is_forked)
 {
 	int	ret; 
 
 	ret = 0;
 
-	if (o->cmd_ac < 2)
+	if (t->cmd_ac < 2)
 	{
 		ft_print_declare(env, is_forked);
 		return (ret);
 	}
-	ret = ft_export_var(o, env, is_forked);
+	ret = ft_export_var(t, env, is_forked);
 	return (ret);
 }
