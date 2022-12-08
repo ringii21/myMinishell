@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/08 16:02:16 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/08 16:37:34 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,29 +32,28 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS			:=	frees.c \
-    				ft_child_play.c \
-    				ft_closing.c \
-    				ft_parsing.c \
-    				ft_redir.c \
-    				jobs_execution.c \
-    				main.c \
-    				shell_builtins.c \
-    				shell_cd.c \
-    				shell_echo.c \
-    				shell_exit.c \
-    				shell_expansion.c \
-    				shell_export.c \
-    				shell_export_utils.c \
-    				shell_init.c \
-    				shell_redir.c \
-    				shell_signals.c \
-    				shell_structs.c \
-    				shell_unset.c \
-    				utils_builtins.c \
-    				utils.c \
-    				utils_env2.c \
-    				utils_env.c 
+SRCS			:=	main.c \
+					shell_builtins.c \
+					shell_cd.c \
+					shell_echo.c \
+					shell_env.c \
+					shell_exit.c \
+					shell_expansion.c \
+					shell_export.c \
+					shell_flush.c \
+					shell_init.c \
+					shell_io.c \
+					shell_jobs.c \
+					shell_parsing.c \
+					shell_pipes.c \
+					shell_redir.c \
+					shell_signals.c \
+					shell_structs.c \
+					shell_unset.c \
+					utils_builtins.c \
+					utils.c \
+					utils_export.c \
+					utils_env.c
 
 objs			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
