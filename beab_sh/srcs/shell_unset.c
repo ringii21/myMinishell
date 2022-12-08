@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/12 13:42:45 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/16 21:36:52 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,19 @@ int	ft_exec_unset(char *namevar, t_env *env)
 	return (0);
 }
 
-int	ft_unset(t_main *m, bool is_forked)
+int	ft_unset(t_obj *o, t_env *env, bool is_forked)
 {
 	int	i;
 	int	res;
 
 	i = 1;
-	if (m->o.cmd_ac >= 2)
+
+	if (o->cmd_ac >= 2)
 	{
-		while (m->o.cmd_flags[i] && i < m->o.cmd_ac)
+		while (o->cmds_av[i] && i < o->cmd_ac)
 
 		{
-			ft_exec_unset(m->o.cmd_flags[i], m->env);
+			ft_exec_unset(o->cmds_av[i], env);
 			i++;
 		}
 		res = 0;

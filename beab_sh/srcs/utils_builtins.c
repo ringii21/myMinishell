@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:54:07 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/10 21:51:40 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/04 19:30:11 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	is_builtin(char **cmds)
 	int	ret;
 
 	ret = 0;
-	if (cmds[0] == NULL)
-		return (0);
 	if (ft_strcmp("env", cmds[0]) == 0)
 		ret = 1;
 	if (ft_strcmp("exit", cmds[0]) == 0)

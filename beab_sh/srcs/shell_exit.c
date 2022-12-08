@@ -6,31 +6,26 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 13:42:16 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/16 21:46:48 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_exit(t_main *m, bool is_forked)
+int	ft_exit(t_obj *o, bool is_forked)
 {
 	int	ret;
 
 	ret = 0;
-	if (m->o.cmds == NULL)
-	{
-		printf("exit\n");
-		exit(ret);
-	}
-	if (m->o.cmd_flags && m->o.cmd_ac > 2 && is_forked)
+	if (o->cmds_av && o->cmd_ac > 2 && is_forked)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
 		return (1);
 	}
-	else if (m->o.cmd_flags && m->o.cmd_ac >= 2)
+	else if (o->cmds_av && o->cmd_ac >= 2)
 	{
-		if (ft_strisdigit(m->o.cmd_flags[1]) == 1)
-			ret = ft_atoi(m->o.cmd_flags[1]);
+		if (ft_strisdigit(o->cmds_av[1]) == 1)
+			ret = ft_atoi(o->cmds_av[1]);
 		else
 		{
 			if (is_forked)
@@ -40,9 +35,6 @@ int	ft_exit(t_main *m, bool is_forked)
 	}
 	if (is_forked)
 		printf("exit\n");
-	printf("envlen : %i\n", ft_get_env_len(m->env));
-	//free_env(m->env);
-	//printf("----->envlen : %i\n", ft_get_env_len(m->env));
 	exit(ret);
 	return (ret);
 }

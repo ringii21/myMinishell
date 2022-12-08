@@ -3,29 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/10 18:51:53 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/17 14:35:03 by wac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	prompt(t_main *m)
+void zeubi(char **str)
 {
-	while (!m->exit)
+	int i = 0;
+	while (str[i])
 	{
-		m->cwd = getcwd(m->cwd, 4096);
-		m->prompt = ft_strjoin(m->cwd, "$ ");
-		m->line = readline(m->prompt);
-		job(m);
+		printf("%s\n", str[i]);
+		i++;
+	}
+}
+
+void ft_fill_ac(t_obj *obj)
+{
+	while (obj != NULL)
+	{
+		if (obj->cmds_av)
+		{
+			obj->cmd_ac = ft_tablen(obj->cmds_av);
+		}
+		obj = obj->next;
+	}
+}
+
+void	minishell(t_main *m)
+{
+	char *prompt = NULL;
+	while (1)
+	{
+		write(1, "$", 1);
+		m->line = readline(prompt);
+		if (m->line)
+		{
+			m->o = ft_parcing(m);
+			if (m->o == NULL)
+				exit(1);
+			ft_fill_ac(m->o);
+			job(m);
+			ft_flush(m->o);
+		}
 		add_history(m->line);
 		free(m->line);
-		free(m->prompt);
+		free(prompt);
 	}
-	free(m->line);
-	free(m->prompt);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -33,15 +61,10 @@ int	main(int ac, char **av, char **envp)
 	t_main	m;
 
 	(void)av;
-	if (ac != 1)
-		ft_error();
-	//if (*envp == NULL)
-		//ft_error();
-	m = (t_main){0};
+	(void)ac;
 	if (set_signals() == 1)
 		return (1);
-	shell_init(&m, envp);
-	prompt(&m);
-	ft_flush(&m);
+	m.env = put_env(envp);
+	minishell(&m);
 	return (0);
 }

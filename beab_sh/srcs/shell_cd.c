@@ -6,34 +6,34 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 13:41:57 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/16 21:26:48 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_path_finder(t_main *m, bool is_forked)
+char	*ft_path_finder(t_obj *o, t_env *env, bool is_forked)
 {
 	char	*path;
 
-	if (m->o.cmd_ac < 2)
+	if (o->cmd_ac < 2)
 	{
-		path = get_cont("HOME", m->env);
+		path = get_cont("HOME", env);
 		if (path == NULL && is_forked)
 			ft_putstr_fd("HOME not set\n", 2);
 	}
 	else
 	{
-		if (m->o.cmd_flags[1][0] == '-' && m->o.cmd_flags[1][1] == '\0')
+		if (o->cmds_av[1][0] == '-' && o->cmds_av[1][1] == '\0')
 		{
-			path = get_cont("OLDPWD", m->env);
+			path = get_cont("OLDPWD", env);
 			if (path == NULL && is_forked)
 				ft_putstr_fd("OLDPWD not set\n", 2);
 			else if (is_forked)
 				printf("%s\n", path);
 		}
 		else
-			path = m->o.cmd_flags[1];
+			path = o->cmds_av[1];
 	}
 	return (path);
 }
@@ -62,13 +62,13 @@ void	ft_cd_fail(char *path, int ret, bool is_forked)
 	}
 }
 
-int	ft_cd(t_main *m, bool is_forked)
+int	ft_cd(t_obj *o, t_env *env, bool is_forked)
 {
 	char	*path;
 	int		ret;
 	char	*oldpath;
 
-	path = ft_path_finder(m, is_forked);
+	path = ft_path_finder(o, env,  is_forked);
 	if (path == NULL)
 		return (4);
 	oldpath = getcwd(NULL, 0);
@@ -78,14 +78,13 @@ int	ft_cd(t_main *m, bool is_forked)
 	else
 	{
 		if (oldpath)
-			ft_create_o_replace("OLDPWD", oldpath, m->env);
+			ft_create_o_replace("OLDPWD", oldpath, env);
 		path = getcwd(NULL, 0);
 		if (path == NULL)
 			return (4);
-		ft_create_o_replace("PWD", path, m->env);
+		ft_create_o_replace("PWD", path, env);
 		free(path);
 	}
 	free(oldpath);
-	ft_free_stab(m->o.cmd_flags);
 	return (ret);
 }

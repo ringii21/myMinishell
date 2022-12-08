@@ -6,7 +6,7 @@
 #    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/10 17:19:04 by abonard          ###   ########.fr        #
+#    Updated: 2022/11/16 22:10:05 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,16 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS			:=	jobs_execution.c \
-					jobs_pipes.c \
-					main.c \
+SRCS			:=	main.c \
+					shell_signals.c \
+					utils_env2.c \
+					utils_env.c \
+					ft_parcing.c\
+					utils_builtins.c\
+					jobs_execution.c\
+					ft_redir.c\
+					ft_closing.c\
+					frees.c\
 					shell_builtins.c \
 					shell_cd.c \
 					shell_echo.c \
@@ -42,22 +49,10 @@ SRCS			:=	jobs_execution.c \
 					shell_expansion.c \
 					shell_export.c \
 					shell_export_utils.c \
-					shell_flush.c \
-					shell_init.c \
-					shell_io.c \
-					shell_jobs.c \
-					shell_lexer.c \
-					shell_parser.c \
-					shell_signals.c \
 					shell_unset.c \
-					utils_builtins.c \
-					utils.c \
-					utils_env2.c \
-					utils_env.c \
-					utils_lexer.c \
-					utils_multi_split.c \
-					utils_stack.c \
-					utils_stack_update.c
+					ft_child_play.c \
+				#	utils_builtins.c 
+
 					
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
@@ -65,7 +60,7 @@ OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
 CC				:=	clang
 
-WFLAGS			:=	-MMD -Wall -Wextra -Werror 
+WFLAGS			:=	-MMD -Wall -Wextra -Werror
 
 WCONV 			:=	-Wconversion
 
@@ -171,11 +166,11 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)

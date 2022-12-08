@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/10 18:44:24 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/10 19:23:28 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_env	*ft_add_new(char *varname, char *value)
 {
 	t_env	*new;
 
-	new = xmalloc(sizeof(t_env) * 1);
+	new = malloc(sizeof(t_env) * 1);
 	new->var = ft_strdup(varname);
 	new->cont = ft_strdup(value);
 	new->total = ft_strjoin(varname, "=");
@@ -81,6 +81,7 @@ int	ft_add_env(char *namevar, char *value, t_env *env)
 		env->total = ft_strjoin(env->total, env->cont);
 		if (env->var == NULL || (value && env->cont == NULL))
 			return (1);
+		return (0);
 	}
 	newline = ft_add_new(namevar, value);
 	if (newline == NULL)

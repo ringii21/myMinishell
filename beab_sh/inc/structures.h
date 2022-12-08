@@ -3,46 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 14:10:38 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/17 14:33:18 by wac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 
 # define STRUCTURES_H
-
 # include "minishell.h"
+#include <stdbool.h>
 
-typedef enum e_types
+enum	redir_type
 {
-	WORD,
-	OPERATOR,
-	O_SPACE,
-}	t_types;
+	NONE,
+	REDIR_IN,
+	REDIR_OUT,
+	R_REDIR_IN, 
+	R_REDIR_OUT,
+};
 
-typedef enum e_states
+typedef struct s_list_f
 {
-	DEFAULT,
-	OPEN_QUOTE,
-	CLOSE_QUOTE,
-}	t_states;
-
-typedef struct s_node
-{
-	unsigned int	type;
-	char			*arg;
-	struct s_node	*prev;
-	struct s_node	*next;
-}	t_node;
-
-typedef struct s_stack
-{
-	t_node	*head;
-	t_node	*tail;
-}	t_stack;
+	char				*path;
+	enum				redir_type	type;
+	int					fd;
+	int	 				fd_pipe[2];
+	struct s_list_f		*next;
+	bool				is_quote;
+}				t_list_f;
 
 typedef struct s_env
 {
@@ -56,83 +47,65 @@ typedef struct s_env
 typedef struct s_obj
 {	
 	pid_t	pid;
-	int		index;
-	int		fd_in;
-	int		fd_out;
-	int		pipe_nb;
-	int		cmd_nb;
+	bool		is_pipe;
+	int		is_pipe_o;
 	int		cmd_ac;
-	int		*fd_pipe;
-	char	*infile;
-	char	*outfile;
-	char	*bin_path;
-	char	**cmds;
-	char	**cmd_flags;
-	char	**paths;
-	char	**envtab;
+	int		pipe_fd[2];
+	char	**cmds_av;
+	char	*av_copy;
+	char 	*path;
+	t_list_f	*file;
+	struct s_obj	*next;
+	struct s_obj	*prev;
+	
 }	t_obj;
+
+typedef struct s_parcing
+{
+	int				i;
+	char			*read;
+	char			*var;
+	t_obj			*list;
+	t_obj			*ici;
+	enum redir_type	type;
+	bool			is_quote;
+}				t_parcing;
 
 typedef struct s_main
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	type;
-	int				err;
-	int				ret;
-	int				exit;
-	int				state;
-	char			quote;
-	char			c;
-	char			*line;
 	char			*cwd;
 	char			*prompt;
-	char			*buff;
-	t_obj			o;
+	char			*line;
+	t_obj			*o;
 	t_env			*env;
-	t_stack			*lexicon;
-	t_stack			*tokens;
 }	t_main;
 
-/*******************************************************************/
-//					possible structure
-
-enum e_redir_type
-{
-	NOPE,
-	INPUT,
-	OUTPUT,
-	D_INPUT,
-	D_OUTPUT
-};
-
-typedef struct s_redir
-{
-	int				pipe[2];
-	int				fd;
-	enum e_redir_type	type;
-	char			*path;
-	struct s_redir	*next;
-	struct s_redir	*prev;	
-}				t_redir;
-
-typedef struct s_cmd
-{
-	char			**av;
-	char			*path;
-	bool			is_piped;
-	int				ac;
-	int				pipes[2];
-	pid_t			pid;
-	t_redir			*list;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-}	t_cmd;
-
-typedef struct s_mainbis
-{
-	t_cmd		*cmds;
-	t_env		*env;
-	//t_parser	*whatever;
-}				t_mainbis;
-
+int set_signals(void);
+t_env *put_env(char **envp);
+char	*get_cont(char *name_var, t_env *env);
+t_env	*ft_if_env_empty(void);
+t_env	*fill_env(char *is_env);
+t_obj	*ft_parcing(t_main *m);
+void	ft_flush(t_obj *o);
+int		job(t_main *m);
+int		is_builtin(char **cmds);
+int		ft_input(t_obj *o, t_env *env);
+int		ft_output(t_obj *o);
+int		ft_child_play(t_obj *o, t_env *env, bool builtin);
+void	ft_close_pipe(t_obj *o);
+int		ft_cd(t_obj *o, t_env *env, bool is_forked);
+int		ft_echo(t_obj *o);
+int		ft_export(t_obj *o, t_env *env, bool is_forked);
+int		ft_env(t_env *env);
+int		ft_pwd(t_env *env);
+int		ft_exit(t_obj *o, bool is_forked);
+int		ft_unset(t_obj *o, t_env *env, bool is_forked);
+int		ft_create_o_replace(char *namevar, char *value, t_env *env);
+int		ft_check_and_export(char *namevar, char *value, t_env *env, bool is_forked);
+void	ft_print_declare(t_env *env, bool is_forked);
+int		ft_add_env(char *namevar, char *value, t_env *env);
+char	**ft_env_to_tab(t_env *env);
+ int	exec_builtin(t_obj *o, t_env *env, bool is_forked);
+int		shut_signals(int fork);
+int		set_signals(void);
 #endif

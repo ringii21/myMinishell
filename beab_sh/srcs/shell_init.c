@@ -6,14 +6,8 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:38:15 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 10:53:58 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/10 19:08:21 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
 
-void	shell_init(t_main *m, char **envp)
-{
-	m->o = (t_obj){0};
-	m->env = put_env(envp);
-}

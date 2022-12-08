@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 20:47:28 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/11/10 19:12:39 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@
 
 //			minishell headers
 # include "structures.h"
-# include "functions.h"
 # include "macros.h"
 
 #endif

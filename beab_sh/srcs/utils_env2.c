@@ -6,13 +6,13 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 19:10:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/10 22:09:09 by abonard          ###   ########.fr       */
+/*   Updated: 2022/11/23 19:56:47 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_get_env_len(t_env *env)
+int	ft_envlen(t_env *env)
 {
 	t_env	*tmp;
 	int		i;
@@ -50,8 +50,8 @@ char	**ft_env_to_tab(t_env *env)
 
 	i = 0;
 	tmp = env;
-	len = ft_get_env_len(tmp);
-	tab = xmalloc(sizeof(char *) * (unsigned long)len);
+	len = ft_envlen(tmp);
+	tab = malloc(sizeof(char *) * (unsigned long)len + 1);
 	while (tmp)
 	{
 		tab[i] = ft_strdup(tmp->total);
@@ -60,7 +60,6 @@ char	**ft_env_to_tab(t_env *env)
 		tmp = tmp->next;
 		i++;
 	}
-	free_env(tmp);
 	return (tab);
 }
 
@@ -69,7 +68,7 @@ t_env	*fill_env(char *is_env)
 	t_env	*new;
 	char	**tab;
 
-	new = xmalloc(sizeof(t_env) * 1);
+	new = malloc(sizeof(t_env) * 1);
 	new->next = NULL;
 	new->total = is_env;
 	tab = ft_split(new->total, '=');
@@ -85,7 +84,7 @@ t_env	*ft_if_env_empty(void)
 {
 	t_env	*new;
 
-	new = xmalloc(sizeof(t_env) * 1);
+	new = malloc(sizeof(t_env) * 1);
 	new->var = ft_strdup("PWD");
 	new->cont = getcwd(NULL, 0);
 	new->total = ft_strdup(new->var);
