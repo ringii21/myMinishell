@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/11/10 19:23:28 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:27:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_env	*ft_add_new(char *varname, char *value)
 {
 	t_env	*new;
 
-	new = malloc(sizeof(t_env) * 1);
+	new = xmalloc(sizeof(t_env) * 1);
 	new->var = ft_strdup(varname);
 	new->cont = ft_strdup(value);
 	new->total = ft_strjoin(varname, "=");

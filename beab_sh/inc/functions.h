@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 15:54:51 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,26 @@ char	**ft_env_to_tab(t_env *env);
 int		exec_builtin(t_token *o, t_env *env, bool is_forked);
 int		shut_signals(int fork);
 int		set_signals(void);
+
+//		shell_init.c
+t_token	*init_token(void);
+
+//		shell_redir.c
+int		redir_manager(t_parsing *parser, char *str);
+int		expand_var(t_env *env, char **parser, int *i, char *str);
+char	*pull_varname(char *str, int *cursor);
+void	var_lector(t_token *cursor, char *var, char **reading, t_env *env);
+char	*pull_varvalue(char *varname, t_env *env);
+
+//		shell_expansion.c
+char	*make_token(char *str, int *cursor, char c, t_env *env);
+
+//		shell_structures.c
+void	fill_args(char **str, enum redir_type *type, t_token *parser, bool *is_quote);
+void	fill_redir(t_token *parser, char *str, enum redir_type type, bool *is_quote);
+
+//		utils.c
+void	split_args(t_token *parser, char *str);
+char 	*ft_strdupcat(char *s, char *o, int len);
 
 #endif

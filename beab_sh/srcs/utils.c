@@ -6,34 +6,61 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/29 18:10:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:32:07 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*void	ft_error(const char *str)*/
-/*{  */
-/* 	write(2, "ERR: ", 5); */
-/* 	write(2, str, ft_strlen(str)); */
-/* 	if (ft_strnstr(strerror(errno), "Success", 7) == 0) */
-/* 		write(2, strerror(errno), ft_strlen(strerror(errno))); */
-/* 	write(2, "\n", 1); */
-/* 	exit(EXIT_FAILURE);
-}*/
-
-void	ft_error(void)
+void	split_args(t_token *parser, char *str)
 {
-	perror(strerror(errno));
-	exit(EXIT_FAILURE);
+	int		i;
+	int 	j;
+	char 	**tab;
+
+	i = 0;
+	while (parser->cmds_av && parser->cmds_av[i])
+		i++;
+	j = 0;
+	tab = xmalloc(sizeof(char *) * ((unsigned long)i + 2));
+	if (tab == NULL)
+		return ;
+	while (j < i)
+	{
+		tab[j] = parser->cmds_av[j];
+		j++;
+	}
+	tab[j++] = str;
+	tab[j] = NULL;
+	if (parser->cmds_av != NULL)
+		free(parser->cmds_av);
+	parser->cmds_av = tab;
+
 }
 
-void	*xmalloc(size_t size)
+char *ft_strdupcat(char *s, char *o, int len)
 {
-	void	*tmp;
+	int		i;
+	int		j;
+	char	*n;
 
-	tmp = malloc(size);
-	if (!tmp)
-		ft_error();
-	return (tmp);
+	n = xmalloc(ft_strlen(s) + (size_t)len + 2);
+	if (n == NULL)
+		return (NULL);
+	i = 0;
+	while (s && s[i])
+	{
+		n[i] = s[i];
+		i++;
+	}
+	j = 0;
+	while (j < len)
+	{
+		n[i + j] = o[j];
+		j++;
+	}
+	n[i + j] = 0;
+	if (s)
+		free(s);
+	return (n);
 }

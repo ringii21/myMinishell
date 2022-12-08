@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 15:55:59 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_delete_first_elmt(t_env *env)
 		env->total = ft_strdup("");
 		if (env->var == NULL || env->cont == NULL || env->total == NULL)
 		{
-			ft_putstr_fd("Malloc failed\n", 2);
+			ft_putstr_fd("xmalloc failed\n", 2);
 			return (1);
 		}
 	}
@@ -81,11 +81,10 @@ int	ft_exec_unset(char *namevar, t_env *env)
 
 int	ft_unset(t_token *o, t_env *env, bool is_forked)
 {
-	int	i;
-	int	res;
+	size_t	i;
+	int		res;
 
 	i = 1;
-
 	if (o->cmd_ac >= 2)
 	{
 		while (o->cmds_av[i] && i < o->cmd_ac)

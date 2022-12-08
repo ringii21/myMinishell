@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 14:37:03 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 15:52:52 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 
 # define STRUCTURES_H
 # include "minishell.h"
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
+
+typedef struct s_env
+{
+	char			*var;
+	char			*cont;
+	char			*total;
+	int				stat_code;
+	struct s_env	*next;
+}	t_env;
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
 enum	redir_type
 {
@@ -34,21 +47,12 @@ typedef struct s_redir
 	bool				is_quote;
 }	t_redir;
 
-typedef struct s_env
-{
-	char			*var;
-	char			*cont;
-	char			*total;
-	int				stat_code;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_token
 {	
 	pid_t			pid;
+	size_t			cmd_ac;
 	bool			is_pipe;
 	int				is_pipe_o;
-	int				cmd_ac;
 	int				pipe_fd[2];
 	char			**cmds_av;
 	char			*av_copy;
@@ -56,7 +60,6 @@ typedef struct s_token
 	t_redir			*file;
 	struct s_token	*next;
 	struct s_token	*prev;
-	
 }	t_token;
 
 typedef struct s_parsing
@@ -65,10 +68,12 @@ typedef struct s_parsing
 	char			*read;
 	char			*var;
 	t_token			*list;
-	t_token			*ici;
+	t_token			*cursor;
 	enum redir_type	type;
 	bool			is_quote;
 }	t_parsing;
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MAIN::
 
 typedef struct s_main
 {

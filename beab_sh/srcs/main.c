@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 14:59:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void zeubi(char **str)
 	}
 }
 
-void ft_fill_ac(t_token *token)
+void ft_fill_ac(t_token *parser)
 {
-	while (token != NULL)
+	while (parser != NULL)
 	{
-		if (token->cmds_av)
+		if (parser->cmds_av)
 		{
-			token->cmd_ac = ft_tablen(token->cmds_av);
+			parser->cmd_ac = ft_tablen(parser->cmds_av);
 		}
-		token = token->next;
+		parser = parser->next;
 	}
 }
 

@@ -8,7 +8,7 @@ V	rl_clear_history();
 V	add_history();
 
 V	printf
-V	malloc
+V	xmalloc
 V	free
 	write
 V	int		access(const char *pathname, int mode);

@@ -10,7 +10,7 @@ test.sh
 # tokenect files
 *.o
 *.ko
-*.token
+*.parser
 *.elf
 
 # Linker output
@@ -18,7 +18,7 @@ test.sh
 *.map
 *.exp
 
-# Precompiled Headers
+# Precompiled cursorers
 *.gch
 *.pch
 

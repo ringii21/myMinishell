@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 14:28:55 by root             ###   ########.fr       */
+/*   Updated: 2022/12/08 15:27:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 //			printf, filedes, readline, perror
 # include <stdio.h>
 
-//			malloc, free, exit, getenv
+//			xmalloc, free, exit, getenv
 # include <stdlib.h>
 
 //			strerror
@@ -71,7 +71,7 @@
 //			booleens
 # include <stdbool.h>
 
-//			minishell headers
+//			minishell cursorers
 # include "structures.h"
 # include "macros.h"
 # include "functions.h"
