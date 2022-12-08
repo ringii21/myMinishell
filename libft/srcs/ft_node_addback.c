@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_node_addback.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2021/11/04 15:31:52 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 18:55:27 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+void	putback_node(t_node **anode, t_node *new)
 {
-	int	i;
+	t_node	*last_elem;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	if (anode)
+	{
+		if (*anode == NULL)
+			*anode = new;
+		else
+		{
+			last_elem = last_node(*anode);
+			new->prev = last_elem;
+			last_elem->next = new;
+		}
+	}
 }

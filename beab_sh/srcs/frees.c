@@ -1,9 +1,9 @@
 #include "../inc/minishell.h"
 
-void ft_free_nodes(t_obj *o)
+void ft_free_nodes(t_token *o)
 {
 	int	i;
-	t_list_f *tmp;
+	t_redir *tmp;
 
 	i = 0;
 	if (o->av_copy)
@@ -23,9 +23,9 @@ void ft_free_nodes(t_obj *o)
 	}
 }
 
-void ft_flush(t_obj *o)
+void ft_flush(t_token *o)
 {
-	t_obj	*next;
+	t_token	*next;
 	while (o && o->next)
 		o = o->prev;
 	while (o)

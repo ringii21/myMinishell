@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/11/17 00:16:03 by wac              ###   ########.fr       */
+/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char *ft_mr_bin(t_main *m, char *bin, char **sep)
 	return (NULL);
 }
 
-void	ft_get_path(t_obj *o, t_main *m)
+void	ft_get_path(t_token *o, t_main *m)
 {
 	char *bin;
 	char **sep_path;
@@ -94,7 +94,7 @@ void	ft_get_path(t_obj *o, t_main *m)
 } */
 
 // serach for status code for all the builtin created
- int	exec_builtin(t_obj *o, t_env *env, bool is_forked)
+ int	exec_builtin(t_token *o, t_env *env, bool is_forked)
 {
 	int	ret;
 
@@ -125,7 +125,7 @@ void	ft_get_path(t_obj *o, t_main *m)
 }
 	// serach for status code for all the builtin created
 
-int	which_path(t_main *m, t_obj *o)
+int	which_path(t_main *m, t_token *o)
 {
 	int res;
 
@@ -141,7 +141,7 @@ int	which_path(t_main *m, t_obj *o)
 	return (res);
 }
 
-int	ft_redir(t_obj *o, t_env *env)
+int	ft_redir(t_token *o, t_env *env)
 {
 	if (ft_input(o, env) == 1)
 		return (1);
@@ -151,7 +151,7 @@ int	ft_redir(t_obj *o, t_env *env)
 }
 
 
-int	ft_cmds_handler(t_obj *o, t_env *env, bool builtin)
+int	ft_cmds_handler(t_token *o, t_env *env, bool builtin)
 {
 	int		res;
 	res = 0;
@@ -189,7 +189,7 @@ char	*last_error(bool set, int err)
 	return (value);
 }
 
-int	ft_hold_exec(t_obj *o, t_env *env)
+int	ft_hold_exec(t_token *o, t_env *env)
 {
 	int	res;
 	int status;
@@ -212,7 +212,7 @@ int	ft_hold_exec(t_obj *o, t_env *env)
 int	job(t_main *m)
 {
 	int	res;
-	t_obj *list_cmd;
+	t_token *list_cmd;
 	
 	list_cmd = m->o;
 	res = 0;

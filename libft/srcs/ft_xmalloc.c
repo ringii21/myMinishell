@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_xmalloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 18:13:54 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 18:16:56 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+void	*xmalloc(size_t size)
 {
-	int	i;
+	void	*tmp;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	tmp = malloc(size);
+	if (!tmp)
+		ft_error();
+	return (tmp);
 }

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 18:15:54 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 21:10:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+void	ft_error(void)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	if (ft_strnstr(strerror(errno), "Success", 7) == 0)
+	{
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
+	}
+	exit(EXIT_FAILURE);
 }

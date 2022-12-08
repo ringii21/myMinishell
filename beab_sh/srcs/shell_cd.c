@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/11/16 21:26:48 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_path_finder(t_obj *o, t_env *env, bool is_forked)
+char	*ft_path_finder(t_token *o, t_env *env, bool is_forked)
 {
 	char	*path;
 
@@ -62,7 +62,7 @@ void	ft_cd_fail(char *path, int ret, bool is_forked)
 	}
 }
 
-int	ft_cd(t_obj *o, t_env *env, bool is_forked)
+int	ft_cd(t_token *o, t_env *env, bool is_forked)
 {
 	char	*path;
 	int		ret;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/11/17 14:35:03 by wac              ###   ########.fr       */
+/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void zeubi(char **str)
 	}
 }
 
-void ft_fill_ac(t_obj *obj)
+void ft_fill_ac(t_token *token)
 {
-	while (obj != NULL)
+	while (token != NULL)
 	{
-		if (obj->cmds_av)
+		if (token->cmds_av)
 		{
-			obj->cmd_ac = ft_tablen(obj->cmds_av);
+			token->cmd_ac = ft_tablen(token->cmds_av);
 		}
-		obj = obj->next;
+		token = token->next;
 	}
 }
 
@@ -43,7 +43,7 @@ void	minishell(t_main *m)
 		m->line = readline(prompt);
 		if (m->line)
 		{
-			m->o = ft_parcing(m);
+			m->o = ft_parsing(m);
 			if (m->o == NULL)
 				exit(1);
 			ft_fill_ac(m->o);

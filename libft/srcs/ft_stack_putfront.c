@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_stack_putfront.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 17:42:20 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 19:31:49 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+void	put_front(t_stack *stack, void *content)
 {
-	int	i;
+	t_node	*new;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	new = xmalloc(sizeof(t_node));
+	new = new_node(content);
+	if (stack->head)
+		stack->head->prev = new;
+	else
+		stack->tail = new;
+	stack->head = new;
 }

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_print_stab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/27 19:20:40 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/27 19:22:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+void	print_stab(char **stab)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i] != NULL)
+	while (stab[i])
+	{
+		printf("tab [%02i] = [%s]\n", i, stab[i]);
 		i++;
-	return (i);
+	}
 }

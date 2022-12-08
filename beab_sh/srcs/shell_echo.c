@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
-/*   Updated: 2022/11/16 21:29:23 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_is_flag(char *flags)
 	return (1);
 }
 
-int	ft_exec_echo(t_obj *o, bool flag)
+int	ft_exec_echo(t_token *o, bool flag)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ int	ft_exec_echo(t_obj *o, bool flag)
 	return (-1);
 }
 
-int	ft_echo(t_obj *o)
+int	ft_echo(t_token *o)
 {
 	bool	flag;
 

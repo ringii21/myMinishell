@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/11/10 22:49:06 by abonard          ###   ########.fr        #
+#    Updated: 2022/10/28 18:29:21 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,13 @@ NAME	:= libft.a
 
 SDIR	:= srcs
 
-SRCS	:= 	ft_allocate_tab.c \
+SRCS	:= ft_allocate_tab.c \
 			ft_atoi.c \
 			ft_atoi_hexa.c \
 			ft_atoli.c \
 			ft_bzero.c \
 			ft_calloc.c \
+			ft_error.c \
 			ft_free_stab.c \
 			ft_free_tab.c \
 			ft_isalnum.c \
@@ -46,15 +47,36 @@ SRCS	:= 	ft_allocate_tab.c \
 			ft_memcpy.c \
 			ft_memmove.c \
 			ft_memset.c \
+			ft_multi_split.c \
+			ft_node_addback.c \
+			ft_node_addfront.c \
+			ft_nodeclear.c \
+			ft_node_delone.c \
+			ft_node_iter.c \
+			ft_node_last.c \
+			ft_nodemap.c \
+			ft_nodenew.c \
+			ft_print_stab.c \
+			ft_node_size.c \
 			ft_putchar_fd.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \
 			ft_putstr_fd.c \
 			ft_split.c \
+			ft_stack_free.c \
+			ft_stack_init.c \
+			ft_stack_push.c \
+			ft_stack_putback.c \
+			ft_stack_putfront.c \
+			ft_stack_reverse.c \
+			ft_stack_rotate.c \
+			ft_stack_size.c \
+			ft_stack_swap.c \
 			ft_strchr.c \
 			ft_strcmp.c \
 			ft_strcpy.c \
 			ft_strdup.c \
+			ft_strisdigit.c \
 			ft_striteri.c \
 			ft_strjoin.c \
 			ft_strlcat.c \
@@ -69,7 +91,7 @@ SRCS	:= 	ft_allocate_tab.c \
 			ft_tablen.c \
 			ft_tolower.c \
 			ft_toupper.c \
-			ft_strisdigit.c
+			ft_xmalloc.c
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 
@@ -141,7 +163,7 @@ vpath %.o $(ODIR)
 all:			header message $(NAME)
 
 $(ODIR)/%.o:	%.c
-	@$(CC) $(WFLAGS) $(GFLAG) -I $(IDIR) -c $< -o $@
+	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) -I $(IDIR) -c $< -o $@
 	@echo "$(HIGREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)

@@ -1,8 +1,8 @@
 #include "../inc/minishell.h"
 
-void	ft_dup_fd(t_obj *o)
+void	ft_dup_fd(t_token *o)
 {
-	t_list_f	*tmp;
+	t_redir	*tmp;
 
 	tmp = o->file;
 	while (tmp)
@@ -23,7 +23,7 @@ void	ft_dup_fd(t_obj *o)
 	}	
 }
 
-int	dup_pipes(t_obj *o, int *is_pipe)
+int	dup_pipes(t_token *o, int *is_pipe)
 {
 	if (o->is_pipe && dup2(o->pipe_fd[1], 1) < 0)
 		return (0);
@@ -34,7 +34,7 @@ int	dup_pipes(t_obj *o, int *is_pipe)
 	return (1);
 }
 
-int	ft_child_play(t_obj *o, t_env *env, bool builtin)
+int	ft_child_play(t_token *o, t_env *env, bool builtin)
 {
 	if (!dup_pipes(o, &(o->is_pipe_o)))
 		exit(EXIT_FAILURE);

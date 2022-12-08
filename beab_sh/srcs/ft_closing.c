@@ -1,21 +1,21 @@
 #include "../inc/minishell.h"
 
-void	ft_close_fd(t_obj *o)
+void	ft_close_fd(t_token *o)
 {
-	t_list_f	*tmp;
+	t_redir	*tmp;
 
 	tmp = o->file;
 	while (tmp)
 	{
-		if (tmp->type && tmp->type != NONE && tmp->type != R_REDIR_IN)
+		if (tmp->type && tmp->type != DEFAULT && tmp->type != R_REDIR_IN)
 			close(tmp->fd);
 		tmp = tmp->next;
 	}
 }
 
-void	ft_close_pipe(t_obj *o)
+void	ft_close_pipe(t_token *o)
 {
-	t_list_f	*tmp;
+	t_redir	*tmp;
 
 	ft_close_fd(o);
 	tmp = o->file;

@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_nodemap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 19:02:10 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 19:35:49 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+t_node	*node_map(t_node *nodes, void *(*f)(void *), void (*del)(void *))
 {
-	int	i;
+	t_node	*new_nodes;
+	t_node	*new_elem;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	new_elem = 0;
+	new_nodes = NULL;
+	while (nodes)
+	{
+		new_elem = new_node(f(nodes->data));
+		if (!new_elem)
+		{
+			free_nodes(&new_nodes, del);
+			return (NULL);
+		}
+		putback_node(&new_nodes, new_elem);
+		nodes = nodes->next;
+	}
+	return (new_nodes);
 }

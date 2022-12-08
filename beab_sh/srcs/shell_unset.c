@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/11/16 21:36:52 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_exec_unset(char *namevar, t_env *env)
 	return (0);
 }
 
-int	ft_unset(t_obj *o, t_env *env, bool is_forked)
+int	ft_unset(t_token *o, t_env *env, bool is_forked)
 {
 	int	i;
 	int	res;

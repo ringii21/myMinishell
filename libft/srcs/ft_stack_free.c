@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_stack_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 17:46:12 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 17:47:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+void	free_stack(t_stack *stack)
 {
-	int	i;
+	t_node	*tmp;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	while (stack->head)
+	{
+		tmp = stack->head;
+		stack->head = stack->head->next;
+		free(tmp);
+	}
+	stack->head = NULL;
+	stack->tail = NULL;
+	free(stack);
 }

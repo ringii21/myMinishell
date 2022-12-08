@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
+/*   Updated: 2022/12/08 14:41:15 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-t_obj	*init_cmd(void)
+t_token	*init_cmd(void)
 {
-	t_obj *cmd;
+	t_token *cmd;
 
-	cmd = malloc(sizeof(t_obj));
+	cmd = malloc(sizeof(t_token));
 	if (cmd == NULL)
 		return (NULL);
 	cmd->cmds_av = NULL;
@@ -20,14 +32,14 @@ t_obj	*init_cmd(void)
 
 }
 
-void	split_args(t_obj *obj, char *str)
+void	split_args(t_token *token, char *str)
 {
 	int		i;
 	int 	j;
 	char 	**tab;
 
 	i = 0;
-	while (obj->cmds_av && obj->cmds_av[i])
+	while (token->cmds_av && token->cmds_av[i])
 		i++;
 	j = 0;
 	tab = malloc(sizeof(char *) * ((unsigned long)i + 2));
@@ -35,23 +47,23 @@ void	split_args(t_obj *obj, char *str)
 		return ;
 	while (j < i)
 	{
-		tab[j] = obj->cmds_av[j];
+		tab[j] = token->cmds_av[j];
 		j++;
 	}
 	tab[j++] = str;
 	tab[j] = NULL;
-	if (obj->cmds_av != NULL)
-		free(obj->cmds_av);
-	obj->cmds_av = tab;
+	if (token->cmds_av != NULL)
+		free(token->cmds_av);
+	token->cmds_av = tab;
 
 }
 
-void	fill_redir(t_obj *obj, char *str, enum redir_type type, bool *is_quote)
+void	fill_redir(t_token *token, char *str, enum redir_type type, bool *is_quote)
 {
-	t_list_f *new;
-	t_list_f *tmp;
+	t_redir *new;
+	t_redir *tmp;
 
-	new = malloc(sizeof(t_list_f));
+	new = malloc(sizeof(t_redir));
 	if (new == NULL)
 		return ;
 	new->path = str;
@@ -61,36 +73,36 @@ void	fill_redir(t_obj *obj, char *str, enum redir_type type, bool *is_quote)
 		new->is_quote = *is_quote;
 	else
 		new->is_quote = false;
-	if (!obj->file)
-		obj->file = new;
+	if (!token->file)
+		token->file = new;
 	else
 	{
-		tmp = obj->file;
+		tmp = token->file;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
 }
 
-void  fill_args(char **str, enum redir_type *type, t_obj *obj, bool *is_quote)
+void  fill_args(char **str, enum redir_type *type, t_token *token, bool *is_quote)
 {
 	if (*str && **str)
 	{
-		if (!type || *type == NONE)
-			split_args(obj, *str);
+		if (!type || *type == DEFAULT)
+			split_args(token, *str);
 		else
-			fill_redir(obj, *str, *type, is_quote);
+			fill_redir(token, *str, *type, is_quote);
 		if (is_quote)
 			*is_quote = false;
 		*str = NULL;
 		if (type)
-			*type = NONE;
+			*type = DEFAULT;
 	}	
 }
 
-void go_to_next_obj(t_obj **ici, int is_pipe)
+void go_to_next_token(t_token **ici, int is_pipe)
 {
-	t_obj *tmp;
+	t_token *tmp;
 
 	tmp = *ici;
 	if (is_pipe)
@@ -114,12 +126,12 @@ int	ft_begin_w(char *is_out, char *is_in)
 	return (1);
 }
 
-int	ft_redir_manager(t_parcing *var, char *str)
+int	ft_redir_manager(t_parsing *var, char *str)
 {
 	if (str[var->i] == '<' || str[var->i] == '>')
 	{
 		fill_args(&var->read, &var->type, var->ici, &var->is_quote);
-		if (var->type != NONE)
+		if (var->type != DEFAULT)
 			return (3);
 		if (ft_begin_w(str + var->i, "<<") && ++var->i)
 			var->type = R_REDIR_IN;
@@ -253,7 +265,7 @@ char *make_token(char *str, int *ici, char c, t_env *env)
 	return (token);
 }
 
-void	var_lector(t_obj *ici, char *var, char **reading, t_env *env)
+void	var_lector(t_token *ici, char *var, char **reading, t_env *env)
 {
 	int i;
 	char *str;
@@ -275,7 +287,7 @@ void	var_lector(t_obj *ici, char *var, char **reading, t_env *env)
 	*reading = r;
 }
 
-int	quote_manager(t_parcing *var, char *str, t_env *env, int u)
+int	quote_manager(t_parsing *var, char *str, t_env *env, int u)
 {
 	char	*name;
 	if (str[var->i] == '"' || str[var->i] == '\'')
@@ -303,7 +315,7 @@ int	quote_manager(t_parcing *var, char *str, t_env *env, int u)
 	return (0);
 }
 
-int	ft_allez_parce_1(t_parcing *var, t_main *m)
+int	ft_allez_parce_1(t_parsing *var, t_main *m)
 {
 	int res;
 	while (m->line[var->i] == ' ')
@@ -318,7 +330,7 @@ int	ft_allez_parce_1(t_parcing *var, t_main *m)
 		fill_args(&var->read, &var->type, var->ici, &var->is_quote);
 		if (var->ici->cmds_av == NULL && var->ici->file == NULL)
 			return (4);
-		go_to_next_obj(&var->ici, m->line[var->i++] == '|');
+		go_to_next_token(&var->ici, m->line[var->i++] == '|');
 		return (1);
 	}
 	res = ft_redir_manager(var, m->line);
@@ -330,9 +342,9 @@ int	ft_allez_parce_1(t_parcing *var, t_main *m)
 	return (0);
 }
 
-t_obj	*ft_parcing(t_main *m)
+t_token	*ft_parsing(t_main *m)
 {
-	t_parcing	var;
+	t_parsing	var;
 	int		res;
 
 	if (!m->line)
@@ -342,7 +354,7 @@ t_obj	*ft_parcing(t_main *m)
 	var.ici = init_cmd();
 	var.list = var.ici;
 	var.is_quote = 0; 
-	var.type = NONE;
+	var.type = DEFAULT;
 	while(m->line[var.i])
 	{
 		res = ft_allez_parce_1(&var, m);

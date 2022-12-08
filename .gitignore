@@ -7,10 +7,10 @@ test.sh
 # Prerequisites
 *.d
 
-# Object files
+# tokenect files
 *.o
 *.ko
-*.obj
+*.token
 *.elf
 
 # Linker output
@@ -28,7 +28,7 @@ test.sh
 *.la
 *.lo
 
-# Shared objects (inc. Windows DLLs)
+# Shared tokenects (inc. Windows DLLs)
 *.dll
 *.so
 *.so.*

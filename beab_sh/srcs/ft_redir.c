@@ -1,8 +1,8 @@
 #include "../inc/minishell.h"
 
-int	ft_input(t_obj *o, t_env *env)
+int	ft_input(t_token *o, t_env *env)
 {
-	t_list_f	*tmp;
+	t_redir	*tmp;
 	(void)env;
 
 	tmp = o->file;
@@ -26,9 +26,9 @@ int	ft_input(t_obj *o, t_env *env)
 	return (0);
 }
 
-int	ft_output(t_obj *o)
+int	ft_output(t_token *o)
 {
-	t_list_f	*tmp;
+	t_redir	*tmp;
 
 	tmp = o->file;
 	while (tmp)

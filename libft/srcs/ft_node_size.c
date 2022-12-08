@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_node_size.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 18:54:50 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 18:56:26 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+size_t	node_size(t_node *n)
 {
-	int	i;
+	size_t	size;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	size = 0;
+	if (n)
+	{
+		while (n)
+		{
+			n = n->next;
+			size++;
+		}
+		return (size);
+	}
+	return (0);
 }

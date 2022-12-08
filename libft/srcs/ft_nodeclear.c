@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_nodeclear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 19:28:08 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/20 18:34:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
+void	free_nodes(t_node **nodes, void (*del)(void*))
 {
-	int	i;
+	t_node	*next_elem;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	if (nodes)
+	{
+		while (*nodes)
+		{
+			next_elem = (*nodes)->next;
+			delone_node(*nodes, del);
+			(*nodes) = next_elem;
+		}
+	}
 }

@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_stack_push.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/14 17:51:29 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/14 18:12:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-size_t	ft_tablen(char **tab)
-{
-	int	i;
+void	push(t_stack *a, t_stack *b)
+{	
+	t_node	*tmp;
+	void	*content;
 
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
+	if (stack_size(b) != 0)
+	{
+		tmp = b->head;
+		if (!tmp)
+			return ;
+		content = tmp->data;
+		put_front(a, content);
+		b->head = b->head->next;
+		if (b->head)
+			b->head->prev = NULL;
+		free(tmp);
+	}
 }

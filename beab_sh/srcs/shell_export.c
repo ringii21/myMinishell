@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/11/16 21:35:08 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/08 14:36:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_export_var(t_obj *o, t_env *env, bool is_forked)
+int	ft_export_var(t_token *o, t_env *env, bool is_forked)
 {
 	char	*namevar;
 	char	*value;
@@ -41,7 +41,7 @@ int	ft_export_var(t_obj *o, t_env *env, bool is_forked)
 	return (0);
 }
 
-int	ft_export(t_obj *o, t_env *env, bool is_forked)
+int	ft_export(t_token *o, t_env *env, bool is_forked)
 {
 	int	ret; 
 

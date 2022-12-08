@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 21:01:56 by seozcan           #+#    #+#             */
-/*   Updated: 2022/05/11 21:01:57 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/20 18:29:37 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ void	ft_free_stab(char **str)
 	int	i;
 
 	i = 0;
-	while (str[i] != 0)
-	{
-		free(str[i]);
-		i++;
-	}
+	if (str)
+		while (str[i++] != NULL)
+			free(str[i]);
 	free(str);
 }

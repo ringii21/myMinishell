@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
+#    By: root <root@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/11/16 22:10:05 by abonard          ###   ########.fr        #
+#    Updated: 2022/12/08 14:45:10 by root             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS			:=	main.c \
 					shell_signals.c \
 					utils_env2.c \
 					utils_env.c \
-					ft_parcing.c\
+					ft_parsing.c\
 					utils_builtins.c\
 					jobs_execution.c\
 					ft_redir.c\
@@ -54,7 +54,7 @@ SRCS			:=	main.c \
 				#	utils_builtins.c 
 
 					
-OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
+objs			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
@@ -156,7 +156,7 @@ ifeq ($(IS_MINILIBX), true)
 	INCLUDE_FLAGS	+= $(addprefix -I , $(MDIR))
 endif
 
-DEPS				= $(OBJS:.o=.d)
+DEPS				= $(objs:.o=.d)
 
 vpath %.c $(SDIR)\
 vpath %.o $(ODIR)\
@@ -169,11 +169,11 @@ $(ODIR)/%.o:	%.c
 	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
-$(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
+$(NAME):		$(objs)	
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(objs) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
-$(OBJS):		| $(ODIR)
+$(objs):		| $(ODIR)
 
 $(ODIR):
 	@mkdir -p $(ODIR)
