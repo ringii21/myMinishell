@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:04:37 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:07:48 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
 
-typedef struct s_env
+typedef struct	s_env
 {
 	char			*var;
 	char			*cont;
@@ -28,7 +28,7 @@ typedef struct s_env
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
-enum	e_type
+typedef enum	e_type
 {
 	DEFAULT,
 	REDIR_IN,
@@ -37,7 +37,7 @@ enum	e_type
 	R_REDIR_OUT,
 }	t_type;
 
-typedef struct s_redir
+typedef struct	s_redir
 {
 	char				*path;
 	enum				e_type	type;
@@ -47,7 +47,7 @@ typedef struct s_redir
 	bool				is_quote;
 }	t_redir;
 
-typedef struct s_token
+typedef struct	s_token
 {	
 	pid_t			pid;
 	size_t			cmd_ac;
@@ -62,7 +62,7 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
-typedef struct s_parsing
+typedef struct	s_parsing
 {
 	int				i;
 	char			*read;
@@ -75,7 +75,7 @@ typedef struct s_parsing
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MAIN::
 
-typedef struct s_main
+typedef struct	s_main
 {
 	char			*cwd;
 	char			*prompt;
