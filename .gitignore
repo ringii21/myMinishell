@@ -10,7 +10,7 @@ test.sh
 # tokenect files
 *.o
 *.ko
-*.parser
+*.token
 *.elf
 
 # Linker output

@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:38:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_close_pipe(t_token *t)
+void	close_pipes(t_token *t)
 {
 	t_redir	*tmp;
 
@@ -72,7 +72,7 @@ int	dup_pipes(t_token *t, int *is_pipe)
 
 int	child_process(t_token *t, t_env *env, bool builtin)
 {
-	if (!dup_pipes(t, &(t->is_pipe_o)))
+	if (!dup_pipes(t, &(t->is_pipe_open)))
 		exit(EXIT_FAILURE);
 	if (builtin)
 		exit(exec_builtin(t, env, true));

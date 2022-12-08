@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 17:06:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 18:03:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ft_flush(t_token *t);
 t_token	*ft_parsing(t_main *m);
 
 //		shell_redir.c
-int		redir_manager(t_parsing *parser, char *str);
-int		expand_var(t_env *env, char **parser, int *i, char *str);
+int		redir_manager(t_parsing *p, char *str);
+int		expand_var(t_env *env, char **token, int *i, char *str);
 char	*pull_varname(char *str, int *cursor);
 void	var_lector(t_token *cursor, char *var, char **reading, t_env *env);
 char	*pull_varvalue(char *varname, t_env *env);
@@ -53,28 +53,30 @@ char	*pull_varvalue(char *varname, t_env *env);
 char	*make_token(char *str, int *cursor, char c, t_env *env);
 
 //		shell_structures.c
-void	fill_args(char **str, t_type *type, t_token *parser,
+void	fill_args(char **str, t_type *type, t_token *t,
 			bool *is_quote);
-void	fill_redir(t_token *parser, char *str, t_type type,
+void	fill_redir(t_token *t, char *str, t_type type,
 			bool *is_quote);
 
 //		utils.c
-void	split_args(t_token *parser, char *str);
-char 	*ft_strdupcat(char *s, char *t, int len);
+void	split_args(t_token *t, char *str);
+char	*ft_strdupcat(char *s, char *t, int len);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::EXECUTION::
 //		shell_jobs.c
 int		job(t_main *m);
 int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 
+//		shell_path.c
+int		which_path(t_main *m, t_token *t);
+
 //		shell_io.c
-int		ft_input(t_token *t, t_env *env);
-int		ft_output(t_token *t);
+int		ft_redir(t_token *t, t_env *env);
 void	ft_close_fd(t_token *t);
 
 //		shell_pipes.c
 int		child_process(t_token *t, t_env *env, bool builtin);
-void	ft_close_pipe(t_token *t);
+void	close_pipes(t_token *t);
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BUILTINS::
 //		shell_cd.c

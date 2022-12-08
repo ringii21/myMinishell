@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:07:48 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:33:59 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*var;
 	char			*cont;
@@ -28,54 +28,54 @@ typedef struct	s_env
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
-typedef enum	e_type
+typedef enum e_type
 {
 	DEFAULT,
 	REDIR_IN,
 	REDIR_OUT,
-	R_REDIR_IN, 
+	R_REDIR_IN,
 	R_REDIR_OUT,
 }	t_type;
 
-typedef struct	s_redir
+typedef struct s_redir
 {
 	char				*path;
-	enum				e_type	type;
+	enum e_type			type;
 	int					fd;
-	int	 				fd_pipe[2];
+	int					fd_pipe[2];
 	struct s_redir		*next;
 	bool				is_quote;
 }	t_redir;
 
-typedef struct	s_token
+typedef struct s_token
 {	
 	pid_t			pid;
 	size_t			cmd_ac;
 	bool			is_pipe;
-	int				is_pipe_o;
+	int				is_pipe_open;
 	int				pipe_fd[2];
 	char			**cmds_av;
 	char			*av_copy;
-	char 			*path;
+	char			*path;
 	t_redir			*file;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
 
-typedef struct	s_parsing
+typedef struct s_parsing
 {
 	int				i;
 	char			*read;
 	char			*var;
 	t_token			*list;
 	t_token			*cursor;
-	enum e_type	type;
+	enum e_type		type;
 	bool			is_quote;
 }	t_parsing;
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MAIN::
 
-typedef struct	s_main
+typedef struct s_main
 {
 	char			*cwd;
 	char			*prompt;

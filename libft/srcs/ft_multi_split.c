@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:19:54 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 17:36:44 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:30:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	ft_splitcat(char **dest, char const *str, char *charset)
 			tabs++;
 		}
 	}
-
 }
 
 char	**multi_split(char const *s, char *charset)

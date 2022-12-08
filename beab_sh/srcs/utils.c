@@ -6,20 +6,35 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:59:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	split_args(t_token *parser, char *str)
+char	*last_error(bool set, int err)
+{
+	static char	*value;
+
+	if (set)
+	{
+		if (value)
+			free(value);
+		value = ft_itoa(err);
+	}
+	else if (!value)
+		value = ft_strdup("0");
+	return (value);
+}
+
+void	split_args(t_token *t, char *str)
 {
 	int		i;
 	int 	j;
 	char 	**tab;
 
 	i = 0;
-	while (parser->cmds_av && parser->cmds_av[i])
+	while (t->cmds_av && t->cmds_av[i])
 		i++;
 	j = 0;
 	tab = xmalloc(sizeof(char *) * ((unsigned long)i + 2));
@@ -27,15 +42,14 @@ void	split_args(t_token *parser, char *str)
 		return ;
 	while (j < i)
 	{
-		tab[j] = parser->cmds_av[j];
+		tab[j] = t->cmds_av[j];
 		j++;
 	}
 	tab[j++] = str;
 	tab[j] = NULL;
-	if (parser->cmds_av != NULL)
-		free(parser->cmds_av);
-	parser->cmds_av = tab;
-
+	if (t->cmds_av != NULL)
+		free(t->cmds_av);
+	t->cmds_av = tab;
 }
 
 char *ft_strdupcat(char *s, char *t, int len)

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 15:31:41 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 18:02:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*pull_varname(char *str, int *cursor)
 	return (read);
 }
 
-int	expand_var(t_env *env, char **parser, int *i, char *str)
+int	expand_var(t_env *env, char **token, int *i, char *str)
 {
 	char	*varname;
 	char	*cont;
@@ -88,7 +88,7 @@ int	expand_var(t_env *env, char **parser, int *i, char *str)
 			*i += j;
 			cont = pull_varvalue(varname, env);
 			free(varname);
-			*parser = ft_strdupcat(*parser, cont, (int)ft_strlen(cont));
+			*token = ft_strdupcat(*token, cont, (int)ft_strlen(cont));
 			return (1);
 		}
 		free(varname);
@@ -99,25 +99,25 @@ int	expand_var(t_env *env, char **parser, int *i, char *str)
 char *make_token(char *str, int *cursor, char c, t_env *env)
 {
 	int i;
-	char *parser;
+	char *token;
 
 	i = 1;
-	parser = xmalloc(1);
-	if (parser == NULL)
+	token = xmalloc(1);
+	if (token == NULL)
 		return (NULL);
-	parser[0] = 0;
+	token[0] = 0;
 	while (str[i])
 	{
 		if (str[i] == c)
 		{
 			*cursor += i + 1;
-			return (parser);
+			return (token);
 		}
-		else if (c == '"' && expand_var(env, &parser, &i, str))
+		else if (c == '"' && expand_var(env, &token, &i, str))
 			continue;
-		parser = ft_strdupcat(parser, str + i++, 1);
+		token = ft_strdupcat(token, str + i++, 1);
 	}
-	free(parser);
-	parser = NULL;
-	return (parser);
+	free(token);
+	token = NULL;
+	return (token);
 }

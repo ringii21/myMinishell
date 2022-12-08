@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*   shell_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 15:48:59 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:54:49 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void next_token(t_token **cursor, int is_pipe)
+void	next_token(t_token **cursor, int is_pipe)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = *cursor;
 	if (is_pipe)
@@ -24,27 +24,27 @@ void next_token(t_token **cursor, int is_pipe)
 	(*cursor)->prev = tmp;
 }
 
-int	quote_manager(t_parsing *parser, char *str, t_env *env, int u)
+int	quote_manager(t_parsing *p, char *str, t_env *env, int u)
 {
 	char	*name;
 	
-	if (str[parser->i] == '"' || str[parser->i] == '\'')
+	if (str[p->i] == '"' || str[p->i] == '\'')
 	{
-		parser->is_quote = parser->is_quote |= (str[parser->i] == '"');
-		parser->var = make_token(str + parser->i, &parser->i, str[parser->i], env);
-		if (parser->var == NULL)
+		p->is_quote = p->is_quote |= (str[p->i] == '"');
+		p->var = make_token(str + p->i, &p->i, str[p->i], env);
+		if (p->var == NULL)
 			return (3);
-		parser->read = ft_strdupcat(parser->read, parser->var, (int)ft_strlen(parser->var));
-		free(parser->var);
+		p->read = ft_strdupcat(p->read, p->var, (int)ft_strlen(p->var));
+		free(p->var);
 		return (1);
 	}
-	else if (str[parser->i] == '$' && parser->type != R_REDIR_IN)
+	else if (str[p->i] == '$' && p->type != R_REDIR_IN)
 	{
-		name = pull_varname(str + parser->i, &u);
+		name = pull_varname(str + p->i, &u);
 		if (ft_strlen(name) > 0)
 		{
-			parser->i += u;
-			var_lector(parser->cursor, name, &parser->read, env);
+			p->i += u;
+			var_lector(p->cursor, name, &p->read, env);
 			free(name);
 			return (1);
 		}
@@ -53,30 +53,30 @@ int	quote_manager(t_parsing *parser, char *str, t_env *env, int u)
 	return (0);
 }
 
-int	fill_token_list(t_parsing *parser, t_main *m)
+int	fill_token_list(t_parsing *p, t_main *m)
 {
-	int res;
+	int	res;
 	
 	res = 0;
-	while (m->line[parser->i] == ' ')
+	while (m->line[p->i] == ' ')
 	{
-		fill_args(&parser->read, &parser->type, parser->cursor, &parser->is_quote);
-		parser->i++;
+		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
+		p->i++;
 	}
-	if (m->line[parser->i] == ';' || m->line[parser->i] == '\\')
+	if (m->line[p->i] == ';' || m->line[p->i] == '\\')
 		return (5);
-	if (m->line[parser->i] == '|')
+	if (m->line[p->i] == '|')
 	{
-		fill_args(&parser->read, &parser->type, parser->cursor, &parser->is_quote);
-		if (parser->cursor->cmds_av == NULL && parser->cursor->file == NULL)
+		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
+		if (p->cursor->cmds_av == NULL && p->cursor->file == NULL)
 			return (4);
-		next_token(&parser->cursor, m->line[parser->i++] == '|');
+		next_token(&p->cursor, m->line[p->i++] == '|');
 		return (1);
 	}
-	res = redir_manager(parser, m->line);
+	res = redir_manager(p, m->line);
 	if (res != 0)
 		return (res);
-	res = quote_manager(parser, m->line, m->env, 0);
+	res = quote_manager(p, m->line, m->env, 0);
 	if (res != 0)
 		return (res);
 	return (0);
@@ -84,29 +84,29 @@ int	fill_token_list(t_parsing *parser, t_main *m)
 
 t_token	*ft_parsing(t_main *m)
 {
-	t_parsing	parser;
+	t_parsing	p;
 	int			res;
 
 	if (!m->line)
 		return (NULL);
-	parser.i = 0;
-	parser.read = NULL;
-	parser.cursor = init_token();
-	parser.list = parser.cursor;
-	parser.is_quote = 0; 
-	parser.type = DEFAULT;
-	while(m->line[parser.i])
+	p.i = 0;
+	p.read = NULL;
+	p.cursor = init_token();
+	p.list = p.cursor;
+	p.is_quote = 0; 
+	p.type = DEFAULT;
+	while(m->line[p.i])
 	{
-		res = fill_token_list(&parser, m);
+		res = fill_token_list(&p, m);
 		if (res == 1)
 			continue;
 		if (res > 1 )
 			return (NULL);
-		if (m->line[parser.i])
-			parser.read = ft_strdupcat(parser.read, m->line + parser.i++, 1);
+		if (m->line[p.i])
+			p.read = ft_strdupcat(p.read, m->line + p.i++, 1);
 	}
-	fill_args(&parser.read, &parser.type, parser.cursor, &parser.is_quote);
-	if (parser.cursor->cmds_av == NULL && parser.cursor->file == NULL)
+	fill_args(&p.read, &p.type, p.cursor, &p.is_quote);
+	if (p.cursor->cmds_av == NULL && p.cursor->file == NULL)
 		return (NULL);
-	return (parser.list);
+	return (p.list);
 }

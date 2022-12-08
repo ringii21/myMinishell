@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:45:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ int	ft_export_var(t_token *t, t_env *env, bool is_forked)
 
 int	ft_export(t_token *t, t_env *env, bool is_forked)
 {
-	int	ret; 
+	int	ret;
 
 	ret = 0;
-
 	if (t->cmd_ac < 2)
 	{
 		ft_print_declare(env, is_forked);

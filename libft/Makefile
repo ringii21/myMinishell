@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/08 16:01:55 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/08 18:08:33 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME	:= libft.a
 
 SDIR	:= srcs
 
-SRCS	:= ft_allocate_tab.c \
+SRCS	:= 	ft_allocate_tab.c \
 			ft_atoi.c \
 			ft_atoi_hexa.c \
 			ft_atoli.c \
@@ -56,8 +56,8 @@ SRCS	:= ft_allocate_tab.c \
 			ft_node_last.c \
 			ft_nodemap.c \
 			ft_nodenew.c \
-			ft_print_stab.c \
 			ft_node_size.c \
+			ft_print_stab.c \
 			ft_putchar_fd.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \

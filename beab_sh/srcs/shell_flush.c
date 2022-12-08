@@ -6,16 +6,16 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:00:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:44:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void ft_free_nodes(t_token *t)
+void	ft_free_nodes(t_token *t)
 {
-	int	i;
-	t_redir *tmp;
+	int		i;
+	t_redir	*tmp;
 
 	i = 0;
 	if (t->av_copy)
@@ -35,9 +35,10 @@ void ft_free_nodes(t_token *t)
 	}
 }
 
-void ft_flush(t_token *t)
+void	ft_flush(t_token *t)
 {
 	t_token	*next;
+
 	while (t && t->next)
 		t = t->prev;
 	while (t)
