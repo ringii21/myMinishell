@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 18:03:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:09:48 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	close_pipes(t_token *t);
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BUILTINS::
 //		shell_cd.c
 int		ft_cd(t_token *t, t_env *env, bool is_forked);
+char	*ft_path_finder(t_token *t, t_env *env, bool is_forked);
 
 //		shell_echo.c
 int		ft_echo(t_token *t);
@@ -105,5 +106,8 @@ int		is_builtin(char **cmds);
 int		ft_check_and_export(char *namevar, char *value, t_env *env,
 			bool is_forked);
 void	ft_print_declare(t_env *env, bool is_forked);
+
+//		heredoc.c
+int		ft_heredoc(t_token *t, t_env *env, bool is_forked);
 
 #endif

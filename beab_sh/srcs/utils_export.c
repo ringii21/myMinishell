@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:45:35 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:41 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:55:51 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,32 @@ void	ft_sort_env(t_env **begin)
 
 void	ft_print_declare(t_env *env, bool is_forked)
 {
-	int	i;
-
+	int		i;
+	t_env	*tmp;
+	
+	tmp = env;
 	if (!is_forked)
 		return ;
-	ft_sort_env(&env);
-	while (env)
+	ft_sort_env(&tmp);
+	while (tmp)
 	{
 		i = 0;
 		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(env->var, 1);
-		if (env->cont)
+		ft_putstr_fd(tmp->var, 1);
+		if (tmp->cont)
 		{
 			ft_putstr_fd("=\"", 1);
-			while (env->cont[i])
+			while (tmp->cont[i])
 			{
-				if (env->cont[i] == '"' || env->cont[i] == '\\')
+				if (tmp->cont[i] == '"' || tmp->cont[i] == '\\')
 					ft_putstr_fd("\\", 1);
-				ft_putchar_fd(env->cont[i], 1);
+				ft_putchar_fd(tmp->cont[i], 1);
 				i++;
 			}
 			ft_putstr_fd("\"", 1);
 		}
 		ft_putstr_fd("\n", 1);
-		env = env->next;
+		tmp = tmp->next;
 	}
 }
 

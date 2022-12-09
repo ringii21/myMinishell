@@ -14,10 +14,10 @@
 
 void	ft_free_nodes(t_token *t)
 {
-	int		i;
+	//int		i;
 	t_redir	*tmp;
 
-	i = 0;
+	//i = 0;
 	if (t->av_copy)
 		free(t->av_copy);
 	t->av_copy = NULL;
