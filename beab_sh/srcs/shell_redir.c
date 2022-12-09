@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:10:36 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 17:57:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:00:40 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	find_redir(char *is_out, char *is_in)
 {
-	while(*is_in)
+	while (*is_in)
 	{
-		if(!*is_out)
-			return(0);
+		if (!*is_out)
+			return (0);
 		if (*is_out != *is_in)
 			return (0);
 		++is_out;

@@ -6,15 +6,15 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 18:02:16 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:03:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char *pull_varvalue(char *varname, t_env *env)
- {
-	char *path;
+char	*pull_varvalue(char *varname, t_env *env)
+{
+	char	*path;
 
 	if (varname[0] == '?' && !varname[1])
 		return (NULL);
@@ -26,9 +26,9 @@ char *pull_varvalue(char *varname, t_env *env)
 
 void	var_lector(t_token *cursor, char *var, char **reading, t_env *env)
 {
-	int	 i;
-	char *str;
-	char *r;
+	int		i;
+	char	*str;
+	char	*r;
 
 	str = pull_varvalue(var, env);
 	i = 0;
@@ -59,7 +59,7 @@ char	*pull_varname(char *str, int *cursor)
 	if (str[i] == '?')
 	{
 		*cursor += i;
-		return(ft_strdupcat(read, "?", 1));
+		return (ft_strdupcat(read, "?", 1));
 	}
 	while (str[i])
 	{
@@ -79,6 +79,7 @@ int	expand_var(t_env *env, char **token, int *i, char *str)
 	char	*varname;
 	char	*cont;
 	int		j;
+
 	if (str[*i] == '$')
 	{
 		j = 0;
@@ -96,10 +97,10 @@ int	expand_var(t_env *env, char **token, int *i, char *str)
 	return (0);
 }
 
-char *make_token(char *str, int *cursor, char c, t_env *env)
+char	*make_token(char *str, int *cursor, char c, t_env *env)
 {
-	int i;
-	char *token;
+	int		i;
+	char	*token;
 
 	i = 1;
 	token = xmalloc(1);
@@ -114,7 +115,7 @@ char *make_token(char *str, int *cursor, char c, t_env *env)
 			return (token);
 		}
 		else if (c == '"' && expand_var(env, &token, &i, str))
-			continue;
+			continue ;
 		token = ft_strdupcat(token, str + i++, 1);
 	}
 	free(token);

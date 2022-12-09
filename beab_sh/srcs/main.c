@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 20:12:02 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/08 21:09:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	minishell(t_main *m)
 	prompt = NULL;
 	while (1)
 	{
-		write(1, "$", 1);
-		m->line = readline(prompt);
+		m->line = readline(ft_strjoin(getcwd(prompt, 4096), "$ "));
 		if (m->line)
 		{
 			m->t = ft_parsing(m);
@@ -42,7 +41,6 @@ void	minishell(t_main *m)
 		}
 		add_history(m->line);
 		free(m->line);
-		free(prompt);
 	}
 }
 

@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:27 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 13:59:38 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char *get_binpath(t_main *m, char *bin, char **sep)
+char	*get_binpath(t_main *m, char *bin, char **sep)
 {
 	int	i;
 
@@ -31,8 +31,8 @@ char *get_binpath(t_main *m, char *bin, char **sep)
 
 void	get_path(t_token *t, t_main *m)
 {
-	char *bin;
-	char **sep_path;
+	char	*bin;
+	char	**sep_path;
 
 	bin = NULL;
 	t->path = ft_strdup(get_cont("PATH", m->env));
@@ -57,7 +57,7 @@ void	get_path(t_token *t, t_main *m)
 
 int	which_path(t_main *m, t_token *t)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	if (t->cmds_av == NULL)
