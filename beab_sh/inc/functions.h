@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 09:30:47 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 10:49:54 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		ft_check_and_export(char *namevar, char *value, t_env *env,
 void	ft_print_declare(t_env *env, bool is_forked);
 
 //		heredoc.c
-int		ft_heredoc(t_token *t, t_env *env, bool is_forked);
+int		ft_heredoc(t_token *t, t_env *env);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DEBUG::
 //		shell_printlist.c
