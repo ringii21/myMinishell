@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 20:05:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:10:19 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	ft_input(t_token *t, t_env *env)
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
+			ft_heredoc(t, env, 0);
 			return (0);
-			//ft_heredoc();
 		}
 		tmp = tmp->next;
 	}

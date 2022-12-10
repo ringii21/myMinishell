@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/09 13:58:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 17:43:09 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	ft_hold_exec(t_token *t, t_env *env)
 		waitpid(t->pid, &status, 0);
 		if (WIFEXITED(status))
 			res = WEXITSTATUS(status);
-		if (!t->path || ft_strcmp(t->cmds_av[0], "exit") == 0) // && t->path[0] == '\0')
+		if (!t->path || ft_strcmp(t->cmds_av[0], "exit") == 0 || ft_strcmp(t->cmds_av[0], "cd") == 0)// && t->path[0] == '\0')
+			exec_builtin(t, env, false); 
+		else if (ft_strcmp(t->cmds_av[0], "export") == 0 || ft_strcmp(t->cmds_av[0], "unset") == 0)
 			exec_builtin(t, env, false);
 		t = t->next;
 	}
