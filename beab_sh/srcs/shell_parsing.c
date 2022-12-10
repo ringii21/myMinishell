@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 09:59:23 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 13:38:28 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	count_ac(t_token *t)
+/* void	count_ac(t_token *t)
 {
 	while (t != NULL)
 	{
@@ -20,7 +20,7 @@ void	count_ac(t_token *t)
 			t->cmd_ac = ft_tablen(t->cmds_av);
 		t = t->next;
 	}
-}
+} */
 
 void	next_token(t_token **cursor, int is_pipe)
 {
@@ -109,6 +109,6 @@ t_token	*parser(t_main *m)
 	fill_args(&p.read, &p.type, p.cursor, &p.is_quote);
 	if (p.cursor->cmds_av == NULL && p.cursor->file == NULL)
 		return (NULL);
-	count_ac(p.list);
+	//count_ac(p.list);
 	return (p.list);
 }

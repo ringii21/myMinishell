@@ -62,18 +62,20 @@ int	heredoc(t_token *t, t_env *env)
 	int		fd;
 	int		i = -1;
 
-	fd = open(ft_path_finder(t, env, 0), O_RDWR | O_CREAT | O_TRUNC);
+	doc = NULL;
+	char *tmp = ft_strjoin(ft_path_finder(t, env, 0), "/anais.txt");
+	fd = open(tmp, O_CREAT | O_TRUNC | O_RDONLY, 0644);
+	printf("fd [%d ]\n", fd);
 	if (fd < 0)
 		return (-1);
-	printf("je passe ici %d  fois\n", i);
 	while (1)
 	{
 		write(1, "heredoc >", 10);
 		get_next_line(0, &line);
-		if (strcmp(line, "FIN") == 0)
+		if (strcmp(line, t->file->path) == 0)
 		{
 			ft_strjoin(doc, "\n");
-			write(fd, doc, strlen(doc));
+			write(fd, doc, ft_strlen(doc));
 			return (1);
 		}
 		else
@@ -89,5 +91,6 @@ int	heredoc(t_token *t, t_env *env)
 		}
 		free(line);
 	}
+	free(tmp);
 	return (1);
 }
