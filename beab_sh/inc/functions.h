@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 18:03:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 16:29:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_flush(t_token *t);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 //		shell_parsing.c
-t_token	*ft_parsing(t_main *m);
+t_token	*parser(t_main *m);
 
 //		shell_redir.c
 int		redir_manager(t_parsing *p, char *str);
@@ -105,5 +105,10 @@ int		is_builtin(char **cmds);
 int		ft_check_and_export(char *namevar, char *value, t_env *env,
 			bool is_forked);
 void	ft_print_declare(t_env *env, bool is_forked);
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DEBUG::
+//		shell_printlist.c
+void	print_tokens(t_token *t);
+void	print_redir(t_redir *r);
 
 #endif

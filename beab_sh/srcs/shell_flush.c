@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:44:53 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 16:35:50 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	ft_free_nodes(t_token *t)
 {
-	int		i;
 	t_redir	*tmp;
 
-	i = 0;
 	if (t->av_copy)
 		free(t->av_copy);
 	t->av_copy = NULL;

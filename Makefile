@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/08 21:35:33 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/09 14:44:12 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS			:=	main.c \
 					shell_parsing.c \
 					shell_path.c \
 					shell_pipes.c \
+					shell_printlist.c \
 					shell_redir.c \
 					shell_signals.c \
 					shell_structs.c \
@@ -94,7 +95,7 @@ LIB				:=	$(addprefix $(LDIR)/, libft.a)
 
 LIBTF_PATH		=	$(addprefix $(LDIR)/, ${LIB})
 
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::printf::
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PRINTF::
 
 IS_PRINTF		:=	false
 

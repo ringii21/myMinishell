@@ -6,11 +6,21 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 18:21:22 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/09 16:30:59 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	count_ac(t_token *t)
+{
+	while (t != NULL)
+	{
+		if (t->cmds_av)
+			t->cmd_ac = ft_tablen(t->cmds_av);
+		t = t->next;
+	}
+}
 
 void	next_token(t_token **cursor, int is_pipe)
 {
@@ -82,7 +92,7 @@ int	fill_token_list(t_parsing *p, t_main *m)
 	return (0);
 }
 
-t_token	*ft_parsing(t_main *m)
+t_token	*parser(t_main *m)
 {
 	t_parsing	p;
 	int			res;
@@ -108,5 +118,6 @@ t_token	*ft_parsing(t_main *m)
 	fill_args(&p.read, &p.type, p.cursor, &p.is_quote);
 	if (p.cursor->cmds_av == NULL && p.cursor->file == NULL)
 		return (NULL);
+	count_ac(m->t);
 	return (p.list);
 }
