@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 10:49:54 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/10 09:55:57 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_env	*fill_env(char *is_env);
 char	**ft_env_to_tab(t_env *env);
 
 //		shell_init.c
+t_parse	init_parser(void);
 t_token	*init_token(void);
 
 //		shell_flush.c
@@ -43,7 +44,7 @@ void	ft_flush(t_token *t);
 t_token	*parser(t_main *m);
 
 //		shell_redir.c
-int		redir_manager(t_parsing *p, char *str);
+int		redir_manager(t_parse *p, char *str);
 int		expand_var(t_env *env, char **token, int *i, char *str);
 char	*pull_varname(char *str, int *cursor);
 void	var_lector(t_token *cursor, char *var, char **reading, t_env *env);
@@ -73,6 +74,9 @@ int		which_path(t_main *m, t_token *t);
 //		shell_io.c
 int		ft_redir(t_token *t, t_env *env);
 void	ft_close_fd(t_token *t);
+
+//		heredoc.c
+int		heredoc(t_token *t, t_env *env);
 
 //		shell_pipes.c
 int		child_process(t_token *t, t_env *env, bool builtin);
@@ -106,9 +110,6 @@ int		is_builtin(char **cmds);
 int		ft_check_and_export(char *namevar, char *value, t_env *env,
 			bool is_forked);
 void	ft_print_declare(t_env *env, bool is_forked);
-
-//		heredoc.c
-int		ft_heredoc(t_token *t, t_env *env);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DEBUG::
 //		shell_printlist.c

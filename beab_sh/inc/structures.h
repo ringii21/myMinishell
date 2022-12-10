@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:33:59 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 09:48:55 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
-typedef struct s_parsing
+typedef struct s_parse
 {
 	int				i;
 	char			*read;
@@ -71,7 +71,7 @@ typedef struct s_parsing
 	t_token			*cursor;
 	enum e_type		type;
 	bool			is_quote;
-}	t_parsing;
+}	t_parse;
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MAIN::
 

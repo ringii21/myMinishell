@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:10:36 by root              #+#    #+#             */
-/*   Updated: 2022/12/09 14:00:40 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 09:48:55 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	find_redir(char *is_out, char *is_in)
 	return (1);
 }
 
-int	redir_manager(t_parsing *p, char *str)
+int	redir_manager(t_parse *p, char *str)
 {
 	if (str[p->i] == '<' || str[p->i] == '>')
 	{

@@ -55,12 +55,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-int	ft_heredoc(t_token *t, t_env *env)
+int	heredoc(t_token *t, t_env *env)
 {
 	char	*doc;
 	char	*line;
-	int fd;
-	int i = -1;
+	int		fd;
+	int		i = -1;
 
 	fd = open(ft_path_finder(t, env, 0), O_RDWR | O_CREAT | O_TRUNC);
 	if (fd < 0)

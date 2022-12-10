@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/09 16:30:59 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 09:59:23 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	next_token(t_token **cursor, int is_pipe)
 	(*cursor)->prev = tmp;
 }
 
-int	quote_manager(t_parsing *p, char *str, t_env *env, int u)
+int	quote_manager(t_parse *p, char *str, t_env *env, int u)
 {
 	char	*name;
 
@@ -63,7 +63,7 @@ int	quote_manager(t_parsing *p, char *str, t_env *env, int u)
 	return (0);
 }
 
-int	fill_token_list(t_parsing *p, t_main *m)
+int	fill_token_list(t_parse *p, t_main *m)
 {
 	int	res;
 
@@ -94,23 +94,14 @@ int	fill_token_list(t_parsing *p, t_main *m)
 
 t_token	*parser(t_main *m)
 {
-	t_parsing	p;
-	int			res;
+	t_parse	p;
 
 	if (!m->line)
 		return (NULL);
-	p.i = 0;
-	p.read = NULL;
-	p.cursor = init_token();
-	p.list = p.cursor;
-	p.is_quote = 0;
-	p.type = DEFAULT;
+	p = init_parser();
 	while (m->line[p.i])
 	{
-		res = fill_token_list(&p, m);
-		if (res == 1)
-			continue ;
-		if (res > 1)
+		if (fill_token_list(&p, m) > 1)
 			return (NULL);
 		if (m->line[p.i])
 			p.read = ft_strdupcat(p.read, m->line + p.i++, 1);
@@ -118,6 +109,6 @@ t_token	*parser(t_main *m)
 	fill_args(&p.read, &p.type, p.cursor, &p.is_quote);
 	if (p.cursor->cmds_av == NULL && p.cursor->file == NULL)
 		return (NULL);
-	count_ac(m->t);
+	count_ac(p.list);
 	return (p.list);
 }
