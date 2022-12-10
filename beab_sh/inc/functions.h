@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 13:11:06 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 16:01:44 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 int		set_signals(void);
 int		shut_signals(int fork);
 int		set_signals(void);
+int		set_sig(void);
+void	ft_cntlc(int sig);
+void	ft_cntl_slsh(int sig);
 
 //		shell_env.c
 int		ft_create_o_replace(char *namevar, char *value, t_env *env);

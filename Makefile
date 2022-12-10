@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
+#    By: ringii <ringii@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/10 13:53:27 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/10 16:02:33 by ringii           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS			:=	main.c \
 					shell_printlist.c \
 					shell_redir.c \
 					shell_signals.c \
+					shell_sig_set.c \
 					shell_structs.c \
 					shell_unset.c \
 					utils_builtins.c \

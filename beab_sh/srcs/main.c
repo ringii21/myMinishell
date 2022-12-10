@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 14:06:17 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 15:58:08 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av, char **envp)
 		ft_putstr_fd(av[1], 2);
 		return (0);
 	}
-	if (set_signals() == 1)
+	if (set_signals() == 1 || set_sig() == 1)
 		return (1);
 	//shlvl_up(envp);
 	m.env = put_env(envp);
