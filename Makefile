@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ringii <ringii@student.42.fr>              +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/10 14:47:24 by ringii           ###   ########.fr        #
+#    Updated: 2022/12/10 13:53:27 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS			:=	main.c \
 					shell_init.c \
 					shell_io.c \
 					shell_jobs.c \
+					shell_lvl.c \
 					shell_parsing.c \
 					shell_path.c \
 					shell_pipes.c \
@@ -174,7 +175,7 @@ $(ODIR)/%.o:	%.c
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(WCONV) $(SANFLAG) $(GFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)

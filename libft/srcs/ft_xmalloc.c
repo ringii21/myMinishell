@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:13:54 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 18:16:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 11:36:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	*xmalloc(size_t size)
 
 	tmp = malloc(size);
 	if (!tmp)
-		ft_error();
+		ft_error(NULL);
 	return (tmp);
 }

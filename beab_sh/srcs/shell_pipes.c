@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 14:26:57 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/10 13:54:37 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	dup_fd(t_token *t)
 	while (tmp)
 	{
 		if (tmp->type == R_REDIR_OUT || tmp->type == REDIR_OUT)
-			dup2(tmp->fd, 1);
+			dup2(tmp->fd, STDOUT_FILENO);
 		else if (tmp->type == R_REDIR_IN || tmp->type == REDIR_IN)
 		{
 			if (tmp->type == REDIR_IN)
-				dup2(tmp->fd, 0);
+				dup2(tmp->fd, STDIN_FILENO);
 			if (tmp->type == R_REDIR_IN)
 			{
-				dup2(tmp->fd_pipe[0], 0);
+				dup2(tmp->fd_pipe[0], STDIN_FILENO);
 				close(tmp->fd_pipe[0]);
 			}
 		}
@@ -72,6 +72,8 @@ int	dup_pipes(t_token *t, int *is_pipe)
 
 int	child_process(t_token *t, t_env *env, bool builtin)
 {
+	char	**paths;
+	
 	if (!dup_pipes(t, &(t->is_pipe_open)))
 		exit(EXIT_FAILURE);
 	if (builtin)
@@ -80,11 +82,14 @@ int	child_process(t_token *t, t_env *env, bool builtin)
 		exit(EXIT_FAILURE);
 	if (t->is_pipe)
 		close(t->pipe_fd[0]);
-	if (execve(t->cmds_av[0], t->cmds_av, ft_env_to_tab(env)) == -1)
+	paths =  ft_env_to_tab(env);
+	if (execve(t->cmds_av[0], t->cmds_av, paths) != -1)
 	{
-		if (errno == 13)
-			return (-1);
+//		if (errno == 13)
+//			return (-1);
+		ft_free_stab(paths);
+		ft_error(t->cmds_av[0]);
 	}
-	exit(EXIT_FAILURE);
+//	exit(EXIT_FAILURE);
 	return (0);
 }

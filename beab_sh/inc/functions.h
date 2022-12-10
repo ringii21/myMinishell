@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 09:55:57 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/10 13:11:06 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_token	*init_token(void);
 
 //		shell_flush.c
 void	ft_flush(t_token *t);
+
+//		shell_lvl.c
+void	shlvl_up(char **envp);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 //		shell_parsing.c
