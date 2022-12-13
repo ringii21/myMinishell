@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
+#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/13 15:57:07 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/13 22:44:23 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ SRCS	:= 	ft_allocate_tab.c \
 			ft_strdup.c \
 			ft_strisdigit.c \
 			ft_striteri.c \
+			ft_strjoin_free.c \
 			ft_strjoin.c \
 			ft_strlcat.c \
 			ft_strlcpy.c \

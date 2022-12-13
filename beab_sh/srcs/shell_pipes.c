@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 18:15:24 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:27:53 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,14 @@
 
 void	close_pipes(t_token *t)
 {
-	t_redir	*tmp;
-
-	ft_close_fd(t);
-	tmp = t->file;
-	while (tmp)
+	if (t->prev != NULL)
 	{
-		if (tmp->type == R_REDIR_IN)
-		{
-			close(tmp->fd_pipe[0]);
-			close(tmp->fd_pipe[1]);
-		}
-		tmp = tmp->next;
-	}
-	if (t->prev && t->prev->is_pipe == 1)
 		close(t->prev->pipe_fd[0]);
-	if (!t->is_pipe)
-		return ;
-	close(t->pipe_fd[1]);
-	if (t->next == NULL)
-		close(t->pipe_fd[0]);
+		close(t->prev->pipe_fd[1]);
+	}
 }
 
-void	dup_fd(t_token *t)
+int	dup_fd(t_token *t)
 {
 	t_redir	*tmp;
 
@@ -44,36 +29,50 @@ void	dup_fd(t_token *t)
 	while (tmp)
 	{
 		if (tmp->type == R_REDIR_OUT || tmp->type == REDIR_OUT)
-			dup2(tmp->fd, STDOUT_FILENO);
+			dup2(tmp->fd, 1);
 		else if (tmp->type == R_REDIR_IN || tmp->type == REDIR_IN)
 		{
 			if (tmp->type == REDIR_IN)
-				dup2(tmp->fd, STDIN_FILENO);
+				dup2(tmp->fd, 0);
 			if (tmp->type == R_REDIR_IN)
 			{
-				dup2(tmp->fd_pipe[0], STDIN_FILENO);
-				close(tmp->fd_pipe[0]);
+				tmp->fd = open(tmp->file_name, O_RDONLY | O_CREAT, 0644);
+				if(tmp->fd < 0)
+					return (0);
+				if (dup2(tmp->fd, 0) < 0)
+					return (0);
+				close(tmp->fd);
 			}
 		}
 		tmp = tmp->next;
-	}	
+	}
+	return (1);	
 }
 
 int	dup_pipes(t_token *t, int *is_pipe)
 {
-	if (t->is_pipe && dup2(t->pipe_fd[1], 1) < 0)
+	if (t->prev != NULL)
+	{
+		if (dup2(t->prev->pipe_fd[0], 0) < 0)
+			return (0);
+		close(t->prev->pipe_fd[0]);
+		close(t->prev->pipe_fd[1]);
+	}
+	if (t->next != NULL)
+	{
+		if (dup2(t->pipe_fd[1], STDOUT_FILENO) < 0)
+			return (0);
+		close(t->pipe_fd[0]);
+		close(t->pipe_fd[1]);
+	}
+	if (!dup_fd(t))
 		return (0);
-	if (t->prev && t->prev->is_pipe && dup2(t->prev->pipe_fd[0], 0) < 0)
-		return (0);
-	dup_fd(t);
 	*is_pipe = 1;
 	return (1);
 }
 
 int	child_process(t_token *t, t_env *env, bool builtin)
-{
-	char	**paths;
-	
+{	
 	if (!dup_pipes(t, &(t->is_pipe_open)))
 		exit(EXIT_FAILURE);
 	if (builtin)
@@ -82,13 +81,10 @@ int	child_process(t_token *t, t_env *env, bool builtin)
 		exit(EXIT_FAILURE);
 	if (t->is_pipe)
 		close(t->pipe_fd[0]);
-	paths =  ft_env_to_tab(env);
-	if (execve(t->cmds_av[0], t->cmds_av, paths) < 0)
+	if (execve(t->cmds_av[0], t->cmds_av, ft_env_to_tab(env)) < 0)
 	{
  		if (errno == 13)
 			return (-1);
-		ft_free_stab(paths);
-		ft_error(t->cmds_av[0]);
 	}
 	exit(EXIT_FAILURE);
 	return (0);

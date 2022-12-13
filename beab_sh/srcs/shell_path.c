@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 15:16:57 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 21:37:30 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_binpath(t_main *m, char *bin, char **sep)
 	while (sep[i])
 	{
 		bin = ft_strjoin(sep[i], "/");
-		bin = ft_strjoin(bin, m->t->cmds_av[0]);
+		bin = ft_strjoin_free(bin, m->t->cmds_av[0]);
 		if (access(bin, X_OK) == 0)
 			return (bin);
 		free(bin);

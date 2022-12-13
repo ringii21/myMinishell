@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/13 18:52:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:35:31 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,13 @@ int	heredoc(t_token *t, t_env *env)
 {
 	char	*doc;
 	char	*line;
-	char 	*tmp;
-	int		fd;
-	int		i;
+	int		i = 0;
 
-	i = -1;
 	doc = NULL;
-	tmp = ft_strjoin(ft_path_finder(t, env, 0), ".tmp.txt");
+	char *tmp = ft_strjoin(ft_path_finder(t, env, 0), "/anais.txt");
 	t->file->file_name = tmp;
-	fd = open(tmp, O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
+	int fd = open(tmp, O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
+	printf("fd [%d ]\n", fd);
 	if (fd < 0)
 		return (-1);
 	while (1)
@@ -61,24 +59,24 @@ int	heredoc(t_token *t, t_env *env)
 		get_next_line(0, &line);
 		if (ft_strcmp(line, t->file->file_path) == 0)
 		{
-			ft_strjoin(doc, "\n");
+			doc = ft_strjoin_free(doc, "\n");
 			write(fd, doc, ft_strlen(doc));
+			close(fd);
 			return (1);
 		}
 		else
 		{
 			if (i++ == 0)
-				doc = ft_strdup(line);
+				doc = strdup(line);
 			else
 			{
-
-				doc = ft_strjoin(doc, "\n");
-				doc = ft_strjoin(doc, line);
+				doc = ft_strjoin_free(doc, "\n");
+				doc = ft_strjoin_free(doc, line);
 			}
 		}
 		free(line);
 	}
-	unlink(tmp);
 	free(tmp);
+	execve("cat", t->cmds_av, ft_env_to_tab(env));
 	return (1);
 }
