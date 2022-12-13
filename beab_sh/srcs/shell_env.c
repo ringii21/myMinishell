@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/13 11:09:32 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/12 22:20:36 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ void	free_env(t_env *env)
 	{
 		tmp = env;
 		env = env->next;
+		if (tmp->var)
+			free(tmp->var);
+		if (tmp->cont)
+			free(tmp->cont);
+		if (tmp->total)
+			free(tmp->total);
 		free(tmp);
 	}
 	env = NULL;
@@ -70,8 +76,19 @@ int	ft_add_env(char *namevar, char *value, t_env *env)
 	tmp = env;
 	if (!tmp)
 		return (1);
-	if (ft_strcmp(namevar, "=") == 0)
-		return (1);
+	if (ft_strcmp(env->var, "") == 0 && ft_strcmp(env->cont, "") == 0)
+	{
+		free(env->var);
+		free(env->cont);
+		env->var = ft_strdup(namevar);
+		env->cont = ft_strdup(value);
+		env->total = ft_strdup(env->var);
+		env->total = ft_strjoin(env->total, "=");
+		env->total = ft_strjoin(env->total, env->cont);
+		if (env->var == NULL || (value && env->cont == NULL))
+			return (1);
+		return (0);
+	}
 	newline = ft_add_new(namevar, value);
 	if (newline == NULL)
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 19:32:54 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:52:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	child_process(t_token *t, t_env *env, bool builtin)
 	paths =  ft_env_to_tab(env);
 	if (execve(t->cmds_av[0], t->cmds_av, paths) != -1)
 	{
-//		if (errno == 13)
-//			return (-1);
+		if (errno == 13)
+			return (-1);
 		ft_free_stab(paths);
 		ft_error(t->cmds_av[0]);
 	}

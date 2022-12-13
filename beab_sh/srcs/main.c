@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 13:32:28 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:01:02 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ int	main(int ac, char **av, char **envp)
 	}
 	if (set_signals() == 1 || set_sig() == 1)
 		return (1);
-	//shlvl_up(envp);
 	m.env = put_env(envp);
+	shlvl_up(m.env);
 	minishell(&m);
+	free_env(m.env);
 	return (0);
 }

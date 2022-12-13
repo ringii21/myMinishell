@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/13 12:27:30 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:54:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	heredoc(t_token *t, t_env *env)
 	{
 		write(1, "heredoc >", 10);
 		get_next_line(0, &line);
-		if (strcmp(line, t->file->path) == 0)
+		if (ft_strcmp(line, t->file->path) == 0)
 		{
 			ft_strjoin(doc, "\n");
 			write(fd, doc, ft_strlen(doc));
@@ -66,7 +66,7 @@ int	heredoc(t_token *t, t_env *env)
 		else
 		{
 			if (i++ == 0)
-				doc = strdup(line);
+				doc = ft_strdup(line);
 			else
 			{
 
