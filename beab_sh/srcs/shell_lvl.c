@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 12:42:16 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/11 21:23:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:12:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	shlvl_up(t_env *env)
 {
 	int res;
 	
+	if (get_cont("SHLVL", env) == NULL)
+		return ;
 	res = ft_atoi(get_cont("SHLVL", env));
 	while (env && env->next)
 	{
