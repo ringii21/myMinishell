@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 19:36:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:11:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ void	ft_close_fd(t_token *t)
 	}
 }
 
-int	ft_input(t_token *t, t_env *env)
+int	ft_input(t_token *t)
 {
 	t_redir	*tmp;
 
-	(void)env;
 	tmp = t->file;
 	while (tmp)
 	{
@@ -43,7 +42,7 @@ int	ft_input(t_token *t, t_env *env)
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
-			heredoc(t, env);
+			heredoc(t);
 			return (0);
 		}
 		tmp = tmp->next;
@@ -75,9 +74,9 @@ int	ft_output(t_token *t)
 	return (0);
 }
 
-int	ft_redir(t_token *t, t_env *env)
+int	ft_redir(t_token *t)
 {
-	if (ft_input(t, env) == 1)
+	if (ft_input(t) == 1)
 		return (1);
 	if (ft_output(t) == 1)
 		return (1);

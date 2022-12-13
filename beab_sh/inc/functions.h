@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/13 21:46:05 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:11:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 int		which_path(t_main *m, t_token *t);
 
 //		shell_io.c
-int		ft_redir(t_token *t, t_env *env);
+int		ft_redir(t_token *t);
 void	ft_close_fd(t_token *t);
 
 //		heredoc.c
-int		heredoc(t_token *t, t_env *env);
+int		heredoc(t_token *t);
 
 //		shell_pipes.c
 int		child_process(t_token *t, t_env *env, bool builtin);

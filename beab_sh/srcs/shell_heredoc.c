@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/13 22:06:24 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:09:48 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,12 @@ int	get_next_line(int fd, char **line)
 	return (recursive(line, 0, fd));
 }
 
-int	heredoc(t_token *t, t_env *env)
+int	heredoc(t_token *t)
 {
 	char	*line;
-	int		i;
 	int		fd;
 
-	i = 0;
-	(void)env;
-	fd = open(".heredoc_tmp", O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
+	fd = open(".heredoc_tmp", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd < 0)
 		return (-1);
 	while (1)
