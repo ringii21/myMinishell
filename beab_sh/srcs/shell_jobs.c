@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 22:11:28 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:12:41 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	assign_jobs(t_token *t, t_env *env, bool builtin)
 	}
 	if (ft_redir(t))
 		return (4);
-	if (builtin)
-		return(exec_builtin(t, env, true));
+/* 	if (builtin)
+		return(exec_builtin(t, env, true)); */
 	t->pid = fork();
 	shut_signals(t->pid);
 	if (t->pid == -1)

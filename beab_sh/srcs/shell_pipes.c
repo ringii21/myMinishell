@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 21:47:35 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 22:12:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,10 @@ int	dup_pipes(t_token *t, int *is_pipe)
 
 int	child_process(t_token *t, t_env *env, bool builtin)
 {	
-	(void)builtin;
 	if (!dup_pipes(t, &(t->is_pipe_open)))
 		exit(EXIT_FAILURE);
-/* 	if (builtin)
-		exit(exec_builtin(t, env, true)); */
+	if (builtin)
+		exit(exec_builtin(t, env, true));
 	if (!t->cmds_av[0])
 		exit(EXIT_FAILURE);
 	if (t->is_pipe)
