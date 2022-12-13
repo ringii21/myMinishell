@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/13 22:11:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 23:29:29 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 int		which_path(t_main *m, t_token *t);
 
 //		shell_io.c
-int		ft_redir(t_token *t);
+int		ft_redir(t_token *t, t_env *env);
 void	ft_close_fd(t_token *t);
 
 //		heredoc.c
-int		heredoc(t_token *t);
+int		heredoc(t_token *t, t_env *env);
 
 //		shell_pipes.c
 int		child_process(t_token *t, t_env *env, bool builtin);

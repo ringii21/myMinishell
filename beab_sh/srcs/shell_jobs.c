@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 22:12:41 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 23:30:20 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	assign_jobs(t_token *t, t_env *env, bool builtin)
 		if (pipe(t->pipe_fd))
 			return (-1);
 	}
-	if (ft_redir(t))
+	if (ft_redir(t, env))
 		return (4);
 /* 	if (builtin)
 		return(exec_builtin(t, env, true)); */
