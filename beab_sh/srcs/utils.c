@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 14:06:25 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/11 11:04:55 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	split_args(t_token *t, char *str)
 	while (j < i)
 	{
 		tab[j] = t->cmds_av[j];
-		printf("tab[j] = %s\n", tab[j]);
 		j++;
 	}
 	tab[j++] = str;

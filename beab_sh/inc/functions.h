@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 16:01:44 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/12 22:58:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "minishell.h"
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::INIT::
+
+int	get_next_line(int fd, char **line);
+
 //		shell_signals.c
 int		set_signals(void);
 int		shut_signals(int fork);
@@ -28,6 +31,7 @@ void	ft_cntl_slsh(int sig);
 int		ft_create_o_replace(char *namevar, char *value, t_env *env);
 int		ft_add_env(char *namevar, char *value, t_env *env);
 t_env	*put_env(char **envp);
+void	free_env(t_env *env);
 
 //		utils_env.c
 char	*get_cont(char *name_var, t_env *env);
@@ -43,9 +47,10 @@ t_token	*init_token(void);
 void	ft_flush(t_token *t);
 
 //		shell_lvl.c
-void	shlvl_up(char **envp);
+void	shlvl_up(t_env *env);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
+
 //		shell_parsing.c
 t_token	*parser(t_main *m);
 
@@ -70,25 +75,30 @@ void	split_args(t_token *t, char *str);
 char	*ft_strdupcat(char *s, char *t, int len);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::EXECUTION::
+
 //		shell_jobs.c
 int		job(t_main *m);
 int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 
 //		shell_path.c
-int		which_path(t_main *m, t_token *t);
+char	*get_path(char **paths, char *cmd);
 
 //		shell_io.c
 int		ft_redir(t_token *t, t_env *env);
 void	ft_close_fd(t_token *t);
+void	dup_redir(t_token *t);
 
 //		heredoc.c
 int		heredoc(t_token *t, t_env *env);
 
 //		shell_pipes.c
-int		child_process(t_token *t, t_env *env, bool builtin);
 void	close_pipes(t_token *t);
+int		dup_pipes(t_token *t, int *is_pipe);
+int		exec_bin(t_token *t, t_env *env);
+
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BUILTINS::
+
 //		shell_cd.c
 int		ft_cd(t_token *t, t_env *env, bool is_forked);
 char	*ft_path_finder(t_token *t, t_env *env, bool is_forked);
@@ -102,15 +112,14 @@ int		ft_export(t_token *t, t_env *env, bool is_forked);
 //		shell_builtins.c
 int		ft_env(t_env *env);
 int		ft_pwd(t_env *env);
+int		is_builtin(char **cmds);
+int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 
 //		shell_exit.c
-int		ft_exit(t_token *t, bool is_forked);
+void	ft_exit(t_main *m, t_token *t);
 
 //		shell_unset.c
 int		ft_unset(t_token *t, t_env *env, bool is_forked);
-
-//		utils_builtins.c
-int		is_builtin(char **cmds);
 
 //		utils_export.c
 int		ft_check_and_export(char *namevar, char *value, t_env *env,
@@ -118,6 +127,7 @@ int		ft_check_and_export(char *namevar, char *value, t_env *env,
 void	ft_print_declare(t_env *env, bool is_forked);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DEBUG::
+
 //		shell_printlist.c
 void	print_tokens(t_token *t);
 void	print_redir(t_redir *r);

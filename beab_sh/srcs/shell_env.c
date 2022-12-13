@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:06 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/12 22:20:36 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ void	free_env(t_env *env)
 	{
 		tmp = env;
 		env = env->next;
+		if (tmp->var)
+			free(tmp->var);
+		if (tmp->cont)
+			free(tmp->cont);
+		if (tmp->total)
+			free(tmp->total);
 		free(tmp);
 	}
 	env = NULL;

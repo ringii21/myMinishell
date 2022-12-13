@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:26:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 14:06:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/11 13:31:36 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_redir(t_redir *r)
 	while (tmp)
 	{
 		printf("node #%02d type = %d\targ = [%s]\n", i,
-			tmp->type, tmp->path);
+			tmp->type, tmp->file_path);
 		printf(".....................\n");
 		i++;
 		tmp = tmp->next;

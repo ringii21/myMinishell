@@ -6,100 +6,71 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 13:53:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 12:49:20 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	exec_builtin(t_token *t, t_env *env, bool is_forked)
-{
-	int	ret;
-
-	ret = -1;
-	if (ft_strcmp("env", t->cmds_av[0]) == 0)
-		ret = ft_env(env);
-	if (ft_strcmp("exit", t->cmds_av[0]) == 0)
-		ret = ft_exit(t, is_forked);
-	if (ft_strcmp("pwd", t->cmds_av[0]) == 0)
-		ret = ft_pwd(env);
-	if (ft_strcmp("cd", t->cmds_av[0]) == 0)
-		ret = ft_cd(t, env, is_forked);
-	if (ft_strcmp("echo", t->cmds_av[0]) == 0)
-		ret = ft_echo(t);
-	if (ft_strcmp("export", t->cmds_av[0]) == 0)
-		ret = ft_export(t, env, is_forked);
-	if (ft_strcmp("unset", t->cmds_av[0]) == 0)
-		ret = ft_unset(t, env, is_forked);
-	return (ret);
-}
-
-int	ft_hold_exec(t_token *t, t_env *env)
+int	ft_hold_exec(t_main *m, t_token *t/* , t_env *env */)
 {
 	int	res;
 	int	status;
 
 	res = 130;
+	status = 0;
 	while (t)
 	{
-		status = 0;
-		waitpid(t->pid, &status, 0);
-		if (WIFEXITED(status))
-			res = WEXITSTATUS(status);
-		if (ft_strcmp(t->cmds_av[0], "exit") == 0 || ft_strcmp(t->cmds_av[0], "cd") == 0)// && t->path[0] == '\0')
-			exec_builtin(t, env, false); 
-		else if (ft_strcmp(t->cmds_av[0], "export") == 0 || ft_strcmp(t->cmds_av[0], "unset") == 0)
-			exec_builtin(t, env, false);
+		waitpid(-1, &status, 0);
+		res = WEXITSTATUS(status);
+		if (ft_strcmp(t->cmds_av[0], "exit") == 0)
+			/*  || ft_strcmp(t->cmds_av[0], "cd") == 0
+			|| ft_strcmp(t->cmds_av[0], "export") == 0
+			|| ft_strcmp(t->cmds_av[0], "unset") == 0 )
+			exec_builtin(t, env, false);  */
+			ft_exit(m, t);
 		t = t->next;
 	}
 	set_signals();
 	return (res);
 }
 
-int	assign_jobs(t_token *t, t_env *env, bool builtin)
-{
-	int	res;
-
-	res = 0;
-	t->is_pipe_open = 0;
+int	assign_jobs(t_main *m, t_token *t, t_env *env)
+{	
 	if (t->is_pipe == 1 || (t->prev && t->prev->is_pipe == 1))
 	{
 		t->is_pipe_open = 1;
-		if (pipe(t->pipe_fd))
+		if (pipe(t->bin_pipe) == -1)
 			return (-1);
 	}
 	if (ft_redir(t, env))
 		return (4);
-	t->pid = fork();
-	shut_signals(t->pid);
-	if (t->pid == -1)
-		return (1); // Erreur fork
-	if (t->pid == 0)
-		child_process(t, env, builtin);
+	if (!dup_pipes(t, &(t->is_pipe_open)))
+		exit(EXIT_FAILURE);
+	if (t->is_pipe)
+		close(t->bin_pipe[0]);
+	if (t->cmds_av && ft_strcmp(t->cmds_av[0], "exit") == 0 && !t->is_pipe)
+		ft_exit(m, t);
+	else if (t->cmds_av && is_builtin(t->cmds_av))
+		exec_builtin(t, env, false);
+	else if (t->cmds_av)
+		exec_bin(t, env);
 	close_pipes(t);
-	return (res);
+
+	return (0);
 }
 
 int	job(t_main *m)
 {
-	int		res;
-	t_token	*list_cmd;
+	t_token	*tmp;
 
-	list_cmd = m->t;
-	res = 0;
-	while (m->t)
+	tmp = m->t;
+	while (tmp)
 	{
-		res = which_path(m, m->t);
-		if (res != 0)
-			return (-1); // gere les erreurs
-		else
-		{
-			res = assign_jobs(m->t, m->env, m->t->path
-					&& m->t->path[0] == '\0');
-		}
-		m->t = m->t->next;
+		if (assign_jobs(m, tmp, m->env) == -1)
+			return (-1);
+		tmp = tmp->next;
 	}
-	m->t = list_cmd;
-	res = ft_hold_exec(list_cmd, m->env);
-	return (res);
+//	return (ft_hold_exec(m, m->t, m->env ));
+	return (m->ret);
 }

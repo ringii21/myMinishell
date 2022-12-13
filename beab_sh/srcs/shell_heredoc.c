@@ -28,7 +28,7 @@ int	get_next_line(int fd, char **line)
 	return (recursive(line, 0, fd));
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+/* char	*ft_strjoin(char const *s1, char const *s2)
 {
 	unsigned int	len_s1;
 	unsigned int	len_s2;
@@ -53,7 +53,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	return (res);
-}
+} */
 
 int	heredoc(t_token *t, t_env *env)
 {
@@ -72,7 +72,7 @@ int	heredoc(t_token *t, t_env *env)
 	{
 		write(1, "heredoc >", 10);
 		get_next_line(0, &line);
-		if (strcmp(line, t->file->path) == 0)
+		if (strcmp(line, t->file->file_path) == 0)
 		{
 			ft_strjoin(doc, "\n");
 			write(fd, doc, ft_strlen(doc));

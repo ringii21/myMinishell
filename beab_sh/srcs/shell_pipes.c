@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 13:54:37 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 12:49:32 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,74 +22,73 @@ void	close_pipes(t_token *t)
 	{
 		if (tmp->type == R_REDIR_IN)
 		{
-			close(tmp->fd_pipe[0]);
-			close(tmp->fd_pipe[1]);
+			close(tmp->file_pipe[0]);
+			close(tmp->file_pipe[1]);
 		}
 		tmp = tmp->next;
 	}
 	if (t->prev && t->prev->is_pipe == 1)
-		close(t->prev->pipe_fd[0]);
+		close(t->prev->bin_pipe[0]);
 	if (!t->is_pipe)
 		return ;
-	close(t->pipe_fd[1]);
+	close(t->bin_pipe[1]);
 	if (t->next == NULL)
-		close(t->pipe_fd[0]);
-}
-
-void	dup_fd(t_token *t)
-{
-	t_redir	*tmp;
-
-	tmp = t->file;
-	while (tmp)
-	{
-		if (tmp->type == R_REDIR_OUT || tmp->type == REDIR_OUT)
-			dup2(tmp->fd, STDOUT_FILENO);
-		else if (tmp->type == R_REDIR_IN || tmp->type == REDIR_IN)
-		{
-			if (tmp->type == REDIR_IN)
-				dup2(tmp->fd, STDIN_FILENO);
-			if (tmp->type == R_REDIR_IN)
-			{
-				dup2(tmp->fd_pipe[0], STDIN_FILENO);
-				close(tmp->fd_pipe[0]);
-			}
-		}
-		tmp = tmp->next;
-	}	
+		close(t->bin_pipe[0]);
 }
 
 int	dup_pipes(t_token *t, int *is_pipe)
 {
-	if (t->is_pipe && dup2(t->pipe_fd[1], 1) < 0)
+	if (t->is_pipe && dup2(t->bin_pipe[1], 1) < 0)
 		return (0);
-	if (t->prev && t->prev->is_pipe && dup2(t->prev->pipe_fd[0], 0) < 0)
+	if (t->prev && t->prev->is_pipe && dup2(t->prev->bin_pipe[0], 0) < 0)
 		return (0);
-	dup_fd(t);
+	dup_redir(t);
 	*is_pipe = 1;
 	return (1);
 }
 
-int	child_process(t_token *t, t_env *env, bool builtin)
+int		process_exec(t_token *t, char **paths, char **env_cont)
+{	
+	int		ret;
+	int		status;
+
+	ret = 0;
+	status = 0;
+	t->pid = fork();
+	if (t->pid == -1)
+		ft_error(t->cmds_av[0]);
+	else if (t->pid == 0)
+	{
+		if (execve(t->bin_path, t->cmds_av, env_cont) != -1)
+		{
+			ft_free_stab(env_cont);
+			ft_free_stab(paths);
+			ft_flush(t);
+			ft_error(t->cmds_av[0]);
+		}
+	}
+	else
+	{
+//		close_pipes(t);
+		waitpid(-1, &status, 0);
+		ret = WEXITSTATUS(status);
+	}
+	return (ret);
+}
+
+int	exec_bin(t_token *t, t_env *env)
 {
 	char	**paths;
-	
-	if (!dup_pipes(t, &(t->is_pipe_open)))
-		exit(EXIT_FAILURE);
-	if (builtin)
-		exit(exec_builtin(t, env, true));
-	if (!t->cmds_av[0])
-		exit(EXIT_FAILURE);
-	if (t->is_pipe)
-		close(t->pipe_fd[0]);
-	paths =  ft_env_to_tab(env);
-	if (execve(t->cmds_av[0], t->cmds_av, paths) != -1)
-	{
-//		if (errno == 13)
-//			return (-1);
-		ft_free_stab(paths);
-		ft_error(t->cmds_av[0]);
-	}
-//	exit(EXIT_FAILURE);
-	return (0);
+	char	**env_cont;
+	int		ret;
+
+	ret = 0;
+	paths = NULL;
+	env_cont = NULL;
+	shut_signals(t->pid);
+	paths =  ft_split(get_cont("PATH", env), ':');
+	t->bin_path = get_path(paths, t->cmds_av[0]);
+	env_cont = ft_env_to_tab(env);
+	ret = process_exec(t, paths, env_cont);
+	return (ret);
 }
