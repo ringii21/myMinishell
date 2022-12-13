@@ -6,14 +6,14 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 14:11:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:28:19 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 void	minishell(t_main *m)
-{
+{	
 	while (1)
 	{
 		m->line = readline(ft_strjoin(getcwd(m->prompt, 4096), "$ "));
@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **envp)
 	if (set_signals() == 1 || set_sig() == 1)
 		return (1);
 	m.env = put_env(envp);
-	shlvl_up(m.env);
+	shlvl_up(&m);
 	minishell(&m);
 	free_env(m.env);
 	return (0);

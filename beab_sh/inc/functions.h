@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/13 14:00:29 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:26:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_env	*fill_env(char *is_env);
 char	**ft_env_to_tab(t_env *env);
 
 //		shell_lvl.c
-void	shlvl_up(t_env *env);
+void	shlvl_up(t_main *m);
 
 //		shell_init.c
 t_parse	init_parser(void);
