@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/13 15:56:57 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/13 20:40:29 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS			:=	main.c \
 					shell_expansion.c \
 					shell_export.c \
 					shell_flush.c \
+					shell_heredoc.c \
 					shell_init.c \
 					shell_io.c \
 					shell_jobs.c \
@@ -53,10 +54,8 @@ SRCS			:=	main.c \
 					shell_sig_set.c \
 					shell_structs.c \
 					shell_unset.c \
-					utils_builtins.c \
 					utils.c \
 					utils_export.c \
-					shell_heredoc.c \
 					utils_env.c \
 					shell_printlist.c \
 

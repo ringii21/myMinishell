@@ -6,33 +6,11 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 15:11:34 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 20:52:56 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	exec_builtin(t_token *t, t_env *env, bool is_forked)
-{
-	int	ret;
-
-	ret = -1;
-	if (ft_strcmplen("env", t->cmds_av[0]) == 0)
-		ret = ft_env(env);
-	if (ft_strcmplen("exit", t->cmds_av[0]) == 0)
-		ret = ft_exit(t, is_forked);
-	if (ft_strcmplen("pwd", t->cmds_av[0]) == 0)
-		ret = ft_pwd(env);
-	if (ft_strcmplen("cd", t->cmds_av[0]) == 0)
-		ret = ft_cd(t, env, is_forked);
-	if (ft_strcmplen("echo", t->cmds_av[0]) == 0)
-		ret = ft_echo(t);
-	if (ft_strcmplen("export", t->cmds_av[0]) == 0)
-		ret = ft_export(t, env, is_forked);
-	if (ft_strcmplen("unset", t->cmds_av[0]) == 0)
-		ret = ft_unset(t, env, is_forked);
-	return (ret);
-}
 
 int	ft_hold_exec(t_token *t, t_env *env)
 {
@@ -70,6 +48,8 @@ int	assign_jobs(t_token *t, t_env *env, bool builtin)
 	}
 	if (ft_redir(t, env))
 		return (4);
+	if (builtin)
+		return(exec_builtin(t, env, true));
 	t->pid = fork();
 	shut_signals(t->pid);
 	if (t->pid == -1)

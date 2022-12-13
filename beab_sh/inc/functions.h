@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/13 21:18:21 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 21:46:05 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int		ft_export(t_token *t, t_env *env, bool is_forked);
 //		shell_builtins.c
 int		ft_env(t_env *env);
 int		ft_pwd(t_env *env);
+int		is_builtin(char **cmds);
+int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 
 //		shell_exit.c
 int		ft_exit(t_token *t, bool is_forked);
@@ -113,7 +115,7 @@ int		ft_unset(t_token *t, t_env *env, bool is_forked);
 int		ft_exec_unset(char *namevar, t_env *env);
 
 //		utils_builtins.c
-int		is_builtin(char **cmds);
+
 
 //		utils_export.c
 int		ft_check_and_export(char *namevar, char *value, t_env *env,

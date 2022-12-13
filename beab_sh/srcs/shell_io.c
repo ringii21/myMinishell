@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 14:53:34 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:36:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_output(t_token *t)
 	{
 		if (tmp->type == REDIR_OUT)
 		{
-			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_TRUNC, 0666);
+			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (errno == EACCES)
 				return (1);
 		}
