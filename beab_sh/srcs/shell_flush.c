@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 14:49:11 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:27:12 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	free_redir(t_redir *r)
 		tmp = r->next;
 		if (r->file_path)
 			free(r->file_path);
+		if (r->file_name)
+			free(r->file_name);
 		free(r);
 		r = tmp;
 	}
@@ -49,4 +51,4 @@ void	ft_flush(t_token *t)
 		free(t);
 		t = next;
 	}
-}
+} 
