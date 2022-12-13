@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 12:40:12 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:33:34 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ int	which_path(t_main *m, t_token *t)
 	else if (ft_strchr(t->cmds_av[0], '/') != 0)
 		t->path = ft_strdup(t->cmds_av[0]);
 	else
+	{
+		if (get_cont("PATH", m->env) == NULL)
+			return (-1);
 		get_path(t, m);
+	}
 	return (res);
 }
