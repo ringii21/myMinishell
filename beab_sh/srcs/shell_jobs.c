@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 13:33:14 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:03:26 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	exec_builtin(t_token *t, t_env *env, bool is_forked)
 	int	ret;
 
 	ret = -1;
-	if (ft_strcmp("env", t->cmds_av[0]) == 0)
+	if (ft_strcmplen("env", t->cmds_av[0]) == 0)
 		ret = ft_env(env);
-	if (ft_strcmp("exit", t->cmds_av[0]) == 0)
+	if (ft_strcmplen("exit", t->cmds_av[0]) == 0)
 		ret = ft_exit(t, is_forked);
-	if (ft_strcmp("pwd", t->cmds_av[0]) == 0)
+	if (ft_strcmplen("pwd", t->cmds_av[0]) == 0)
 		ret = ft_pwd(env);
-	if (ft_strcmp("cd", t->cmds_av[0]) == 0)
+	if (ft_strcmplen("cd", t->cmds_av[0]) == 0)
 		ret = ft_cd(t, env, is_forked);
-	if (ft_strcmp("echo", t->cmds_av[0]) == 0)
+	if (ft_strcmplen("echo", t->cmds_av[0]) == 0)
 		ret = ft_echo(t);
-	if (ft_strcmp("export", t->cmds_av[0]) == 0)
+	if (ft_strcmplen("export", t->cmds_av[0]) == 0)
 		ret = ft_export(t, env, is_forked);
-	if (ft_strcmp("unset", t->cmds_av[0]) == 0)
+	if (ft_strcmplen("unset", t->cmds_av[0]) == 0)
 		ret = ft_unset(t, env, is_forked);
 	return (ret);
 }
@@ -46,8 +46,8 @@ int	ft_hold_exec(t_token *t, t_env *env)
 		waitpid(t->pid, &status, 0);
 		if (WIFEXITED(status))
 			res = WEXITSTATUS(status);
-		if (t->path != NULL && (ft_strcmp(t->cmds_av[0], "exit") == 0 
-			|| ft_strcmp(t->cmds_av[0], "export") == 0 || (ft_strcmp(t->cmds_av[0], "cd") == 0) 
+		if (t->path != NULL && (ft_strcmplen(t->cmds_av[0], "exit") == 0 
+			|| ft_strcmplen(t->cmds_av[0], "export") == 0 || (ft_strcmplen(t->cmds_av[0], "cd") == 0) 
 				|| (ft_strcmp(t->cmds_av[0], "unset") == 0)))
 					exec_builtin(t, env, false);
 		t = t->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 16:01:44 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 14:04:16 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	fill_redir(t_token *t, char *str, t_type type,
 //		utils.c
 void	split_args(t_token *t, char *str);
 char	*ft_strdupcat(char *s, char *t, int len);
+int		ft_strcmplen(char *s1, char *s2);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::EXECUTION::
 //		shell_jobs.c
