@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 17:38:04 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 11:21:18 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_is_flag(char *flags)
 
 int	ft_exec_echo(t_token *t, bool flag)
 {
-	size_t	i;
+	int	i;
 
 	i = 1;
 	if (flag == true)

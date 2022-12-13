@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 13:38:28 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:23:51 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* void	count_ac(t_token *t)
+ void	count_ac(t_token *t)
 {
 	while (t != NULL)
 	{
@@ -20,7 +20,7 @@
 			t->cmd_ac = ft_tablen(t->cmds_av);
 		t = t->next;
 	}
-} */
+}
 
 void	next_token(t_token **cursor, int is_pipe)
 {
@@ -37,7 +37,6 @@ void	next_token(t_token **cursor, int is_pipe)
 int	quote_manager(t_parse *p, char *str, t_env *env, int u)
 {
 	char	*name;
-
 	if (str[p->i] == '"' || str[p->i] == '\'')
 	{
 		p->is_quote = p->is_quote |= (str[p->i] == '"');
@@ -65,9 +64,8 @@ int	quote_manager(t_parse *p, char *str, t_env *env, int u)
 
 int	fill_token_list(t_parse *p, t_main *m)
 {
-	int	res;
+	int res;
 
-	res = 0;
 	while (m->line[p->i] == ' ')
 	{
 		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
@@ -95,13 +93,17 @@ int	fill_token_list(t_parse *p, t_main *m)
 t_token	*parser(t_main *m)
 {
 	t_parse	p;
+	int		res;
 
 	if (!m->line)
 		return (NULL);
 	p = init_parser();
-	while (m->line[p.i])
+	while(m->line[p.i])
 	{
-		if (fill_token_list(&p, m) > 1)
+		res = fill_token_list(&p, m);
+		if (res == 1)
+			continue;
+		if (res > 1 )
 			return (NULL);
 		if (m->line[p.i])
 			p.read = ft_strdupcat(p.read, m->line + p.i++, 1);
@@ -109,6 +111,6 @@ t_token	*parser(t_main *m)
 	fill_args(&p.read, &p.type, p.cursor, &p.is_quote);
 	if (p.cursor->cmds_av == NULL && p.cursor->file == NULL)
 		return (NULL);
-	//count_ac(p.list);
+	count_ac(p.list);
 	return (p.list);
 }

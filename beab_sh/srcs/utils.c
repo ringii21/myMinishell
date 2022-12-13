@@ -6,7 +6,7 @@
 /*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 14:06:25 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/10 19:22:41 by ringii           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,8 @@ void	split_args(t_token *t, char *str)
 	char	**tab;
 
 	i = 0;
-	j = 0;
-
 	while (t->cmds_av && t->cmds_av[i])
-	{	
-		if (t->cmds_av[i][j] == ' ')
-			t->cmds_av[i] = ft_strtrim(t->cmds_av[i], " ");
 		i++;
-	}
 	j = 0;
 	tab = xmalloc(sizeof(char *) * ((unsigned long)i + 2));
 	if (tab == NULL)
@@ -49,7 +43,6 @@ void	split_args(t_token *t, char *str)
 	while (j < i)
 	{
 		tab[j] = t->cmds_av[j];
-		printf("tab[j] = %s\n", tab[j]);
 		j++;
 	}
 	tab[j++] = str;

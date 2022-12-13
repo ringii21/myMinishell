@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 15:58:08 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:24:49 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ void	minishell(t_main *m)
 	while (1)
 	{
 		m->line = readline(ft_strjoin(getcwd(prompt, 4096), "$ "));
-		if (m->line)
+		if (m->line && m->line[0] != '\0')
 		{
 			m->t = parser(m);
-			print_tokens(m->t);
+			//print_tokens(m->t);
 			job(m);
 			ft_flush(m->t);
 		}
 		add_history(m->line);
 		free(m->line);
-//		free(prompt);
+		free(prompt);
+		m->t = NULL;
 	}
 }
 

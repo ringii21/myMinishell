@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 13:53:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 12:31:56 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	ft_hold_exec(t_token *t, t_env *env)
 		waitpid(t->pid, &status, 0);
 		if (WIFEXITED(status))
 			res = WEXITSTATUS(status);
-		if (ft_strcmp(t->cmds_av[0], "exit") == 0 || ft_strcmp(t->cmds_av[0], "cd") == 0)// && t->path[0] == '\0')
-			exec_builtin(t, env, false); 
-		else if (ft_strcmp(t->cmds_av[0], "export") == 0 || ft_strcmp(t->cmds_av[0], "unset") == 0)
-			exec_builtin(t, env, false);
+		if (t->path != NULL && (ft_strcmp(t->cmds_av[0], "exit") == 0 
+			|| ft_strcmp(t->cmds_av[0], "export") == 0 || (ft_strcmp(t->cmds_av[0], "cd") == 0) 
+				|| (ft_strcmp(t->cmds_av[0], "unset") == 0)))
+					exec_builtin(t, env, false);
 		t = t->next;
 	}
 	set_signals();

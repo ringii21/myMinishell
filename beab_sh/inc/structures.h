@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 09:48:55 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 12:28:02 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_type
 typedef struct s_redir
 {
 	char				*path;
+	char				*filename;
 	enum e_type			type;
 	int					fd;
 	int					fd_pipe[2];
@@ -50,7 +51,7 @@ typedef struct s_redir
 typedef struct s_token
 {	
 	pid_t			pid;
-	size_t			cmd_ac;
+	int				cmd_ac;
 	bool			is_pipe;
 	int				is_pipe_open;
 	int				pipe_fd[2];
