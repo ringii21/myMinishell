@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 16:55:36 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 18:15:24 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	child_process(t_token *t, t_env *env, bool builtin)
 	if (t->is_pipe)
 		close(t->pipe_fd[0]);
 	paths =  ft_env_to_tab(env);
-	if (execve(t->cmds_av[0], t->cmds_av, paths) == -1)
+	if (execve(t->cmds_av[0], t->cmds_av, paths) < 0)
 	{
  		if (errno == 13)
 			return (-1);
