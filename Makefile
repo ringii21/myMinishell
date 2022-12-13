@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ringii <ringii@student.42.fr>              +#+  +:+       +#+         #
+#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/13 11:23:31 by ringii           ###   ########.fr        #
+#    Updated: 2022/12/13 13:46:10 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRCS			:=	main.c \
 					utils_export.c \
 					shell_heredoc.c \
 					utils_env.c \
-				#	shell_printlist.c \
+					shell_printlist.c \
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 

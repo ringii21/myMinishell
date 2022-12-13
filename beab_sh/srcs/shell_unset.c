@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/13 11:24:01 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:48:38 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	ft_exec_unset(char *namevar, t_env *env)
 
 int	ft_unset(t_token *t, t_env *env, bool is_forked)
 {
-	int	i;
-	int	res;
+	size_t	i;
+	int		res;
 
 	i = 1;
 	if (t->cmd_ac >= 2)

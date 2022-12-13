@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 12:28:02 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:47:21 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_redir
 typedef struct s_token
 {	
 	pid_t			pid;
-	int				cmd_ac;
+	size_t			cmd_ac;
 	bool			is_pipe;
 	int				is_pipe_open;
 	int				pipe_fd[2];

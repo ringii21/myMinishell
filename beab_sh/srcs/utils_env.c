@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 19:10:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/08 20:46:55 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:39:21 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**ft_env_to_tab(t_env *env)
 	i = 0;
 	tmp = env;
 	len = ft_envlen(tmp);
-	tab = xmalloc(sizeof(char *) * (unsigned long)len + 1);
+	tab = ft_calloc((unsigned long)len + 1, sizeof(char *));
 	while (tmp)
 	{
 		tab[i] = ft_strdup(tmp->total);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/13 11:20:38 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:48:12 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_export_var(t_token *t, t_env *env, bool is_forked)
 {
 	char	*namevar;
 	char	*value;
-	int		i;
+	size_t	i;
 	int		j;
 
 	i = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 11:49:35 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:46:53 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char			**multi_split(char const *s, char *charset);
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcpy(char *dest, char *src, size_t destsize);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
-int				ft_tablen(char **tab);
+size_t			ft_tablen(char **tab);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::SIMPLE LINKED LISTS::
 void			ft_lstadd_front(t_list **alst, t_list *new);
