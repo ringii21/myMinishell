@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 20:25:46 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/10 16:01:21 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 15:17:13 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	ft_cntl_slsh(int sig)
 	(void)sig;
 	rl_on_new_line();
 	rl_redisplay();
-	ft_putstr_fd("  \b\b", 0);
+	ft_putstr_fd("  \b\b", STDIN_FILENO);
 }
 
 void	ft_sig_ghost(int sig)
 {
 	(void)sig;
 	if (sig == SIGINT)
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
 int	shut_signals(int fork)

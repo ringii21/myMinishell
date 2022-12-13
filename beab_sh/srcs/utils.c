@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 14:07:58 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:00:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	split_args(t_token *t, char *str)
 	while (t->cmds_av && t->cmds_av[i])
 		i++;
 	j = 0;
-	tab = xmalloc(sizeof(char *) * ((unsigned long)i + 2));
+	tab = malloc(sizeof(char *) * ((unsigned long)i + 2));
 	if (tab == NULL)
 		return ;
 	while (j < i)
@@ -58,7 +58,7 @@ char	*ft_strdupcat(char *s, char *t, int len)
 	int		j;
 	char	*n;
 
-	n = xmalloc(ft_strlen(s) + (size_t)len + 2);
+	n = malloc(ft_strlen(s) + (size_t)len + 2);
 	if (n == NULL)
 		return (NULL);
 	i = 0;

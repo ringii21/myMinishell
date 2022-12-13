@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/09 14:03:25 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:03:32 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*pull_varname(char *str, int *cursor)
 	int		i;
 	char	*read;
 
-	read = xmalloc(1);
+	read = malloc(1);
 	if (read == NULL)
 		return (NULL);
 	read[0] = 0;
@@ -103,7 +103,7 @@ char	*make_token(char *str, int *cursor, char c, t_env *env)
 	char	*token;
 
 	i = 1;
-	token = xmalloc(1);
+	token = malloc(1);
 	if (token == NULL)
 		return (NULL);
 	token[0] = 0;

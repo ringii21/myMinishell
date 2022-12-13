@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/13 13:54:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:50:48 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	heredoc(t_token *t, t_env *env)
 
 	doc = NULL;
 	char *tmp = ft_strjoin(ft_path_finder(t, env, 0), "/anais.txt");
-	t->file->filename = tmp;
+	t->file->file_name = tmp;
 	fd = open(tmp, O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
 	if (fd < 0)
 		return (-1);
@@ -57,7 +57,7 @@ int	heredoc(t_token *t, t_env *env)
 	{
 		write(1, "heredoc >", 10);
 		get_next_line(0, &line);
-		if (ft_strcmp(line, t->file->path) == 0)
+		if (ft_strcmp(line, t->file->file_path) == 0)
 		{
 			ft_strjoin(doc, "\n");
 			write(fd, doc, ft_strlen(doc));

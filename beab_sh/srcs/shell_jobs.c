@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 14:03:26 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:11:34 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_hold_exec(t_token *t, t_env *env)
 		waitpid(t->pid, &status, 0);
 		if (WIFEXITED(status))
 			res = WEXITSTATUS(status);
-		if (t->path != NULL && (ft_strcmplen(t->cmds_av[0], "exit") == 0 
+		if (t->bin_path != NULL && (ft_strcmplen(t->cmds_av[0], "exit") == 0 
 			|| ft_strcmplen(t->cmds_av[0], "export") == 0 || (ft_strcmplen(t->cmds_av[0], "cd") == 0) 
 				|| (ft_strcmp(t->cmds_av[0], "unset") == 0)))
 					exec_builtin(t, env, false);
@@ -94,8 +94,8 @@ int	job(t_main *m)
 			return (-1); // gere les erreurs
 		else
 		{
-			res = assign_jobs(m->t, m->env, m->t->path
-					&& m->t->path[0] == '\0');
+			res = assign_jobs(m->t, m->env, m->t->bin_path
+					&& m->t->bin_path[0] == '\0');
 		}
 		m->t = m->t->next;
 	}

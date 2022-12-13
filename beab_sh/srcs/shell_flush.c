@@ -6,31 +6,31 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 09:32:17 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:49:11 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_free_nodes(t_token *t)
+void	free_redir(t_redir *r)
 {
 	t_redir	*tmp;
 
-	if (t->av_copy)
-		free(t->av_copy);
-	t->av_copy = NULL;
-	if (t->path)
-		free(t->path);
-	t->path = NULL;
-	ft_free_stab(t->cmds_av);
-	while (t->file)
+	while (r)
 	{
-		tmp = t->file->next;
-		if (t->file->path)
-			free(t->file->path);
-		free(t->file);
-		t->file = tmp;
+		tmp = r->next;
+		if (r->file_path)
+			free(r->file_path);
+		free(r);
+		r = tmp;
 	}
+}
+
+void	free_token(t_token *t)
+{
+	if (t->bin_path)
+		free(t->bin_path);
+	ft_free_stab(t->cmds_av);
 }
 
 void	ft_flush(t_token *t)
@@ -42,7 +42,9 @@ void	ft_flush(t_token *t)
 	while (t)
 	{
 		next = t->next;
-		ft_free_nodes(t);
+		free_token(t);
+		if (t->file)
+			free_redir(t->file);
 		t->cmd_ac = 0;
 		free(t);
 		t = next;

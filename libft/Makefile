@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ringii <ringii@student.42.fr>              +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/10 19:09:20 by ringii           ###   ########.fr        #
+#    Updated: 2022/12/13 15:00:15 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,8 +90,7 @@ SRCS	:= 	ft_allocate_tab.c \
 			ft_substr.c \
 			ft_tablen.c \
 			ft_tolower.c \
-			ft_toupper.c \
-			ft_xmalloc.c
+			ft_toupper.c 
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 

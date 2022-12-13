@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:01:20 by seozcan           #+#    #+#             */
-/*   Updated: 2021/11/27 16:04:35 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:08:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*ft_lstnew(void *content)
 
 	new_elem = (t_list *)malloc(sizeof(t_list));
 	if (!new_elem)
-		return (0);
+		return (NULL);
 	new_elem->content = content;
 	new_elem->next = NULL;
 	return (new_elem);

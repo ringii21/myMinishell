@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:19:54 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:30:45 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:09:17 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void	ft_splitcat(char **dest, char const *str, char *charset)
 			while (!ft_scan(str[i + j], charset))
 				j++;
 			dest[tabs] = malloc(sizeof(char) * (j + 1));
+			if (!dest[tabs])
+				return ;
 			dest[tabs] = ft_substr(str, i, j);
 			i = i + j;
 			tabs++;
@@ -75,7 +77,7 @@ char	**multi_split(char const *s, char *charset)
 	char		**dest;
 
 	wcount = ft_word_count(s, charset);
-	dest = (char **)xmalloc(sizeof(char *) * (wcount + 1));
+	dest = (char **)malloc(sizeof(char *) * (wcount + 1));
 	if (dest == NULL)
 		return (NULL);
 	dest[wcount] = 0;

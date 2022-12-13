@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 15:27:28 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:04:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 //			printf, filedes, readline, perror
 # include <stdio.h>
 
-//			xmalloc, free, exit, getenv
+//			malloc, free, exit, getenv
 # include <stdlib.h>
 
 //			strerror

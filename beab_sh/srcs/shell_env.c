@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/12 22:20:36 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:04:04 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ t_env	*ft_add_new(char *varname, char *value)
 {
 	t_env	*new;
 
-	new = xmalloc(sizeof(t_env) * 1);
+	new = ft_calloc(1, sizeof(t_env));
+	if (!new)
+		return (NULL);
 	new->var = ft_strdup(varname);
 	new->cont = ft_strdup(value);
 	new->total = ft_strjoin(varname, "=");

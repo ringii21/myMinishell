@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 22:25:59 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 15:16:00 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_path_finder(t_token *t, t_env *env, bool is_forked)
 	{
 		path = get_cont("HOME", env);
 		if (path == NULL && is_forked)
-			ft_putstr_fd("HOME not set\n", 2);
+			ft_putstr_fd("HOME not set\n", STDERR_FILENO);
 	}
 	else
 	{
@@ -28,7 +28,7 @@ char	*ft_path_finder(t_token *t, t_env *env, bool is_forked)
 		{
 			path = get_cont("OLDPWD", env);
 			if (path == NULL && is_forked)
-				ft_putstr_fd("OLDPWD not set\n", 2);
+				ft_putstr_fd("OLDPWD not set\n", STDERR_FILENO);
 			else if (is_forked)
 				printf("%s\n", path);
 		}
@@ -44,21 +44,21 @@ void	ft_cd_fail(char *path, int ret, bool is_forked)
 		return ;
 	if (ret == ENOTDIR)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": Not a directory\n", 2);
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": Not a directory\n", STDERR_FILENO);
 	}
 	else if (ret == ENOENT)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 	}
 	else if (ret == EACCES)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": Permission denied\n", 2);
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 	}
 }
 

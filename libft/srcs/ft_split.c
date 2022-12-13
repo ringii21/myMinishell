@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:23:41 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 20:55:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:09:40 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	**ft_strs(char const *s, char c)
 	}
 	dest = malloc(sizeof(char *) * (j + 1));
 	if (!dest)
-		return (0);
+		return (NULL);
 	dest[j] = 0;
 	return (dest);
 }

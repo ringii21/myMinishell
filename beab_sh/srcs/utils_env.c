@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 19:10:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/12 22:20:05 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:00:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ char	**ft_env_to_tab(t_env *env)
 	i = 0;
 	tmp = env;
 	len = ft_envlen(tmp);
-	tab = xmalloc(sizeof(char *) * (unsigned long)len + 1);
+	tab = malloc(sizeof(char *) * (unsigned long)len + 1);
+	if (!tab)
+		return (NULL);
 	while (tmp)
 	{
 		tab[i] = ft_strdup(tmp->total);

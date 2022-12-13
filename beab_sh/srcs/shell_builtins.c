@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/08 17:37:59 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:55:03 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_pwd(t_env *env)
 	path = get_cont("PWD", env);
 	if (path == NULL)
 	{
-		ft_putstr_fd("variable not found\n", 2);
+		ft_putstr_fd("minishell: pwd: variable not found\n", STDERR_FILENO);
 		return (1);
 	}
 	printf("%s\n", path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 13:33:34 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:16:57 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void	get_path(t_token *t, t_main *m)
 	char	**sep_path;
 
 	bin = NULL;
-	t->path = ft_strdup(get_cont("PATH", m->env));
-	if (t->path == NULL)
+	t->bin_path = ft_strdup(get_cont("PATH", m->env));
+	if (t->bin_path == NULL)
 		return ;
 	if (t->cmds_av[0][0] != '/' && ft_strncmp(t->cmds_av[0], "./", 2) != 0)
 	{
-		sep_path = ft_split(t->path, ':');
+		sep_path = ft_split(t->bin_path, ':');
 		bin = get_binpath(m, bin, sep_path);
 		if (bin == NULL)
 		{
-			ft_putstr_fd("command not found\n", 2);
+			ft_putstr_fd("command not found\n", STDERR_FILENO);
 			return ;
 		}
 		free(t->cmds_av[0]);
@@ -52,7 +52,7 @@ void	get_path(t_token *t, t_main *m)
 		ft_free_stab(sep_path);
 	}
 	else
-		free(m->t->path);
+		free(m->t->bin_path);
 }
 
 int	which_path(t_main *m, t_token *t)
@@ -63,9 +63,9 @@ int	which_path(t_main *m, t_token *t)
 	if (t->cmds_av == NULL)
 		return (0);
 	if (is_builtin(t->cmds_av) == 1)
-		t->path = ft_strdup("\0");
+		t->bin_path = ft_strdup("\0");
 	else if (ft_strchr(t->cmds_av[0], '/') != 0)
-		t->path = ft_strdup(t->cmds_av[0]);
+		t->bin_path = ft_strdup(t->cmds_av[0]);
 	else
 	{
 		if (get_cont("PATH", m->env) == NULL)

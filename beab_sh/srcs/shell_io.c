@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ringii <ringii@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/10 14:13:27 by ringii           ###   ########.fr       */
+/*   Updated: 2022/12/13 14:53:34 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_input(t_token *t, t_env *env)
 	{
 		if (tmp->type == REDIR_IN)
 		{
-			tmp->fd = open(tmp->path, O_RDONLY);
+			tmp->fd = open(tmp->file_path, O_RDONLY);
 			if (errno == EACCES)
 				return (1); // Permission denied
 			else if (tmp->fd < 0)
@@ -60,13 +60,13 @@ int	ft_output(t_token *t)
 	{
 		if (tmp->type == REDIR_OUT)
 		{
-			tmp->fd = open(tmp->path, O_RDWR | O_CREAT | O_TRUNC, 0666);
+			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_TRUNC, 0666);
 			if (errno == EACCES)
 				return (1);
 		}
 		else if (tmp->type == R_REDIR_OUT)
 		{
-			tmp->fd = open(tmp->path, O_RDWR | O_CREAT | O_APPEND, 0644);
+			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_APPEND, 0644);
 			if (errno == EACCES)
 				return (1);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 13:46:53 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:00:03 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void			*ft_calloc(size_t count, size_t size);
 void			free_tab(int **tab, int size);
 void			ft_free_stab(char **str);
 void			ft_error(char *s);
-void			*xmalloc(size_t size);
 void			print_stab(char **stab);
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);

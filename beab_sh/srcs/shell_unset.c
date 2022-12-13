@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/13 13:48:38 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:12:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_delete_first_elmt(t_env *env)
 		env->total = ft_strdup("");
 		if (env->var == NULL || env->cont == NULL || env->total == NULL)
 		{
-			ft_putstr_fd("xmalloc failed\n", 2);
+			ft_putstr_fd("malloc failed\n", STDERR_FILENO);
 			return (1);
 		}
 	}
@@ -54,7 +54,7 @@ int	ft_exec_unset(char *namevar, t_env *env)
 	tmp = NULL;
 	if (env == NULL)
 	{
-		ft_putstr_fd("environement is empty\n", 2);
+		ft_putstr_fd("environement is empty\n", STDERR_FILENO);
 		return (1);
 	}
 	if (ft_strcmp(namevar, prev->var) == 0)
@@ -97,7 +97,7 @@ int	ft_unset(t_token *t, t_env *env, bool is_forked)
 	else
 	{
 		if (is_forked)
-			ft_putstr_fd("unset: Not enough arguments.\n", 2);
+			ft_putstr_fd("unset: Not enough arguments.\n", STDERR_FILENO);
 		res = 1;
 	}
 	return (res);
