@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:31:44 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:40:23 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,41 +52,6 @@ void	minishell(t_main *m)
 		m->t = NULL;
 	}
 	rl_clear_history(); 
-	
-/* 	char *prompt = NULL;
-	char *cwd = NULL;
-
-	while (1)
-	{
-		cwd = getcwd(NULL, 4096);
-		//write(1, "$", 1);
-		prompt = ft_strjoin(cwd, "$ ");
-		free(cwd);
-		m->line = readline(prompt);
-		m->line = ft_strtrim(m->line, " \f\t\n\r\v");
-		if (!m->line)
-		{
-			ft_putstr_fd("exit\n", STDERR_FILENO);
-			break ;
-		}
-		if (m->line && m->line[0] != '\0')
-		{
-			m->t = parser(m);
-			if (m->t == NULL && m->t->is_error == false)
-				exit(1);
-			//ft_fill_ac(m->t);
-			job(m);
-			if (m->t->is_error == true)
-				free(m->t);
-			else
-				ft_flush(m->t);
-		}
-		add_history(m->line);
-		free(m->line);
-		m->line = NULL;
-		free(prompt);
-		m->t = NULL;
-	} */
 }
 
 int	main(int ac, char **av, char **envp)
