@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 15:43:10 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 18:19:59 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	get_path(t_token *t, t_main *m)
 		bin = get_binpath(m, bin, sep_path);
 		if (bin == NULL)
 		{
-			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(t->cmds_av[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
 			// Status code ici
