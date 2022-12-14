@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/14 21:15:17 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:29:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	ft_create_o_replace(char *namevar, char *value, t_env *env)
 			free(tmp->total);
 			data = ft_strjoin("=", value);
 			tmp->total = ft_strjoin(namevar, data);
-//			free(value);
 			free(data);
 			if (tmp->cont == NULL || tmp->total == NULL)
 				return (1);

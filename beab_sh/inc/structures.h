@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:54:10 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:39:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_token
 	int				is_pipe_open;
 	int				pipe_fd[2];
 	char			**cmds_av;
-	char			*av_copy;
 	char			*bin_path;
 	t_redir			*file;
 	struct s_token	*next;

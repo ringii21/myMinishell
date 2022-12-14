@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:51:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:28:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_check_line(t_main *m)
 		m->t = parser(m);
 		if (m->t == NULL && m->t->is_error == false)
 			exit(1);
-//		print_tokens(m->t);
 		if (m->t)
 			job(m);
 		if (m->t->is_error == true)
@@ -45,7 +44,7 @@ void	minishell(t_main *m)
 		m->line = ft_strtrim(m->line, " \f\t\n\r\v");
 		if (!m->line)
 		{
-			ft_putstr_fd("exit\n", STDERR_FILENO);
+			ft_putstr_fd(EXIT_MSG, STDERR_FILENO);
 			break ;
 		}
 		ft_check_line(m);
@@ -66,9 +65,8 @@ int	main(int ac, char **av, char **envp)
 	m = (t_main){0};
 	if (ac != 1)
 	{	
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		av[1] = ft_strjoin(av[1], ": arguments not allowed.\n");
-		ft_putstr_fd(av[1], STDERR_FILENO);
+		errno = E2BIG;
+		ft_error_msg(av[1]);
 		return (0);
 	}
 	if (set_signals() == 1 || set_sig() == 1)

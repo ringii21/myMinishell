@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 23:18:15 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:58:49 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int	get_path(t_token *t, t_main *m)
 		bin = get_binpath(m, bin, sep_path);
 		if (bin == NULL)
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(t->cmds_av[0], 2);
-			ft_putstr_fd(": command not found\n", 2);
-			g_status = 127;
-			return (127);
+			ft_error_msg(t->cmds_av[0]);
+			// Status code ici
+			return ;
 		}
 		free(t->bin_path);
 		t->bin_path = bin;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 23:08:57 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:58:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	return_error_no_file(t_redir *file)
 {
-	ft_putstr_fd("Minishell: ", 2);
-	ft_putstr_fd(file->file_path, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_putstr_fd(MINI_MSG, STDERR_FILENO);
+	ft_putstr_fd(file->file_path, STDERR_FILENO);
+	ft_putstr_fd(ERR_FILE, STDERR_FILENO);
 	close(file->fd);
 	g_status = 127;
 	return (1);
@@ -24,10 +24,10 @@ int	return_error_no_file(t_redir *file)
 
 int	return_error_access_denied(t_redir *file)
 {
-	ft_putstr_fd("Minishell: ", 2);
-	ft_putstr_fd(file->file_path, 2);
-	ft_putstr_fd(": Permission denied\n", 2);
-	g_status = 126;
+	ft_putstr_fd(MINI_MSG, STDERR_FILENO);
+	ft_putstr_fd(file->file_path, STDERR_FILENO);
+	ft_putstr_fd(": permission denied.\n", 2);
+	g_status = 1;
 	return (1);
 }
 
@@ -63,7 +63,6 @@ int	ft_input(t_token *t, t_env *env)
 		else if (tmp->type == R_REDIR_IN)
 		{
 			heredoc(t, env);
-			printf("Valeur de g_status: %d\n", g_status);
 			if (g_status >= 128)
 				return (1);
 			return (0);

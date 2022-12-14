@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/14 22:43:48 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:17:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_heredoc_loop(t_token *t, int fd)
 	set_signal_heredoc(&interrupt_heredoc, SIGQUIT);
 	while (1)
 	{
-		write(1, "heredoc > ", 10);
+		write(1, "heredoc> ", 10);
 		get_next_line(0, &line);
 		if (strcmp(line, t->file->file_path) == 0)
 		{
@@ -68,14 +68,15 @@ int	heredoc(t_token *t, t_env *env)
 	pid_t	pid;
 	int		fd;
 
-	t->file->file_name = ft_strjoin(ft_path_finder(t, env, 0), "/.heredoc.txt");
-	fd = open(t->file->file_name, O_CREAT | O_TRUNC | O_RDONLY | O_WRONLY, 0644);
+	t->file->file_name = ft_strjoin(ft_path_finder(t, env, 0), HERE_DOC);
+	fd = open(t->file->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd < 0)
 		return (-1);
 	pid = fork();
 	if (pid == -1)
 	{
-		ft_putstr_fd("Minishell: Failed to fork processus\n", 2);
+		errno = ECHILD;
+		ft_error_msg(t->cmds_av[0]);
 		return (-1);
 	}
 	else if (pid == 0)
