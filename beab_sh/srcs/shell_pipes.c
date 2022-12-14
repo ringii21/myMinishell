@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 22:48:35 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 23:00:56 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	child_process(t_token *t, t_env *env, bool builtin)
 	env_tab = ft_env_to_tab(env);
 	if (execve(t->bin_path, t->cmds_av, env_tab) == -1)
 	{
-//		ft_error_msg(t->cmds_av[0]);
 		ft_free_stab(env_tab);
 		if (errno == 13)
 			return (-1);
