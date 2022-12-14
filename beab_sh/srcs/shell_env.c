@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/14 16:09:17 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:47:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,22 @@ int	ft_add_env(char *namevar, char *value, t_env *env)
 int	ft_create_o_replace(char *namevar, char *value, t_env *env)
 {
 	t_env	*tmp;
+	char	*data;
 
 	tmp = env;
+	data = NULL;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->var, namevar) == 0)
 		{
 			free(tmp->cont);
 			tmp->cont = ft_strdup(value);
-			if (tmp->cont == NULL)
+			free(tmp->total);
+			data = ft_strjoin("=", value);
+			tmp->total = ft_strjoin(namevar, data);
+			free(value);
+			free(data);
+			if (tmp->cont == NULL || tmp->total == NULL)
 				return (1);
 			return (0);
 		}
