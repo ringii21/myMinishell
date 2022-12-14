@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:55:19 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 21:52:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 23:25:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define ERR_FORK		": failed to fork processus.\n"
 # define ERR_FILE		": no such file or directory.\n"
 # define ERR_PERM		": permission denied.\n"
+# define ERR_CMD		": command not found\n"
+
 //			exit
 # define EXIT_MSG		"exit\n"
 
