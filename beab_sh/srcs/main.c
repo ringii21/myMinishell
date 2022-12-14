@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:43:34 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:36:40 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,15 @@ void	ft_check_line(t_main *m)
 
 void	minishell(t_main *m)
 {	
-	char *prompt;
 	char *cwd;
 
-	prompt = NULL;
 	cwd = NULL;
-	 while (1)
+	while (1)
 	{
-		cwd = getcwd(NULL, 4096);
-		prompt = ft_strjoin(cwd, "$ ");
+		cwd = getcwd(NULL, 0);
+		m->prompt = ft_strjoin(cwd, "$ ");
 		free(cwd);
-		m->line = readline(prompt);
+		m->line = readline(m->prompt);
 		m->line = ft_strtrim(m->line, " \f\t\n\r\v");
 		if (!m->line)
 		{
@@ -54,7 +52,7 @@ void	minishell(t_main *m)
 		add_history(m->line);
 		free(m->line);
 		m->line = NULL;
-		free(prompt);
+		free(m->prompt);
 		m->t = NULL;
 	}
 	rl_clear_history(); 
@@ -76,7 +74,7 @@ int	main(int ac, char **av, char **envp)
 	if (set_signals() == 1 || set_sig() == 1)
 		return (1);
 	m.env = put_env(envp);
-	//shlvl_up(&m);
+	shlvl_up(&m);
 	minishell(&m);
 	free_env(m.env);
 	return (0);

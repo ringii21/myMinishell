@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 19:10:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/14 15:53:41 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:36:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_env	*fill_env(char *is_env)
 	tab = NULL;
 	new = ft_calloc(1, sizeof(t_env));
 	new->next = NULL;
-	new->total = is_env;
+	new->total = ft_strdup(is_env);
 	tab = NULL;
 	tab = ft_split(new->total, '=');
 	new->var = ft_strdup(tab[0]);
