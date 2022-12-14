@@ -6,12 +6,30 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:40:23 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:43:34 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
 int g_status;
+
+void	ft_check_line(t_main *m)
+{
+	if (m->line && m->line[0] != '\0')
+	{
+		m->t = parser(m);
+		if (m->t == NULL && m->t->is_error == false)
+			exit(1);
+//		print_tokens(m->t);
+		if (m->t)
+			job(m);
+		if (m->t->is_error == true)
+			free(m->t);
+		else
+			ft_flush(m->t);
+	}	
+}
 
 void	minishell(t_main *m)
 {	
@@ -32,19 +50,7 @@ void	minishell(t_main *m)
 			ft_putstr_fd("exit\n", STDERR_FILENO);
 			break ;
 		}
-		if (m->line && m->line[0] != '\0')
-		{
-			m->t = parser(m);
-			if (m->t == NULL && m->t->is_error == false)
-				exit(1);
-//			print_tokens(m->t);
-			if (m->t)
-				job(m);
-			if (m->t->is_error == true)
-				free(m->t);
-			else
-				ft_flush(m->t);
-		}
+		ft_check_line(m);
 		add_history(m->line);
 		free(m->line);
 		m->line = NULL;
