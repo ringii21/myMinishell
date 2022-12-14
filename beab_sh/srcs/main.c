@@ -3,21 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 19:10:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:31:44 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+int g_status;
 
 void	minishell(t_main *m)
 {	
-	while (1)
+	char *prompt;
+	char *cwd;
+
+	prompt = NULL;
+	cwd = NULL;
+	 while (1)
 	{
-		m->line = 0;
-		m->line = readline(ft_strjoin(getcwd(NULL, 0), "$ "));
+		cwd = getcwd(NULL, 4096);
+		prompt = ft_strjoin(cwd, "$ ");
+		free(cwd);
+		m->line = readline(prompt);
+		m->line = ft_strtrim(m->line, " \f\t\n\r\v");
 		if (!m->line)
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
@@ -26,21 +35,65 @@ void	minishell(t_main *m)
 		if (m->line && m->line[0] != '\0')
 		{
 			m->t = parser(m);
+			if (m->t == NULL && m->t->is_error == false)
+				exit(1);
 //			print_tokens(m->t);
 			if (m->t)
 				job(m);
-			ft_flush(m->t);
-			add_history(m->line);
-			free(m->line);
+			if (m->t->is_error == true)
+				free(m->t);
+			else
+				ft_flush(m->t);
 		}
+		add_history(m->line);
+		free(m->line);
+		m->line = NULL;
+		free(prompt);
+		m->t = NULL;
 	}
-	rl_clear_history();
+	rl_clear_history(); 
+	
+/* 	char *prompt = NULL;
+	char *cwd = NULL;
+
+	while (1)
+	{
+		cwd = getcwd(NULL, 4096);
+		//write(1, "$", 1);
+		prompt = ft_strjoin(cwd, "$ ");
+		free(cwd);
+		m->line = readline(prompt);
+		m->line = ft_strtrim(m->line, " \f\t\n\r\v");
+		if (!m->line)
+		{
+			ft_putstr_fd("exit\n", STDERR_FILENO);
+			break ;
+		}
+		if (m->line && m->line[0] != '\0')
+		{
+			m->t = parser(m);
+			if (m->t == NULL && m->t->is_error == false)
+				exit(1);
+			//ft_fill_ac(m->t);
+			job(m);
+			if (m->t->is_error == true)
+				free(m->t);
+			else
+				ft_flush(m->t);
+		}
+		add_history(m->line);
+		free(m->line);
+		m->line = NULL;
+		free(prompt);
+		m->t = NULL;
+	} */
 }
 
 int	main(int ac, char **av, char **envp)
 {	
 	t_main	m;
 
+	g_status = 0;
 	m = (t_main){0};
 	if (ac != 1)
 	{	
@@ -52,7 +105,7 @@ int	main(int ac, char **av, char **envp)
 	if (set_signals() == 1 || set_sig() == 1)
 		return (1);
 	m.env = put_env(envp);
-	shlvl_up(&m);
+	//shlvl_up(&m);
 	minishell(&m);
 	free_env(m.env);
 	return (0);

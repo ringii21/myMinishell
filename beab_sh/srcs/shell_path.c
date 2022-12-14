@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 21:37:30 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:43:10 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	*get_binpath(t_main *m, char *bin, char **sep)
 
 void	get_path(t_token *t, t_main *m)
 {
-	char	*bin;
-	char	**sep_path;
+	char *bin;
+	char **sep_path;
 
 	bin = NULL;
 	t->bin_path = ft_strdup(get_cont("PATH", m->env));
@@ -44,7 +44,10 @@ void	get_path(t_token *t, t_main *m)
 		bin = get_binpath(m, bin, sep_path);
 		if (bin == NULL)
 		{
-			ft_putstr_fd("command not found\n", STDERR_FILENO);
+			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd(t->cmds_av[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+			// Status code ici
 			return ;
 		}
 		free(t->cmds_av[0]);
@@ -67,10 +70,6 @@ int	which_path(t_main *m, t_token *t)
 	else if (ft_strchr(t->cmds_av[0], '/') != 0)
 		t->bin_path = ft_strdup(t->cmds_av[0]);
 	else
-	{
-		if (get_cont("PATH", m->env) == NULL)
-			return (-1);
 		get_path(t, m);
-	}
 	return (res);
 }

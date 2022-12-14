@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 22:12:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:44:32 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,16 @@ int	child_process(t_token *t, t_env *env, bool builtin)
 		exit(EXIT_FAILURE);
 	if (builtin)
 		exit(exec_builtin(t, env, true));
-	if (!t->cmds_av[0])
+	if (t->cmds_av == NULL || t->cmds_av[0] == NULL)
+	{
+		t->is_error = true;
 		exit(EXIT_FAILURE);
+	}
 	if (t->is_pipe)
 		close(t->pipe_fd[0]);
-	if (execve(t->cmds_av[0], t->cmds_av, ft_env_to_tab(env)) < 0)
+	if (execve(t->cmds_av[0], t->cmds_av, ft_env_to_tab(env)) == -1)
 	{
- 		if (errno == 13)
+		if (errno == 13)
 			return (-1);
 	}
 	exit(EXIT_FAILURE);

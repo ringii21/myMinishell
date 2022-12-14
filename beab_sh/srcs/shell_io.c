@@ -6,11 +6,30 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 23:29:05 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 14:43:59 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	return_error_no_file(t_redir *file)
+{
+	ft_putstr_fd("Minishell: ", 2);
+	ft_putstr_fd(file->file_path, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	close(file->fd);
+	//Status code 1
+	return (1);
+}
+
+int	return_error_access_denied(t_redir *file)
+{
+	ft_putstr_fd("Minishell: ", 2);
+	ft_putstr_fd(file->file_path, 2);
+	ft_putstr_fd(": Permission denied\n", 2);
+	// Status code 1
+	return (1);
+}
 
 void	ft_close_fd(t_token *t)
 {
@@ -28,6 +47,7 @@ void	ft_close_fd(t_token *t)
 int	ft_input(t_token *t, t_env *env)
 {
 	t_redir	*tmp;
+	(void)env;
 
 	tmp = t->file;
 	while (tmp)
@@ -36,13 +56,16 @@ int	ft_input(t_token *t, t_env *env)
 		{
 			tmp->fd = open(tmp->file_path, O_RDONLY);
 			if (errno == EACCES)
-				return (1); // Permission denied
+				return (return_error_access_denied(tmp)); // Permission denied
 			else if (tmp->fd < 0)
-				return (1); // No such file or directory
+				return (return_error_no_file(tmp)); // No such file or directory
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
 			heredoc(t, env);
+			printf("Valeur de g_status: %d\n", g_status);
+			if (g_status >= 128)
+				return (1);
 			return (0);
 		}
 		tmp = tmp->next;

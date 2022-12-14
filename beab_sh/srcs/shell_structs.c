@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_structs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:47:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 15:45:20 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:45:59 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	fill_redir(t_token *t, char *str, t_type type, bool *is_quote)
 	t_redir	*new;
 	t_redir	*tmp;
 
-	new = ft_calloc(1, sizeof(t_redir));
+	new = malloc(sizeof(t_redir));
 	if (!new)
 		return ;
-	new->file_path = ft_strdup(str);
+	new->file_path = str;
 	new->file_name = NULL;
 	new->type = type;
 	new->next = NULL;

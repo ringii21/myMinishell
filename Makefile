@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
+#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/13 20:40:29 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/14 16:02:59 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,14 @@ SRCS			:=	main.c \
 					shell_io.c \
 					shell_jobs.c \
 					shell_lvl.c \
+					shell_parsing_utils.c \
 					shell_parsing.c \
 					shell_path.c \
 					shell_pipes.c \
 					shell_redir.c \
 					shell_signals.c \
 					shell_sig_set.c \
+					shell_signals_heredoc.c \
 					shell_structs.c \
 					shell_unset.c \
 					utils.c \

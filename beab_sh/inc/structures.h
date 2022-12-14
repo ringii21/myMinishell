@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 15:46:43 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:35:23 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define STRUCTURES_H
 # include "minishell.h"
 
+extern int g_status;
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
 
 typedef struct s_env
@@ -53,9 +54,11 @@ typedef struct s_token
 	pid_t			pid;
 	size_t			cmd_ac;
 	bool			is_pipe;
+	bool			is_error;
 	int				is_pipe_open;
 	int				pipe_fd[2];
 	char			**cmds_av;
+	char			*av_copy;
 	char			*bin_path;
 	t_redir			*file;
 	struct s_token	*next;

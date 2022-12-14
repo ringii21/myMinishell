@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 20:50:12 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:07:28 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_pwd(t_env *env)
 	path = get_cont("PWD", env);
 	if (path == NULL)
 	{
-		ft_putstr_fd("minishell: pwd: variable not found\n", STDERR_FILENO);
+		ft_putstr_fd("variable not found\n", 2);
 		return (1);
 	}
 	printf("%s\n", path);

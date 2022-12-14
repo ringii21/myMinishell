@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/13 21:42:21 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:09:17 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ void	free_env(t_env *env)
 	{
 		tmp = env;
 		env = env->next;
-		if (tmp->var)
-			free(tmp->var);
-		if (tmp->cont)
-			free(tmp->cont);
-		if (tmp->total)
-			free(tmp->total);
 		free(tmp);
 	}
 	env = NULL;
@@ -59,9 +53,7 @@ t_env	*ft_add_new(char *varname, char *value)
 {
 	t_env	*new;
 
-	new = ft_calloc(1, sizeof(t_env));
-	if (!new)
-		return (NULL);
+	new = malloc(sizeof(t_env) * 1);
 	new->var = ft_strdup(varname);
 	new->cont = ft_strdup(value);
 	new->total = ft_strjoin(varname, "=");
@@ -78,19 +70,8 @@ int	ft_add_env(char *namevar, char *value, t_env *env)
 	tmp = env;
 	if (!tmp)
 		return (1);
-	if (ft_strcmp(env->var, "") == 0 && ft_strcmp(env->cont, "") == 0)
-	{
-		free(env->var);
-		free(env->cont);
-		env->var = ft_strdup(namevar);
-		env->cont = ft_strdup(value);
-		env->total = ft_strdup(env->var);
-		env->total = ft_strjoin(env->total, "=");
-		env->total = ft_strjoin(env->total, env->cont);
-		if (env->var == NULL || (value && env->cont == NULL))
-			return (1);
-		return (0);
-	}
+	if (ft_strcmp(namevar, "=") == 0)
+		return (1);
 	newline = ft_add_new(namevar, value);
 	if (newline == NULL)
 		return (1);

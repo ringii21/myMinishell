@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/13 23:29:29 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 14:30:28 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	ft_flush(t_token *t);
 //		shell_parsing.c
 t_token	*parser(t_main *m);
 
+//		shell_parsing_utils.c
+int		ft_check_if_not_valid_redir(char *line, int i);
+int		ft_check_if_not_valid_pipes(char *line, int i);
+
+
 //		shell_redir.c
 int		redir_manager(t_parse *p, char *str);
 int		expand_var(t_env *env, char **token, int *i, char *str);
@@ -85,6 +90,13 @@ void	ft_close_fd(t_token *t);
 
 //		heredoc.c
 int		heredoc(t_token *t, t_env *env);
+
+//		shell_signals_heredoc.c
+void	set_signal_heredoc(void (*sig_handler)(int), int sig);
+int		ft_heredoc_loop(t_token *t, int fd);
+void	interrupt_heredoc(int sig);
+void	ignore_sig(int sig);
+
 
 //		shell_pipes.c
 int		child_process(t_token *t, t_env *env, bool builtin);

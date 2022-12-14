@@ -1,0 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shell_signals_heredoc.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/14 14:26:16 by abonard           #+#    #+#             */
+/*   Updated: 2022/12/14 14:26:17 by abonard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/minishell.h"
+
+void	ignore_sig(int sig)
+{
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_RESTART;
+	sa.sa_handler = SIG_IGN;
+	sigaction(sig, &sa, NULL);
+}
+
+void	set_signal_heredoc(void (*sig_handler)(int), int sig)
+{
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_RESTART;
+	sa.sa_handler = sig_handler;
+	sigaction(sig, &sa, NULL);
+}
+
+void	interrupt_heredoc(int sig)
+{
+	if (sig == SIGINT || sig == SIGQUIT)
+	{
+		ft_putstr_fd("\n", 1);
+		exit(130);
+	}
+	/* else if (sig == SIGQUIT)
+	{
+		printf("\r");
+		rl_on_new_line();
+		rl_redisplay();
+		printf(" ");
+		printf("\r");
+		rl_on_new_line();
+		rl_redisplay();
+	} */
+}

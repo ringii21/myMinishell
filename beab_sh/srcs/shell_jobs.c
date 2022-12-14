@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 23:30:20 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 14:46:25 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	job(t_main *m)
 		{
 			res = assign_jobs(m->t, m->env, m->t->bin_path
 					&& m->t->bin_path[0] == '\0');
+			if (res == 4)
+				break ;
 		}
 		m->t = m->t->next;
 	}
