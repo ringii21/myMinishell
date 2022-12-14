@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 15:03:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:54:55 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 char	*pull_varvalue(char *varname, t_env *env)
 {
-	char	*path;
+	char *path;
 
 	if (varname[0] == '?' && !varname[1])
-		return (NULL);
+	{
+		path = ft_itoa(g_status);
+		return (path);
+	}
 	path = get_cont(varname, env);
 	if (path == NULL)
 		return ("");
