@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/14 22:46:12 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 23:01:03 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_token	*parser(t_main *m)
 	if (!m->line)
 		return (NULL);
 	p = init_parser();
-	if (!ft_check_if_not_valid_pipes(m->line, -1) || !ft_check_if_not_valid_redir(m->line, -1))
+	if (!ft_check_if_not_valid_pipes(m->line, -1, true) || !ft_check_if_not_valid_redir(m->line, -1, true))
 		return (p.list);
 	while(m->line[p.i])
 	{

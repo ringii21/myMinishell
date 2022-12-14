@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/14 17:22:13 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:59:56 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	ft_flush(t_token *t);
 t_token	*parser(t_main *m);
 
 //		shell_parsing_utils.c
-int		ft_check_if_not_valid_redir(char *line, int i);
-int		ft_check_if_not_valid_pipes(char *line, int i);
+int		ft_check_if_not_valid_redir(char *line, int i, bool err);
+int		ft_check_if_not_valid_pipes(char *line, int i, bool err);
 
 
 //		shell_redir.c

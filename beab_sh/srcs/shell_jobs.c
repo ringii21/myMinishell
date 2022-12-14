@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 14:46:25 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 23:04:07 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_hold_exec(t_token *t, t_env *env)
 		waitpid(t->pid, &status, 0);
 		if (WIFEXITED(status))
 			res = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			res = WTERMSIG(status) + 128;
 		if (t->bin_path != NULL && (ft_strcmplen(t->cmds_av[0], "exit") == 0 
 			|| ft_strcmplen(t->cmds_av[0], "export") == 0 || (ft_strcmplen(t->cmds_av[0], "cd") == 0) 
 				|| (ft_strcmp(t->cmds_av[0], "unset") == 0)))
@@ -48,8 +50,6 @@ int	assign_jobs(t_token *t, t_env *env, bool builtin)
 	}
 	if (ft_redir(t, env))
 		return (4);
-/* 	if (builtin)
-		return(exec_builtin(t, env, true)); */
 	t->pid = fork();
 	shut_signals(t->pid);
 	if (t->pid == -1)
@@ -69,9 +69,13 @@ int	job(t_main *m)
 	res = 0;
 	while (m->t)
 	{
+		if (!ft_check_if_not_valid_pipes(m->line, -1, false) || !ft_check_if_not_valid_redir(m->line, -1,  false))
+			return (0);
 		res = which_path(m, m->t);
-		if (res != 0)
+		if (res != 0 && res != 127)
 			return (-1); // gere les erreurs
+		else if (res == 127)
+			;
 		else
 		{
 			res = assign_jobs(m->t, m->env, m->t->bin_path
@@ -82,6 +86,9 @@ int	job(t_main *m)
 		m->t = m->t->next;
 	}
 	m->t = list_cmd;
+	if (res == 127)
+		return (res);
 	res = ft_hold_exec(list_cmd, m->env);
+	g_status = res;
 	return (res);
 }

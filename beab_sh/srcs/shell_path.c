@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 21:10:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 23:18:15 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_binpath(t_main *m, char *bin, char **sep)
 	return (NULL);
 }
 
-void	get_path(t_token *t, t_main *m)
+int	get_path(t_token *t, t_main *m)
 {
 	char *bin;
 	char **sep_path;
@@ -37,7 +37,7 @@ void	get_path(t_token *t, t_main *m)
 	bin = NULL;
 	t->bin_path = ft_strdup(get_cont("PATH", m->env));
 	if (t->bin_path == NULL)
-		return ;
+		return (1);
 	if (t->cmds_av[0][0] != '/' && ft_strncmp(t->cmds_av[0], "./", 2) != 0)
 	{
 		sep_path = ft_split(t->bin_path, ':');
@@ -47,8 +47,8 @@ void	get_path(t_token *t, t_main *m)
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(t->cmds_av[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
-			// Status code ici
-			return ;
+			g_status = 127;
+			return (127);
 		}
 		free(t->bin_path);
 		t->bin_path = bin;
@@ -56,6 +56,7 @@ void	get_path(t_token *t, t_main *m)
 	}
 	else
 		free(m->t->bin_path);
+	return (1);
 }
 
 int	which_path(t_main *m, t_token *t)
@@ -70,6 +71,7 @@ int	which_path(t_main *m, t_token *t)
 	else if (ft_strchr(t->cmds_av[0], '/') != 0)
 		t->bin_path = ft_strdup(t->cmds_av[0]);
 	else
-		get_path(t, m);
+		if (get_path(t, m) == 127)
+			return (127);
 	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/13 15:16:25 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:55:57 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,19 @@ int	ft_echo(t_token *t)
 	if (ft_is_flag(t->cmds_av[1]) == 1)
 		flag = true;
 	if (t->cmd_ac == 2 && flag == true)
+	{
+		g_status = 0;
 		return (0);
+	}
 	else
 	{
 		if (ft_exec_echo(t, flag) < 0)
+		{
+			g_status = 1;
 			return (-1);
+		}
 	}
+	g_status = 0;
+	return (0);
 	return (0);
 }

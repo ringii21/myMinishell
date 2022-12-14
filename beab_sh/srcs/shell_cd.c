@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 15:16:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 23:26:54 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,25 @@ void	ft_cd_fail(char *path, int ret, bool is_forked)
 {
 	if (!is_forked)
 		return ;
-	if (ret == ENOTDIR)
-	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": Not a directory\n", STDERR_FILENO);
-	}
-	else if (ret == ENOENT)
-	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	}
-	else if (ret == EACCES)
+	if (ret == EACCES)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 	}
+ 	if (ret == ENOTDIR)
+	{
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": Not a directory\n", STDERR_FILENO);
+	} 
+	if (ret == ENOENT)
+	{
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	}
+	g_status = 1;
 }
 
 int	ft_cd(t_token *t, t_env *env, bool is_forked)
