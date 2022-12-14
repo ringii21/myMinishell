@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 14:43:59 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 18:00:35 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	return_error_no_file(t_redir *file)
 	ft_putstr_fd(file->file_path, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 	close(file->fd);
-	//Status code 1
+	g_status = 1;
 	return (1);
 }
 
@@ -27,7 +27,7 @@ int	return_error_access_denied(t_redir *file)
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(file->file_path, 2);
 	ft_putstr_fd(": Permission denied\n", 2);
-	// Status code 1
+	g_status = 1;
 	return (1);
 }
 

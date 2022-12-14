@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:15 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/14 17:49:22 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 18:01:44 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ft_check_if_not_valid_pipes(char *line, int i)
 {
 	if (line[0] == '|' || line[ft_strlen(line) - 1] == '|')
 	{
-		ft_putstr_fd("Minishell: syntax error near unexpected token `|`\n", 2);
-		g_status = 1;
+		ft_putstr_fd("minishell: syntax error near unexpected token `|`\n", 2);
+		g_status = 2;
 		return (0);
 	}
 	while (line[++i])
@@ -28,8 +28,8 @@ int	ft_check_if_not_valid_pipes(char *line, int i)
 				;
 			if (line[i] == '|')
 			{
-				ft_putstr_fd("Minishell: syntax error near unexpected token `|`\n", 2);
-				g_status = 127;
+				ft_putstr_fd("minishell: syntax error near unexpected token `|`\n", 2);
+				g_status = 2;
 				return (0);
 			}
 		}
@@ -41,7 +41,7 @@ int	ft_check_if_not_valid_redir(char *line, int i)
 {	
 	if (line[ft_strlen(line) - 1] == '>' || line[ft_strlen(line) - 1] == '<')
 	{
-		ft_putstr_fd("Minishell: syntax error near unexpected token `newline'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
 		g_status = 2;
 		return (0);
 	}
@@ -55,7 +55,7 @@ int	ft_check_if_not_valid_redir(char *line, int i)
 				;
 			if (line[i] == '|')
 			{
-				ft_putstr_fd("Minishell: syntax error near unexpected token `|`\n", 2);
+				ft_putstr_fd("minishell: syntax error near unexpected token `|`\n", 2);
 				g_status = 2;
 				return (0);
 			}
