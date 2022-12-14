@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 15:44:32 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 20:29:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	child_process(t_token *t, t_env *env, bool builtin)
 	}
 	if (t->is_pipe)
 		close(t->pipe_fd[0]);
-	if (execve(t->cmds_av[0], t->cmds_av, ft_env_to_tab(env)) == -1)
+	if (execve(t->bin_path, t->cmds_av, ft_env_to_tab(env)) == -1)
 	{
 		if (errno == 13)
 			return (-1);

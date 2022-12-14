@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 12:42:16 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 17:22:20 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 21:15:36 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	shlvl_up(t_main *m)
 {
 	int 	res;
+	char	*value;
 	
 	if (get_cont("SHLVL", m->env) == NULL)
 		return ;
@@ -22,5 +23,7 @@ void	shlvl_up(t_main *m)
 	res++;
 //	ft_exec_unset("SHLVL", m->env);
 //	ft_add_env("SHLVL", ft_itoa(res), m->env);
-	ft_create_o_replace("SHLVL", ft_itoa(res), m->env);
+	value = ft_itoa(res);
+	ft_create_o_replace("SHLVL", value, m->env);
+	free(value);
 }

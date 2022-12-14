@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 17:51:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 21:10:52 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	get_path(t_token *t, t_main *m)
 			// Status code ici
 			return ;
 		}
-		free(t->cmds_av[0]);
-		t->cmds_av[0] = bin;
+		free(t->bin_path);
+		t->bin_path = bin;
 		ft_free_stab(sep_path);
 	}
 	else
