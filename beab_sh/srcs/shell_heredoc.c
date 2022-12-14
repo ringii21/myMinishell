@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/14 17:00:53 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:43:48 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int	ft_heredoc_loop(t_token *t, int fd)
 {
 	char	*doc;
 	char	*line;
-	int		i = 0;
-
+	int		i; 
+	
+	i = 0;
 	doc = NULL;
 	set_signal_heredoc(&interrupt_heredoc, SIGINT);
 	set_signal_heredoc(&interrupt_heredoc, SIGQUIT);

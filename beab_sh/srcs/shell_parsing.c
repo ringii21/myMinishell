@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/14 18:17:18 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 22:46:12 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ t_token	*parser(t_main *m)
 	while(m->line[p.i])
 	{
 		res = fill_token_list(&p, m);
-		if (res == 1 && m->line[p.i] == '?' && m->line[p.i - 1]
-			&& m->line[p.i - 1] == '$')
+		if (res == 1)
 		{
-			p.i++;
+			if ( m->line[p.i] == '?' && m->line[p.i - 1] && m->line[p.i - 1] == '$')
+				p.i++;
 			continue;
 		}
 		if (res > 1 )
