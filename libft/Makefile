@@ -6,7 +6,7 @@
 #    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/14 16:02:46 by abonard          ###   ########.fr        #
+#    Updated: 2022/12/14 16:59:01 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS	:= 	ft_allocate_tab.c \
 			ft_error.c \
 			ft_free_stab.c \
 			ft_free_tab.c \
+			ft_gnl.c \
 			ft_isalnum.c \
 			ft_isalpha.c \
 			ft_isascii.c \

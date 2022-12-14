@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/13 21:33:42 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:59:46 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int				**allocate_tab(int **tab, int size);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strisdigit(char *str);
 long			ft_atoli(const char *str);
+int				get_next_line(int fd, char **line);
 unsigned int	ft_atoi_hexa(const char *str);
 
 void			ft_bzero(void *s, size_t n);
