@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/15 15:21:17 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 21:41:06 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ int	ft_export_var(t_token *t, t_env *env, bool is_forked)
 			value = namevar + j + 1;
 		ft_check_and_export(namevar, value, env, is_forked);
 		i++;
-	}
-	if (namevar)
 		free(namevar);
+	}
 	return (0);
 }
 

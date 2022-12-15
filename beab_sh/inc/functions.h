@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/15 21:02:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 21:22:56 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,15 @@ int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 int		which_path(t_main *m, t_token *t);
 
 //		shell_io.c
-int		ft_redir(t_token *t);
+int		ft_redir(t_token *t, t_env *env);
 void	ft_close_fd(t_token *t);
 
 //		heredoc.c
-int		heredoc(t_redir *r);
+int		heredoc(t_token *t, t_redir *r, t_env *env);
+int		ft_heredoc_loop(t_token *t, t_env *env, t_redir *r, int fd);
 
 //		shell_signals_heredoc.c
 void	set_signal_heredoc(void (*sig_handler)(int), int sig);
-int		ft_heredoc_loop(t_redir *r, int fd);
 void	interrupt_heredoc(int sig);
 void	ignore_sig(int sig);
 

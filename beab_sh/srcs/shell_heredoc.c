@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/15 21:12:02 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 21:27:24 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	exit_heredoc(t_redir *r, char *doc, int fd)
 	return (0);
 }
 
-int	ft_heredoc_loop(t_redir *r, int fd)
+int	ft_heredoc_loop(t_token *t, t_env *env, t_redir *r, int fd)
 {
 	char	*doc;
 	char	*line;
@@ -45,10 +45,9 @@ int	ft_heredoc_loop(t_redir *r, int fd)
 	set_signal_heredoc(&interrupt_heredoc, SIGQUIT);
 	while (1)
 	{
-		write(1, "heredoc> ", 10);
-		get_next_line(0, &line);
+		line = readline("heredoc> ");
 		if (strcmp(line, r->file_path) == 0)
-			exit(exit_heredoc(r, doc, fd));
+			ft_mini_exit(exit_heredoc(r, doc, fd), t, env);
 		if (i++ == 0)
 			doc = ft_strdup(line);
 		else
@@ -59,10 +58,10 @@ int	ft_heredoc_loop(t_redir *r, int fd)
 		free(line);
 	}
 	free(doc);
-	exit (0);
+	ft_mini_exit(0, t, env);
 }
 
-int	heredoc(t_redir *r)
+int	heredoc(t_token *t, t_redir *r, t_env *env)
 {
 	pid_t	pid;
 	int		fd;
@@ -82,7 +81,7 @@ int	heredoc(t_redir *r)
 		return (-1);
 	}
 	else if (pid == 0)
-		ft_heredoc_loop(r, fd);
+		ft_heredoc_loop(t, env, r, fd);
 	ignore_sig(SIGQUIT);
 	ignore_sig(SIGINT);
 	wait_function(pid);

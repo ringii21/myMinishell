@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:45:35 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/15 15:22:29 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 22:27:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_swap_list(t_env **begin, t_env *last)
+/* void	ft_swap_list(t_env **begin, t_env *last)
 {
 	t_env	*tmp;
 
@@ -21,30 +21,26 @@ void	ft_swap_list(t_env **begin, t_env *last)
 	tmp->next = last->next->next;
 	(*begin)->next = tmp;
 }
-
+ */
 void	ft_sort_env(t_env **begin)
 {
-	t_env	*end;
-	t_env	*prev;
+	t_env	*tmp1;
+	t_env	*tmp2;
+	char	*swap;
 
-	prev = NULL;
-	end = *begin;
-	while (end && end->next)
+	tmp1 = *begin;
+	while (tmp1)
 	{
-		if (ft_strcmp(end->var, end->next->var) > 0)
+		tmp2 = tmp1->next;
+		if (tmp2 && ft_strcmp(tmp1->var, tmp2->var) > 0)
 		{
-			if (prev == NULL)
-				ft_swap_list(begin, end);
-			else
-				ft_swap_list(&(prev->next), end);
-			end = *begin;
-			prev = NULL;
+			swap = tmp1->var;
+			tmp1->var = tmp2->var;
+			tmp2->var = swap;
+			tmp1 = *begin;
 		}
 		else
-		{
-			prev = end;
-			end = end->next;
-		}
+			tmp1 = tmp1->next;
 	}
 }
 
