@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:55:19 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 15:32:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:23:24 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 //			names
 # define MINI_MSG		"minishell: "
-# define HERE_DOC		".heredoc_tmp"
+# define HERE_DOC		"/.heredoc_tmp"
 
 //			minishell error messages
 # define ERR			"error: "

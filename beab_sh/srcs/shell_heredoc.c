@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/15 17:18:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:21:50 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	heredoc(t_redir *r)
 	pid_t	pid;
 	int		fd;
 
-	r->file_name = ft_strdup(HERE_DOC);
+	r->file_name = ft_strjoin(getcwd(NULL, 0), HERE_DOC);
 	fd = open(r->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd < 0)
 		return (-1);
