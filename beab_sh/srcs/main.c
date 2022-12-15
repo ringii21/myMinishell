@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 20:46:38 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 21:14:19 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_check_line(t_main *m)
 	{
 		m->t = parser(m);
 		if (m->t == NULL && m->t->is_error == false)
-			exit(1);
+			ft_mini_exit(1, m->t, m->env);
 		if (m->t)
 			job(m);
 		ft_flush(m->t);
@@ -38,6 +38,7 @@ void	minishell(t_main *m)
 		m->prompt = ft_strjoin(cwd, "$ ");
 		free(cwd);
 		m->line = readline(m->prompt);
+		free(m->prompt);
 		if (!m->line)
 		{
 			ft_putstr_fd(EXIT_MSG, STDERR_FILENO);
@@ -47,7 +48,6 @@ void	minishell(t_main *m)
 		add_history(m->line);
 		free(m->line);
 		m->line = NULL;
-		free(m->prompt);
 		m->t = NULL;
 	}
 	rl_clear_history();
