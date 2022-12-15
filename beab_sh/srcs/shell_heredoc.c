@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/15 17:47:53 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 19:21:13 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	exit_heredoc(t_redir *r, char *doc, int fd)
 	doc = ft_strjoin_free(doc, "\n");
 	write(fd, doc, ft_strlen(doc));
 	close(fd);
-	r->fd = open(HERE_DOC, O_RDONLY);
 	free(doc);
+	r->fd = open(r->file_name, O_RDONLY);
 	return (0);
 }
 
@@ -66,8 +66,11 @@ int	heredoc(t_redir *r)
 {
 	pid_t	pid;
 	int		fd;
+	char	*cwd;
 
-	r->file_name = ft_strjoin(getcwd(NULL, 0), HERE_DOC);
+	cwd = getcwd(NULL, 0);
+	r->file_name = ft_strjoin(cwd, HERE_DOC);
+	free(cwd);
 	fd = open(r->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd < 0)
 		return (-1);
