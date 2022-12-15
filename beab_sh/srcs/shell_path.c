@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   shell_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 15:02:00 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 18:27:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*get_binpath(t_main *m, char *bin, char **sep)
+char	*get_binpath(t_main *m, char **sep)
 {
-	int	i;
+	int		i;
+	char	tmp;
 
 	i = 0;
 	while (sep[i])
 	{
-		bin = ft_strjoin(sep[i], "/");
-		bin = ft_strjoin_free(bin, m->t->cmds_av[0]);
-		if (access(bin, X_OK) == 0)
-			return (bin);
-		free(bin);
+		tmp = ft_strjoin(sep[i], "/");
+		tmp = ft_strjoin_free(tmp, m->t->cmds_av[0]);
+		if (access(tmp, X_OK) == 0)
+			return (tmp);
+		free(tmp);
 		i++;
 	}
 	return (NULL);
@@ -31,18 +32,18 @@ char	*get_binpath(t_main *m, char *bin, char **sep)
 
 int	get_path(t_token *t, t_main *m)
 {
-	char	*bin;
 	char	**sep_path;
 
-	bin = NULL;
 	t->bin_path = ft_strdup(get_cont("PATH", m->env));
 	if (t->bin_path == NULL)
 		return (1);
 	if (t->cmds_av[0][0] != '/' && ft_strncmp(t->cmds_av[0], "./", 2) != 0)
 	{
 		sep_path = ft_split(t->bin_path, ':');
-		bin = get_binpath(m, bin, sep_path);
-		if (bin == NULL)
+		free(t->bin_path);
+		t->bin_path = get_binpath(m, sep_path);
+		ft_free_stab(sep_path);
+		if (t->bin_path == NULL)
 		{
 			ft_putstr_fd(MINI_MSG, STDERR_FILENO);
 			ft_putstr_fd(t->cmds_av[0], STDERR_FILENO);
@@ -50,9 +51,6 @@ int	get_path(t_token *t, t_main *m)
 			g_status = 127;
 			return (127);
 		}
-		free(t->bin_path);
-		t->bin_path = bin;
-		ft_free_stab(sep_path);
 	}
 	else
 		free(m->t->bin_path);

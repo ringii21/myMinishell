@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell_printlist.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:26:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 14:07:01 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 18:03:34 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
 void	print_redir(t_redir *r)
 {
@@ -64,4 +64,3 @@ void	print_tokens(t_token *t)
 		tmp = tmp->next;
 	}
 }
- */
