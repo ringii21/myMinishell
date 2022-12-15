@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 14:10:22 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 22:48:27 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	var_lector(t_token *cursor, char *var, char **reading, t_env *env)
 			r = ft_strdupcat(r, str + i++, 1);
 	}
 	*reading = r;
+	free(str);
 }
 
 char	*pull_varname(char *str, int *cursor)

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 21:14:19 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 22:37:12 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_check_line(t_main *m)
 	if (m->line && m->line[0] != '\0')
 	{
 		m->t = parser(m);
-		if (m->t == NULL && m->t->is_error == false)
-			ft_mini_exit(1, m->t, m->env);
-		if (m->t)
+		if (!m->t)
+			ft_mini_exit(1, NULL, m->env);
+		else
 			job(m);
 		ft_flush(m->t);
 	}	
