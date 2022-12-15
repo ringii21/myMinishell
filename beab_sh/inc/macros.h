@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:55:19 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 23:25:22 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 02:02:24 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 //			names
 # define MINI_MSG		"minishell: "
-# define HERE_DOC		".heredoc.txt"
+# define HERE_DOC		"/.heredoc.txt"
 
 //			minishell error messages
 # define ERR			"error: "

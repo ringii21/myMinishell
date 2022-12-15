@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 22:28:25 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 03:00:43 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	minishell(t_main *m)
 
 int	main(int ac, char **av, char **envp)
 {	
-	t_main	m;
+ 	t_main	m;
 
 	g_status = 0;
 	m = (t_main){0};
@@ -75,5 +75,6 @@ int	main(int ac, char **av, char **envp)
 	shlvl_up(&m);
 	minishell(&m);
 	free_env(m.env);
+
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/14 23:01:03 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 00:32:02 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	fill_token_list(t_parse *p, t_main *m)
 		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
 		p->i++;
 	}
-	if (m->line[p->i] == ';' || m->line[p->i] == '\\')
+	if (m->line[p->i] == '\\')
 		return (5);
 	if (m->line[p->i] == '|')
 	{

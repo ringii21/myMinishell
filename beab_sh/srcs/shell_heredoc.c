@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/14 22:17:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 02:22:21 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@ void	wait_function(int pid)
 		g_status = 128 + WTERMSIG(status);
 }
 
-void ft_check_hereline(char *line, int i, char *doc)
+int	exit_heredoc(char *doc, int fd)
 {
-	if (i++ == 0)
-		doc = strdup(line);
-	else
-	{
-		doc = ft_strjoin_free(doc, "\n");
-		doc = ft_strjoin_free(doc, line);
-	}
+	doc = ft_strjoin_free(doc, "\n");
+	write(fd, doc, ft_strlen(doc));
+	close(fd);
+	free(doc);
+	return (0);
 }
 
 int	ft_heredoc_loop(t_token *t, int fd)
@@ -49,14 +47,14 @@ int	ft_heredoc_loop(t_token *t, int fd)
 		write(1, "heredoc> ", 10);
 		get_next_line(0, &line);
 		if (strcmp(line, t->file->file_path) == 0)
+			exit(exit_heredoc(doc, fd));
+		if (i++ == 0)
+			doc = strdup(line);
+		else
 		{
 			doc = ft_strjoin_free(doc, "\n");
-			write(fd, doc, ft_strlen(doc));
-			close(fd);
-			exit (0);
+			doc = ft_strjoin_free(doc, line);
 		}
-		else
-			ft_check_hereline(line, i, doc);
 		free(line);
 	}
 	free(doc);

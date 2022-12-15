@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/14 22:29:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 02:41:08 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_env	*ft_add_new(char *varname, char *value)
 	new->var = ft_strdup(varname);
 	new->cont = ft_strdup(value);
 	new->total = ft_strjoin(varname, "=");
-	new->total = ft_strjoin(new->total, value);
+	new->total = ft_strjoin_free(new->total, value);
 	new->next = NULL;
 	return (new);
 }

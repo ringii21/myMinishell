@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 22:39:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 02:03:58 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_redir
 	char				*file_name;
 	enum e_type			type;
 	int					fd;
-	int					fd_pipe[2];
 	struct s_redir		*next;
 	bool				is_quote;
 }	t_redir;

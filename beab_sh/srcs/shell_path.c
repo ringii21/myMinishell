@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 23:26:03 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 00:27:02 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	get_path(t_token *t, t_main *m)
 			ft_putstr_fd(MINI_MSG, STDERR_FILENO);
 			ft_putstr_fd(t->cmds_av[0], STDERR_FILENO);
 			ft_putstr_fd(ERR_CMD, STDERR_FILENO);
-			// Status code ici
 			g_status = 127;
 			return (127);
 		}
