@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 23:12:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:53:24 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	ft_hold_exec(t_token *t, t_env *env)
 			res = WEXITSTATUS(status);
 		if (WIFSIGNALED(status))
 			res = WTERMSIG(status) + 128;
-		if (t->bin_path != NULL && (ft_strcmplen(t->cmds_av[0], "exit") == 0 
-			|| ft_strcmplen(t->cmds_av[0], "export") == 0 
-			|| (ft_strcmplen(t->cmds_av[0], "cd") == 0) 
-			|| (ft_strcmp(t->cmds_av[0], "unset") == 0)))
-					exec_builtin(t, env, false);
+		if (t->bin_path != NULL && (ft_strcmplen(t->cmds_av[0], "exit") == 0
+				|| ft_strcmplen(t->cmds_av[0], "export") == 0
+				|| (ft_strcmplen(t->cmds_av[0], "cd") == 0)
+				|| (ft_strcmp(t->cmds_av[0], "unset") == 0)))
+			exec_builtin(t, env, false);
 		t = t->next;
 	}
 	set_signals();
@@ -54,7 +54,7 @@ int	assign_jobs(t_token *t, t_env *env, bool builtin)
 	t->pid = fork();
 	shut_signals(t->pid);
 	if (t->pid == -1)
-		return (1); // Erreur fork
+		return (1);
 	if (t->pid == 0)
 		child_process(t, env, builtin);
 	close_pipes(t);
@@ -71,11 +71,11 @@ int	job(t_main *m)
 	while (m->t)
 	{
 		if (!ft_check_if_not_valid_pipes(m->line, -1, false)
-			|| !ft_check_if_not_valid_redir(m->line, -1,  false))
+			|| !ft_check_if_not_valid_redir(m->line, -1, false))
 			return (0);
 		res = which_path(m, m->t);
 		if (res != 0 && res != 127)
-			return (-1); // gere les erreurs
+			return (-1);
 		else if (res == 127)
 			;
 		else

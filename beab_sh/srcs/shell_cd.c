@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 23:26:54 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:18:00 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	ft_cd_fail(char *path, int ret, bool is_forked)
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 	}
- 	if (ret == ENOTDIR)
+	if (ret == ENOTDIR)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": Not a directory\n", STDERR_FILENO);
-	} 
+	}
 	if (ret == ENOENT)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);

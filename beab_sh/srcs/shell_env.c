@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/15 02:41:08 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:20:08 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ void	free_env(t_env *env)
 	while (env)
 	{
 		tmp = env;
+		if (tmp->var)
+			free(tmp->var);
+		if (tmp->cont)
+			free(tmp->cont);
+		if (tmp->total)
+			free(tmp->total);
 		env = env->next;
 		free(tmp);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:45:35 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/13 15:18:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:22:29 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_print_declare(t_env *env, bool is_forked)
 {
 	int		i;
 	t_env	*tmp;
-	
+
 	tmp = env;
 	if (!is_forked)
 		return ;
@@ -98,7 +98,7 @@ int	ft_check_and_export(char *namevar, char *value, t_env *env, bool is_forked)
 		return (0);
 	if (ft_checkname(namevar) == 1)
 	{
-		ft_add_env(namevar, value, env);
+		ft_create_o_replace(namevar, value, env);
 		return (0);
 	}
 	if (is_forked)

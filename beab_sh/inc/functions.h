@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/14 22:59:03 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:31:52 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_token	*parser(t_main *m);
 //		shell_parsing_utils.c
 int		ft_check_if_not_valid_redir(char *line, int i, bool err);
 int		ft_check_if_not_valid_pipes(char *line, int i, bool err);
-
+int		check_quotes_is_valid(char *line);
 
 //		shell_redir.c
 int		redir_manager(t_parse *p, char *str);
@@ -98,7 +98,6 @@ int		ft_heredoc_loop(t_token *t, int fd);
 void	interrupt_heredoc(int sig);
 void	ignore_sig(int sig);
 
-
 //		shell_pipes.c
 int		child_process(t_token *t, t_env *env, bool builtin);
 void	close_pipes(t_token *t);
@@ -128,7 +127,6 @@ int		ft_unset(t_token *t, t_env *env, bool is_forked);
 int		ft_exec_unset(char *namevar, t_env *env);
 
 //		utils_builtins.c
-
 
 //		utils_export.c
 int		ft_check_and_export(char *namevar, char *value, t_env *env,

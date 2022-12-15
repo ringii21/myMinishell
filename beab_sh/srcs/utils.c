@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 22:49:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:08:46 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ char	*ft_strdupcat(char *s, char *t, int len)
 int	ft_strcmplen(char *s1, char *s2)
 {
 	int	i;
-	
+
 	i = 0;
-	if(ft_strlen(s1) == ft_strlen(s2))
+	if (ft_strlen(s1) == ft_strlen(s2))
 	{
 		while (s1[i] && s2[i] && s1[i] == s2[i])
 			i++;

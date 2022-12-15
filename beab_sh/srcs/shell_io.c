@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 02:24:28 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:23:03 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_close_fd(t_token *t)
 int	ft_input(t_token *t, t_env *env)
 {
 	t_redir	*tmp;
-	(void)env;
 
+	(void)env;
 	tmp = t->file;
 	while (tmp)
 	{

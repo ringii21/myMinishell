@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:15 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/14 22:57:51 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:32:53 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,49 @@ int	ft_check_if_not_valid_redir(char *line, int i, bool err)
 				return (0);
 			}
 		}
+	}
+	return (1);
+}
+
+void	check_quotes(char c, int *b_quote, int *quotes)
+{
+	if (c == '"' || c == '\'')
+	{
+		if (*b_quote == 0)
+		{
+			*quotes += 1;
+			if (c == '"')
+				*b_quote = 1;
+			else
+				*b_quote = 2;
+		}
+		else
+		{
+			if ((*b_quote == 1 && c == '"') || (*b_quote == 2 && c == '\''))
+			{
+				*quotes += 1;
+				*b_quote = 0;
+			}
+		}
+	}
+}
+
+//Checking quotes functions
+int	check_quotes_is_valid(char *line)
+{
+	int	i;
+	int	quotes;
+	int	b_quote;
+
+	i = -1;
+	quotes = 0;
+	b_quote = 0;
+	while (line[++i])
+		check_quotes(line[i], &b_quote, &quotes);
+	if (quotes % 2 != 0)
+	{
+		ft_putstr_fd("minishell: unclosed quote detected\n", 2);
+		return (0);
 	}
 	return (1);
 }

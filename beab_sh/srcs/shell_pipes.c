@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 02:06:57 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:14:40 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	dup_fd(t_token *t)
 			if (tmp->type == R_REDIR_IN)
 			{
 				tmp->fd = open(tmp->file_name, O_RDONLY | O_CREAT, 0644);
-				if(tmp->fd < 0)
+				if (tmp->fd < 0)
 					return (0);
 				if (dup2(tmp->fd, 0) < 0)
 					return (0);
@@ -46,7 +46,7 @@ int	dup_fd(t_token *t)
 		}
 		tmp = tmp->next;
 	}
-	return (1);	
+	return (1);
 }
 
 int	dup_pipes(t_token *t, int *is_pipe)
@@ -74,7 +74,7 @@ int	dup_pipes(t_token *t, int *is_pipe)
 int	child_process(t_token *t, t_env *env, bool builtin)
 {	
 	char	**env_tab;
-	
+
 	if (!dup_pipes(t, &(t->is_pipe_open)))
 		exit(EXIT_FAILURE);
 	if (builtin)

@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 03:00:43 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:11:51 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_check_line(t_main *m)
 
 void	minishell(t_main *m)
 {	
-	char *cwd;
+	char	*cwd;
 
 	cwd = NULL;
 	while (1)
@@ -54,12 +54,12 @@ void	minishell(t_main *m)
 		free(m->prompt);
 		m->t = NULL;
 	}
-	rl_clear_history(); 
+	rl_clear_history();
 }
 
 int	main(int ac, char **av, char **envp)
 {	
- 	t_main	m;
+	t_main	m;
 
 	g_status = 0;
 	m = (t_main){0};
@@ -75,6 +75,5 @@ int	main(int ac, char **av, char **envp)
 	shlvl_up(&m);
 	minishell(&m);
 	free_env(m.env);
-
 	return (0);
 }

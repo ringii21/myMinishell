@@ -6,13 +6,13 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/15 00:32:02 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:32:07 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
- void	count_ac(t_token *t)
+void	count_ac(t_token *t)
 {
 	while (t != NULL)
 	{
@@ -37,9 +37,10 @@ void	next_token(t_token **cursor, int is_pipe)
 int	quote_manager(t_parse *p, char *str, t_env *env, int u)
 {
 	char	*name;
+
 	if (str[p->i] == '"' || str[p->i] == '\'')
 	{
-		p->is_quote = p->is_quote |= (str[p->i] == '"');
+		p->is_quote |= (str[p->i] == '"');
 		p->var = make_token(str + p->i, &p->i, str[p->i], env);
 		if (p->var == NULL)
 			return (3);
@@ -64,7 +65,7 @@ int	quote_manager(t_parse *p, char *str, t_env *env, int u)
 
 int	fill_token_list(t_parse *p, t_main *m)
 {
-	int res;
+	int	res;
 
 	while (m->line[p->i] == ' ')
 	{
@@ -98,18 +99,21 @@ t_token	*parser(t_main *m)
 	if (!m->line)
 		return (NULL);
 	p = init_parser();
-	if (!ft_check_if_not_valid_pipes(m->line, -1, true) || !ft_check_if_not_valid_redir(m->line, -1, true))
+	if (!ft_check_if_not_valid_pipes(m->line, -1, true)
+		|| !ft_check_if_not_valid_redir(m->line, -1, true)
+		|| !check_quotes_is_valid(m->line))
 		return (p.list);
-	while(m->line[p.i])
+	while (m->line[p.i])
 	{
 		res = fill_token_list(&p, m);
 		if (res == 1)
 		{
-			if ( m->line[p.i] == '?' && m->line[p.i - 1] && m->line[p.i - 1] == '$')
+			if (m->line[p.i] == '?' && m->line[p.i - 1]
+				&& m->line[p.i - 1] == '$')
 				p.i++;
-			continue;
+			continue ;
 		}
-		if (res > 1 )
+		if (res > 1)
 			return (NULL);
 		if (m->line[p.i])
 			p.read = ft_strdupcat(p.read, m->line + p.i++, 1);
