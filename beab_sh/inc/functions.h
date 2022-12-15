@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/15 15:31:52 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:56:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ int		ft_redir(t_token *t, t_env *env);
 void	ft_close_fd(t_token *t);
 
 //		heredoc.c
-int		heredoc(t_token *t, t_env *env);
+int		heredoc(t_redir *r);
 
 //		shell_signals_heredoc.c
 void	set_signal_heredoc(void (*sig_handler)(int), int sig);
-int		ft_heredoc_loop(t_token *t, int fd);
+int		ft_heredoc_loop(t_redir *r, int fd);
 void	interrupt_heredoc(int sig);
 void	ignore_sig(int sig);
 

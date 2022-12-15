@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/15 14:59:29 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:56:02 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@ void	wait_function(int pid)
 		g_status = 128 + WTERMSIG(status);
 }
 
-int	exit_heredoc(char *doc, int fd)
+int	exit_heredoc(t_redir *r, char *doc, int fd)
 {
 	doc = ft_strjoin_free(doc, "\n");
 	write(fd, doc, ft_strlen(doc));
-//	close(fd);
+	close(fd);
+	r->fd = open(HERE_DOC, O_RDONLY);
+	if (r->fd < 0)
+		unlink(HERE_DOC);
 	free(doc);
 	return (0);
 }
 
-int	ft_heredoc_loop(t_token *t, int fd)
+int	ft_heredoc_loop(t_redir *r, int fd)
 {
 	char	*doc;
 	char	*line;
@@ -46,8 +49,8 @@ int	ft_heredoc_loop(t_token *t, int fd)
 	{
 		write(1, "heredoc> ", 10);
 		get_next_line(0, &line);
-		if (strcmp(line, t->file->file_path) == 0)
-			exit(exit_heredoc(doc, fd));
+		if (strcmp(line, r->file_path) == 0)
+			exit(exit_heredoc(r, doc, fd));
 		if (i++ == 0)
 			doc = ft_strdup(line);
 		else
@@ -61,24 +64,24 @@ int	ft_heredoc_loop(t_token *t, int fd)
 	exit (0);
 }
 
-int	heredoc(t_token *t, t_env *env)
+int	heredoc(t_redir *r)
 {
 	pid_t	pid;
 	int		fd;
 
-	t->file->file_name = ft_strjoin(ft_path_finder(t, env, 0), HERE_DOC);
-	fd = open(t->file->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	r->file_name =  ft_strdup(HERE_DOC);
+	fd = open(r->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd < 0)
 		return (-1);
 	pid = fork();
 	if (pid == -1)
 	{
 		errno = ECHILD;
-		ft_error_msg(t->cmds_av[0]);
+		ft_error_msg("here_doc");
 		return (-1);
 	}
 	else if (pid == 0)
-		ft_heredoc_loop(t, fd);
+		ft_heredoc_loop(r, fd);
 	else
 	{
 		ignore_sig(SIGQUIT);

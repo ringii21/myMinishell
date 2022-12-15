@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 14:23:03 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:53:52 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_input(t_token *t, t_env *env)
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
-			heredoc(t, env);
+			heredoc(tmp);
 			if (g_status >= 128)
 				return (1);
 			return (0);
