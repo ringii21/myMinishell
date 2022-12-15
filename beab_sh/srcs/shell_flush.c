@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 14:58:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:28:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_redir(t_redir *r)
 
 	while (r)
 	{
-		tmp = r;
+		tmp = r->next;
 		if (r->file_name)
 			free(r->file_name);
 		if (r->file_path)
