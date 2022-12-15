@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 17:50:04 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 18:40:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	ft_check_line(t_main *m)
 			exit(1);
 		if (m->t)
 			job(m);
-		if (m->t->is_error == true)
-			free(m->t);
-		else
-			ft_flush(m->t);
+		ft_flush(m->t);
 	}	
 }
 
