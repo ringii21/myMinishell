@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 18:27:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 18:28:02 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 char	*get_binpath(t_main *m, char **sep)
 {
 	int		i;
-	char	tmp;
+	char	*tmp;
 
 	i = 0;
+	tmp = NULL;
 	while (sep[i])
 	{
 		tmp = ft_strjoin(sep[i], "/");
