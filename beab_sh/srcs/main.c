@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 14:11:51 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:09:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_check_line(t_main *m)
 			job(m);
 		if (m->t->is_error == true)
 			free(m->t);
-		else
-			ft_flush(m->t);
+//		else
+//			ft_flush(m->t); -> provoque un double free sur heredoc
 	}	
 }
 

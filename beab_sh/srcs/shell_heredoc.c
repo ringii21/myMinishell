@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/15 14:20:29 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:59:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	exit_heredoc(char *doc, int fd)
 {
 	doc = ft_strjoin_free(doc, "\n");
 	write(fd, doc, ft_strlen(doc));
-	close(fd);
+//	close(fd);
 	free(doc);
 	return (0);
 }
@@ -49,7 +49,7 @@ int	ft_heredoc_loop(t_token *t, int fd)
 		if (strcmp(line, t->file->file_path) == 0)
 			exit(exit_heredoc(doc, fd));
 		if (i++ == 0)
-			doc = strdup(line);
+			doc = ft_strdup(line);
 		else
 		{
 			doc = ft_strjoin_free(doc, "\n");
