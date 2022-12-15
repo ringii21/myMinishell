@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:01:02 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 14:08:46 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:42:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	ft_error_msg(char *err_msg)
-{
-	ft_putstr_fd(MINI_MSG, STDERR_FILENO);
-	if (ft_strnstr(strerror(errno), "Success", 7) == 0)
-		perror(err_msg);
-}
 
 char	*last_error(bool set, int err)
 {

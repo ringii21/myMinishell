@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/15 17:21:50 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:47:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,11 @@ int	heredoc(t_redir *r)
 	}
 	else if (pid == 0)
 		ft_heredoc_loop(r, fd);
-	else
-	{
-		ignore_sig(SIGQUIT);
-		ignore_sig(SIGINT);
-		wait_function(pid);
-		unlink(r->file_name);
-		set_signals();
-		set_sig();
-	}
+	ignore_sig(SIGQUIT);
+	ignore_sig(SIGINT);
+	wait_function(pid);
+	set_signals();
+	set_sig();
 	close(fd);
 	return (1);
 }

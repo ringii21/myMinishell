@@ -6,30 +6,11 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 15:53:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:46:26 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	return_error_no_file(t_redir *file)
-{
-	ft_putstr_fd(MINI_MSG, STDERR_FILENO);
-	ft_putstr_fd(file->file_path, STDERR_FILENO);
-	ft_putstr_fd(ERR_FILE, STDERR_FILENO);
-	close(file->fd);
-	g_status = 127;
-	return (1);
-}
-
-int	return_error_access_denied(t_redir *file)
-{
-	ft_putstr_fd(MINI_MSG, STDERR_FILENO);
-	ft_putstr_fd(file->file_path, STDERR_FILENO);
-	ft_putstr_fd(": permission denied.\n", 2);
-	g_status = 1;
-	return (1);
-}
 
 void	ft_close_fd(t_token *t)
 {
@@ -44,11 +25,10 @@ void	ft_close_fd(t_token *t)
 	}
 }
 
-int	ft_input(t_token *t, t_env *env)
+int	ft_input(t_token *t)
 {
 	t_redir	*tmp;
 
-	(void)env;
 	tmp = t->file;
 	while (tmp)
 	{
@@ -56,9 +36,9 @@ int	ft_input(t_token *t, t_env *env)
 		{
 			tmp->fd = open(tmp->file_path, O_RDONLY);
 			if (errno == EACCES)
-				return (return_error_access_denied(tmp)); // Permission denied
+				return (return_error_access_denied(tmp));
 			else if (tmp->fd < 0)
-				return (return_error_no_file(tmp)); // No such file or directory
+				return (return_error_no_file(tmp));
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
@@ -96,9 +76,9 @@ int	ft_output(t_token *t)
 	return (0);
 }
 
-int	ft_redir(t_token *t, t_env *env)
+int	ft_redir(t_token *t)
 {
-	if (ft_input(t, env) == 1)
+	if (ft_input(t) == 1)
 		return (1);
 	if (ft_output(t) == 1)
 		return (1);

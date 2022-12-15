@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/15 14:57:52 by abonard          ###   ########.fr        #
+#    Updated: 2022/12/15 17:43:09 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS			:=	main.c \
 					shell_cd.c \
 					shell_echo.c \
 					shell_env.c \
+					shell_err_msg.c \
 					shell_exit.c \
 					shell_expansion.c \
 					shell_export.c \

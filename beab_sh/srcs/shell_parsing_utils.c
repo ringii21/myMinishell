@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_parsing_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:15 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/15 15:32:53 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:55:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_check_if_not_valid_pipes(char *line, int i, bool err)
 	if (line[0] == '|' || line[ft_strlen(line) - 1] == '|')
 	{
 		if (err == true)
-			ft_putstr_fd("minishell: syntax error near unexpected token `|`\n", 2);
+			ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
 		g_status = 2;
 		return (0);
 	}
@@ -30,7 +30,7 @@ int	ft_check_if_not_valid_pipes(char *line, int i, bool err)
 			if (line[i] == '|')
 			{
 				if (err == true)
-					ft_putstr_fd("minishell: syntax error near unexpected token `|`\n", 2);
+					ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
 				g_status = 2;
 				return (0);
 			}
@@ -44,7 +44,7 @@ int	ft_check_if_not_valid_redir(char *line, int i, bool err)
 	if (line[ft_strlen(line) - 1] == '>' || line[ft_strlen(line) - 1] == '<')
 	{
 		if (err == true)
-			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+			ft_putstr_fd(ERR_NL, STDERR_FILENO);
 		g_status = 2;
 		return (0);
 	}
@@ -59,7 +59,7 @@ int	ft_check_if_not_valid_redir(char *line, int i, bool err)
 			if (line[i] == '|')
 			{
 				if (err == true)
-					ft_putstr_fd("minishell: syntax error near unexpected token `|`\n", 2);
+					ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
 				g_status = 2;
 				return (0);
 			}
@@ -105,7 +105,7 @@ int	check_quotes_is_valid(char *line)
 		check_quotes(line[i], &b_quote, &quotes);
 	if (quotes % 2 != 0)
 	{
-		ft_putstr_fd("minishell: unclosed quote detected\n", 2);
+		ft_putstr_fd(ERR_QUOTE, STDERR_FILENO);
 		return (0);
 	}
 	return (1);

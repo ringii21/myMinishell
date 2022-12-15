@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/15 15:56:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:46:40 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::INIT::
+
 //		shell_signals.c
 int		set_signals(void);
 int		shut_signals(int fork);
@@ -47,6 +48,7 @@ t_token	*init_token(void);
 void	ft_flush(t_token *t);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
+
 //		shell_parsing.c
 t_token	*parser(t_main *m);
 
@@ -78,6 +80,7 @@ int		ft_strcmplen(char *s1, char *s2);
 void	ft_error_msg(char *err_msg);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::EXECUTION::
+
 //		shell_jobs.c
 int		job(t_main *m);
 int		exec_builtin(t_token *t, t_env *env, bool is_forked);
@@ -86,7 +89,7 @@ int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 int		which_path(t_main *m, t_token *t);
 
 //		shell_io.c
-int		ft_redir(t_token *t, t_env *env);
+int		ft_redir(t_token *t);
 void	ft_close_fd(t_token *t);
 
 //		heredoc.c
@@ -103,6 +106,7 @@ int		child_process(t_token *t, t_env *env, bool builtin);
 void	close_pipes(t_token *t);
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BUILTINS::
+
 //		shell_cd.c
 int		ft_cd(t_token *t, t_env *env, bool is_forked);
 char	*ft_path_finder(t_token *t, t_env *env, bool is_forked);
@@ -134,6 +138,12 @@ int		ft_check_and_export(char *namevar, char *value, t_env *env,
 void	ft_print_declare(t_env *env, bool is_forked);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DEBUG::
+
+//		shell_err_msg.c
+int		return_error_no_file(t_redir *file);
+int		return_error_access_denied(t_redir *file);
+void	ft_error_msg(char *err_msg);
+
 //		shell_printlist.c
 void	print_tokens(t_token *t);
 void	print_redir(t_redir *r);
