@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/15 15:32:07 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 20:08:57 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,29 @@ int	quote_manager(t_parse *p, char *str, t_env *env, int u)
 	return (0);
 }
 
-int	fill_token_list(t_parse *p, t_main *m)
+int	fill_token_list(t_parse *p, t_main *m, char *tmp)
 {
 	int	res;
 
-	while (m->line[p->i] == ' ')
+	while (tmp[p->i] == ' ')
 	{
 		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
 		p->i++;
 	}
-	if (m->line[p->i] == '\\')
+	if (tmp[p->i] == '\\')
 		return (5);
-	if (m->line[p->i] == '|')
+	if (tmp[p->i] == '|')
 	{
 		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
 		if (p->cursor->cmds_av == NULL && p->cursor->file == NULL)
 			return (4);
-		next_token(&p->cursor, m->line[p->i++] == '|');
+		next_token(&p->cursor, tmp[p->i++] == '|');
 		return (1);
 	}
-	res = redir_manager(p, m->line);
+	res = redir_manager(p, tmp);
 	if (res != 0)
 		return (res);
-	res = quote_manager(p, m->line, m->env, 0);
+	res = quote_manager(p, tmp, m->env, 0);
 	if (res != 0)
 		return (res);
 	return (0);
@@ -95,32 +95,35 @@ t_token	*parser(t_main *m)
 {
 	t_parse	p;
 	int		res;
+	char	*tmp;
 
 	if (!m->line)
 		return (NULL);
 	p = init_parser();
-	if (!ft_check_if_not_valid_pipes(m->line, -1, true)
-		|| !ft_check_if_not_valid_redir(m->line, -1, true)
-		|| !check_quotes_is_valid(m->line))
+	tmp = ft_strtrim(m->line, " \f\t\n\r\v");
+	if (!ft_check_if_not_valid_pipes(tmp, -1, true)
+		|| !ft_check_if_not_valid_redir(tmp, -1, true)
+		|| !check_quotes_is_valid(tmp))
 		return (p.list);
-	while (m->line[p.i])
+	while (tmp[p.i])
 	{
-		res = fill_token_list(&p, m);
+		res = fill_token_list(&p, m, tmp);
 		if (res == 1)
 		{
-			if (m->line[p.i] == '?' && m->line[p.i - 1]
-				&& m->line[p.i - 1] == '$')
+			if (tmp[p.i] == '?' && tmp[p.i - 1]
+				&& tmp[p.i - 1] == '$')
 				p.i++;
 			continue ;
 		}
 		if (res > 1)
 			return (NULL);
-		if (m->line[p.i])
-			p.read = ft_strdupcat(p.read, m->line + p.i++, 1);
+		if (tmp[p.i])
+			p.read = ft_strdupcat(p.read, tmp + p.i++, 1);
 	}
 	fill_args(&p.read, &p.type, p.cursor, &p.is_quote);
 	if (p.cursor->cmds_av == NULL && p.cursor->file == NULL)
 		return (NULL);
+	free(tmp);
 	count_ac(p.list);
 	return (p.list);
 }

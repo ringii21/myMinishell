@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/15 17:46:40 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 21:02:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ int		is_builtin(char **cmds);
 int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 
 //		shell_exit.c
-int		ft_exit(t_token *t, bool is_forked);
+int		ft_exit(t_token *t, bool is_forked, t_env *env);
+void	ft_mini_exit(int status, t_token *t, t_env *env);
 
 //		shell_unset.c
 int		ft_unset(t_token *t, t_env *env, bool is_forked);

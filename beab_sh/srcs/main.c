@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 19:00:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 20:46:38 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	minishell(t_main *m)
 		m->prompt = ft_strjoin(cwd, "$ ");
 		free(cwd);
 		m->line = readline(m->prompt);
-		m->line = ft_strtrim(m->line, " \f\t\n\r\v");
 		if (!m->line)
 		{
 			ft_putstr_fd(EXIT_MSG, STDERR_FILENO);

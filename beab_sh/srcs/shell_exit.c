@@ -6,13 +6,21 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 19:02:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 21:01:38 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_exit(t_token *t, bool is_forked)
+void	ft_mini_exit(int status, t_token *t, t_env *env)
+{
+	ft_flush(t);
+	free_env(env);
+	exit(status);
+}
+
+
+int	ft_exit(t_token *t, bool is_forked, t_env *env)
 {
 	int	ret;
 
@@ -35,6 +43,8 @@ int	ft_exit(t_token *t, bool is_forked)
 	}
 	if (is_forked)
 		printf("exit\n");
+	ft_flush(t);
+	free_env(env);
 	exit(ret);
 	return (ret);
 }

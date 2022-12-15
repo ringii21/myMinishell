@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 19:23:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/15 20:51:12 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_flush(t_token *t)
 {
 	t_token	*next;
 
-	while (t && t->next)
+	while (t->prev && t)
 		t = t->prev;
 	while (t)
 	{

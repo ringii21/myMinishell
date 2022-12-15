@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 22:40:54 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/15 20:45:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	exec_builtin(t_token *t, t_env *env, bool is_forked)
 	if (ft_strcmplen("env", t->cmds_av[0]) == 0)
 		ret = ft_env(env);
 	if (ft_strcmplen("exit", t->cmds_av[0]) == 0)
-		ret = ft_exit(t, is_forked);
+		ret = ft_exit(t, is_forked, env);
 	if (ft_strcmplen("pwd", t->cmds_av[0]) == 0)
 		ret = ft_pwd(env);
 	if (ft_strcmplen("cd", t->cmds_av[0]) == 0)
