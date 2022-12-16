@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 21:18:53 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:08:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_input(t_token *t, t_env *env)
 		if (tmp->type == REDIR_IN)
 		{
 			tmp->fd = open(tmp->file_path, O_RDONLY);
-			if (errno == EACCES)
+			if (errno)
 				return (return_error_access_denied(tmp));
 			else if (tmp->fd < 0)
 				return (return_error_no_file(tmp));
@@ -62,14 +62,14 @@ int	ft_output(t_token *t)
 		if (tmp->type == REDIR_OUT)
 		{
 			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (errno == EACCES)
-				return (1);
+			if (errno)
+				return (errno);
 		}
 		else if (tmp->type == R_REDIR_OUT)
 		{
 			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_APPEND, 0644);
-			if (errno == EACCES)
-				return (1);
+			if (errno)
+				return (errno);
 		}
 		tmp = tmp->next;
 	}
