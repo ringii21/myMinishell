@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 20:37:34 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:00:32 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,7 @@ int	get_path(t_token *t, t_main *m)
 		t->bin_path = get_binpath(m, sep_path);
 		ft_free_stab(sep_path);
 		if (t->bin_path == NULL)
-		{
-			ft_putstr_fd(MINI_MSG, STDERR_FILENO);
-			ft_putstr_fd(t->cmds_av[0], STDERR_FILENO);
-			ft_putstr_fd(ERR_CMD, STDERR_FILENO);
-			g_status = 127;
-			return (127);
-		}
+			return (return_error_cmd_nf(t));
 	}
 	else
 		free(m->t->bin_path);

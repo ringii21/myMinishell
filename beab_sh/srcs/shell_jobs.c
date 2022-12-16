@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 15:03:07 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:11:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_hold_exec(t_token *t, t_env *env)
 	return (res);
 }
 
-int	assign_jobs(t_token *t, t_env *env, bool builtin)
+int	assign_jobs(t_main *m, t_token *t, t_env *env, bool builtin)
 {
 	int	res;
 
@@ -51,6 +51,9 @@ int	assign_jobs(t_token *t, t_env *env, bool builtin)
 	}
 	if (ft_redir(t, env))
 		return (4);
+	res = which_path(m, m->t);
+	if (res == 127)
+		return (127);
 	t->pid = fork();
 	shut_signals(t->pid);
 	if (t->pid == -1)
@@ -77,17 +80,14 @@ int	job(t_main *m)
 		if (!ft_check_if_not_valid_pipes(m->line, -1, false)
 			|| !ft_check_if_not_valid_redir(m->line, -1, false))
 			return (0);
-		res = which_path(m, m->t);
-		if (res != 0 && res != 127)
-			return (-1);
-		else if (res == 127)
-			;
 		else
 		{
-			res = assign_jobs(m->t, m->env, m->t->bin_path
+			res = assign_jobs(m, m->t, m->env, m->t->bin_path
 					&& m->t->bin_path[0] == '\0');
 			if (res == 4)
 				break ;
+			if (res != 0 && res != 127)
+				return (-1);
 		}
 		m->t = m->t->next;
 	}

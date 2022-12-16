@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   shell_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 18:22:22 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:30:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_mini_exit(int status, t_token *t, t_env *env)
+int	ft_mini_exit(int status, t_token *t, t_env *env)
 {
 	ft_flush(t);
 	free_env(env);
 	exit(status);
+	return (status);
 }
 
 int	ft_exit(t_token *t, bool is_forked, t_env *env)

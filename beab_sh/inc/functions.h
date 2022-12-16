@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 14:44:17 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:02:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	fill_redir(t_token *t, char *str, t_type type,
 void	split_args(t_token *t, char *str);
 char	*ft_strdupcat(char *s, char *t, int len);
 int		ft_strcmplen(char *s1, char *s2);
-void	ft_error_msg(char *err_msg);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::EXECUTION::
 
@@ -125,7 +124,7 @@ int		exec_builtin(t_token *t, t_env *env, bool is_forked);
 
 //		shell_exit.c
 int		ft_exit(t_token *t, bool is_forked, t_env *env);
-void	ft_mini_exit(int status, t_token *t, t_env *env);
+int		ft_mini_exit(int status, t_token *t, t_env *env);
 
 //		shell_unset.c
 int		ft_unset(t_token *t, t_env *env, bool is_forked);
@@ -141,9 +140,10 @@ void	ft_print_declare(t_env *env, bool is_forked);
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DEBUG::
 
 //		shell_err_msg.c
+int		return_error_cmd_nf(t_token *t);
 int		return_error_no_file(t_redir *file);
 int		return_error_access_denied(t_redir *file);
-void	ft_error_msg(char *err_msg);
+int		ft_error_msg(char *err_msg);
 
 //		shell_printlist.c
 void	print_tokens(t_token *t);

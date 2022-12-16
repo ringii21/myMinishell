@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_flush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 19:23:14 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:30:31 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_redir(t_redir *r, bool is_parent)
 {
 	t_redir	*tmp;
 
+	(void)is_parent;
 	while (r)
 	{
 		tmp = r->next;

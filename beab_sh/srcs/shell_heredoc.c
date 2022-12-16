@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/16 19:20:40 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:30:38 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int	ft_heredoc_loop(t_token *t, t_env *env, t_redir *r, int fd)
 	while (1)
 	{
 		line = readline("heredoc> ");
+		if (!line)
+			break ;
 		if (strcmp(line, r->file_path) == 0)
-			ft_mini_exit(exit_heredoc(r, doc, fd), t, env);
+			return (ft_mini_exit(exit_heredoc(r, doc, fd), t, env));
 		if (i++ == 0)
 			doc = ft_strdup(line);
 		else
@@ -58,7 +60,7 @@ int	ft_heredoc_loop(t_token *t, t_env *env, t_redir *r, int fd)
 		free(line);
 	}
 	free(doc);
-	ft_mini_exit(0, t, env);
+	return (ft_mini_exit(0, t, env));
 }
 
 int	heredoc(t_token *t, t_redir *r, t_env *env)
@@ -86,12 +88,10 @@ int	heredoc(t_token *t, t_redir *r, t_env *env)
 	}
 	else if (pid == 0)
 	{
-		t->is_parent = false;
 		ft_heredoc_loop(t, env, r, fd);
 	}
 	ignore_sig(SIGQUIT);
 	ignore_sig(SIGINT);
-	t->is_parent = true;
 	wait_function(pid);
 	set_signals();
 	set_sig();

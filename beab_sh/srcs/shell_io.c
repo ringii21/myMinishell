@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 19:17:26 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:30:44 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ int	ft_input(t_token *t, t_env *env)
 		if (tmp->type == REDIR_IN)
 		{
 			tmp->fd = open(tmp->file_path, O_RDONLY);
-			if (errno)
-				return (return_error_access_denied(tmp));
-			else if (tmp->fd < 0)
-				return (return_error_no_file(tmp));
+			if (tmp->fd == -1)
+				//return (return_error_access_denied(tmp));
+				return (ft_error_msg(tmp->file_path));
+//			else if (tmp->fd < 0)
+//				return (return_error_no_file(tmp));
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
@@ -63,14 +64,14 @@ int	ft_output(t_token *t)
 		if (tmp->type == REDIR_OUT)
 		{
 			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (errno)
-				return (errno);
+			if (tmp->fd == -1)
+				return (ft_error_msg(tmp->file_path));
 		}
 		else if (tmp->type == R_REDIR_OUT)
 		{
 			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_APPEND, 0644);
-			if (errno)
-				return (errno);
+			if (tmp->fd == -1)
+				return (ft_error_msg(tmp->file_path));
 		}
 		tmp = tmp->next;
 	}
