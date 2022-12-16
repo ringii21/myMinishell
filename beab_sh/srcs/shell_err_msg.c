@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:41:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 19:12:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:19:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	return_error_access_denied(t_redir *file)
 	return (1);
 }
 
-int	ft_error_msg(char *err_msg)
+int	ft_error_msg(int ret, char *err_msg)
 {
 	ft_putstr_fd(MINI_MSG, STDERR_FILENO);
 	if (ft_strnstr(strerror(errno), "Success", 7) == 0)
 		if (err_msg)
 			perror(err_msg);
 	g_status = errno;
-	return (1);
+	return (ret);
 }

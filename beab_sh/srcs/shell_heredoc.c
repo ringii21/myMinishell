@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/16 19:30:38 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:21:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,16 @@ int	ft_heredoc_loop(t_token *t, t_env *env, t_redir *r, int fd)
 		if (i++ == 0)
 			doc = ft_strdup(line);
 		else
-		{
-			doc = ft_strjoin_free(doc, "\n");
 			doc = ft_strjoin_free(doc, line);
-		}
+		doc = ft_strjoin_free(doc, "\n");
 		free(line);
 	}
 	free(doc);
 	return (ft_mini_exit(0, t, env));
 }
 
-int	heredoc(t_token *t, t_redir *r, t_env *env)
+int	ft_open_heredoc(t_redir *r)
 {
-	pid_t	pid;
-	int		fd;
 	char	*cwd;
 	char	*nb;
 
@@ -76,22 +72,31 @@ int	heredoc(t_token *t, t_redir *r, t_env *env)
 	r->file_name = ft_strjoin_free(r->file_name, nb);
 	free(nb);
 	free(cwd);
-	fd = open(r->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	return (open(r->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644));
+}
+
+int	heredoc(t_token *t, t_redir *r, t_env *env)
+{
+	pid_t	pid;
+	int		fd;
+
+	fd = ft_open_heredoc(r);
 	if (fd < 0)
 		return (-1);
 	pid = fork();
 	if (pid == -1)
 	{
 		errno = ECHILD;
-		ft_error_msg("here_doc");
-		return (-1);
+		return (ft_error_msg(1, HERE_DOC));
 	}
 	else if (pid == 0)
 	{
+		t->is_parent = false;
 		ft_heredoc_loop(t, env, r, fd);
 	}
 	ignore_sig(SIGQUIT);
 	ignore_sig(SIGINT);
+	t->is_parent = true;
 	wait_function(pid);
 	set_signals();
 	set_sig();

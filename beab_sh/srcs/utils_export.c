@@ -6,70 +6,43 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:45:35 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/16 20:57:58 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 21:39:35 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* void	ft_swap_list(t_env **begin, t_env *last)
+void	ft_print_cont(t_env *tmp)
 {
-	t_env	*tmp;
+	static int	i;
 
-	tmp = *begin;
-	*begin = last->next;
-	tmp->next = last->next->next;
-	(*begin)->next = tmp;
-}
- */
-void	ft_sort_env(t_env **begin)
-{
-	t_env	*tmp1;
-	t_env	*tmp2;
-	char	*swap;
-
-	tmp1 = *begin;
-	while (tmp1)
+	i = 0;
+	if (tmp->cont)
 	{
-		tmp2 = tmp1->next;
-		if (tmp2 && ft_strcmp(tmp1->var, tmp2->var) > 0)
+		ft_putstr_fd("=\"", STDOUT_FILENO);
+		while (tmp->cont[i])
 		{
-			swap = tmp1->var;
-			tmp1->var = tmp2->var;
-			tmp2->var = swap;
-			tmp1 = *begin;
+			if (tmp->cont[i] == '"' || tmp->cont[i] == '\\')
+				ft_putstr_fd("\\", STDOUT_FILENO);
+			ft_putchar_fd(tmp->cont[i], STDOUT_FILENO);
+			i++;
 		}
-		else
-			tmp1 = tmp1->next;
+		ft_putstr_fd("\"", STDOUT_FILENO);
 	}
 }
 
 void	ft_print_declare(t_env *env, bool is_forked)
 {
-	int		i;
 	t_env	*tmp;
 
-	tmp = env;
 	if (!is_forked)
 		return ;
-	//ft_sort_env(&tmp);
+	tmp = env;
 	while (tmp)
 	{
-		i = 0;
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_fd(tmp->var, STDOUT_FILENO);
-		if (tmp->cont)
-		{
-			ft_putstr_fd("=\"", STDOUT_FILENO);
-			while (tmp->cont[i])
-			{
-				if (tmp->cont[i] == '"' || tmp->cont[i] == '\\')
-					ft_putstr_fd("\\", STDOUT_FILENO);
-				ft_putchar_fd(tmp->cont[i], STDOUT_FILENO);
-				i++;
-			}
-			ft_putstr_fd("\"", STDOUT_FILENO);
-		}
+		ft_print_cont(tmp);
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		tmp = tmp->next;
 	}

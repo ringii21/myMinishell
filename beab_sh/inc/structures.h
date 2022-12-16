@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 20:10:25 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:30:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_main
 	char			*cwd;
 	char			*prompt;
 	char			*line;
+	t_parse			p;
 	t_token			*t;
 	t_env			*env;
 }	t_main;

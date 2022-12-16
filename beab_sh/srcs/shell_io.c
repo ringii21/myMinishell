@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 21:18:47 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:19:44 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ int	ft_input(t_token *t, t_env *env)
 		{
 			tmp->fd = open(tmp->file_path, O_RDONLY);
 			if (tmp->fd == -1)
-				//return (return_error_access_denied(tmp));
-				return (ft_error_msg(tmp->file_path));
-//			else if (tmp->fd < 0)
-//				return (return_error_no_file(tmp));
+				return (ft_error_msg(1, tmp->file_path));
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
@@ -63,13 +60,13 @@ int	ft_output(t_token *t)
 		{
 			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (tmp->fd == -1)
-				return (ft_error_msg(tmp->file_path));
+				return (ft_error_msg(1, tmp->file_path));
 		}
 		else if (tmp->type == R_REDIR_OUT)
 		{
 			tmp->fd = open(tmp->file_path, O_RDWR | O_CREAT | O_APPEND, 0644);
 			if (tmp->fd == -1)
-				return (ft_error_msg(tmp->file_path));
+				return (ft_error_msg(1, tmp->file_path));
 		}
 		tmp = tmp->next;
 	}

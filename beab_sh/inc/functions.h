@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 20:54:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:45:06 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ void	ft_flush(t_token *t);
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
 //		shell_parsing.c
-t_token	*parser(t_main *m);
+void	parser(t_main *m);
 
-//		shell_parsing_utils.c
+//		shell_lexer.c
+char	*lexer(t_main *m);
+
+//		shell_lexer_utils.c
 int		ft_check_if_not_valid_redir(char *line, int i, bool err);
 int		ft_check_if_not_valid_pipes(char *line, int i, bool err);
 int		check_quotes_is_valid(char *line);
@@ -144,7 +147,7 @@ void	ft_print_declare(t_env *env, bool is_forked);
 int		return_error_cmd_nf(t_token *t);
 int		return_error_no_file(t_redir *file);
 int		return_error_access_denied(t_redir *file);
-int		ft_error_msg(char *err_msg);
+int		ft_error_msg(int ret, char *err_msg);
 
 //		shell_printlist.c
 void	print_tokens(t_token *t);

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 19:30:31 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 21:39:55 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_flush(t_token *t)
 			next = t->next;
 			ft_free_nodes(t);
 			t->cmd_ac = 0;
-	//		ft_close_fd(t);
 			free(t);
 			t = next;
 		}

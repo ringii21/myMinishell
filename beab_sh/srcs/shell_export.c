@@ -6,20 +6,18 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/15 21:41:06 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 21:33:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_export_var(t_token *t, t_env *env, bool is_forked)
+int	ft_export_var(t_token *t, t_env *env, bool is_forked, size_t i)
 {
 	char	*namevar;
 	char	*value;
-	size_t	i;
 	int		j;
 
-	i = 1;
 	while (i < t->cmd_ac)
 	{
 		j = 0;
@@ -44,14 +42,16 @@ int	ft_export_var(t_token *t, t_env *env, bool is_forked)
 
 int	ft_export(t_token *t, t_env *env, bool is_forked)
 {
-	int	ret;
+	int		ret;
+	size_t	i;
 
+	i = 1;
 	ret = 0;
 	if (t->cmd_ac < 2)
 	{
 		ft_print_declare(env, is_forked);
 		return (ret);
 	}
-	ret = ft_export_var(t, env, is_forked);
+	ret = ft_export_var(t, env, is_forked, i);
 	return (ret);
 }

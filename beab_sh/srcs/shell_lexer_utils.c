@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_parsing_utils.c                              :+:      :+:    :+:   */
+/*   shell_lexer_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:15 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/16 20:34:27 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:31:24 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_check_if_not_valid_pipes(char *line, int i, bool err)
+size_t	check_len_and_line(char *line)
 {
 	size_t	len;
 
@@ -21,6 +21,14 @@ int	ft_check_if_not_valid_pipes(char *line, int i, bool err)
 	len = ft_strlen(line);
 	if (!len)
 		return (0);
+	return (len);
+}
+
+int	ft_check_if_not_valid_pipes(char *line, int i, bool err)
+{
+	size_t	len;
+
+	len = check_len_and_line(line);
 	if (line[0] == '|' || line[len - 1] == '|')
 	{
 		if (err == true)
@@ -50,11 +58,7 @@ int	ft_check_if_not_valid_redir(char *line, int i, bool err)
 {	
 	size_t	len;
 
-	if (!line)
-		return (0);
-	len = ft_strlen(line);
-	if (!len)
-		return (0);
+	len = check_len_and_line(line);
 	if (line[len - 1] == '>' || line[len - 1] == '<')
 	{
 		if (err == true)

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 20:12:47 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 21:45:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	ft_hold_exec(t_token *t, t_env *env)
 	return (res);
 }
 
-int	assign_jobs(t_main *m, t_token *t, t_env *env)
+int	check_and_proceed(t_main *m, t_token *t, t_env *env)
 {
-	int	res;
-
-	res = 0;
+	if (!ft_check_if_not_valid_pipes(m->line, -1, false)
+		|| !ft_check_if_not_valid_redir(m->line, -1, false))
+		return (-1);
 	t->is_pipe_open = 0;
 	if (t->is_pipe == 1 || (t->prev && t->prev->is_pipe == 1))
 	{
@@ -51,6 +51,17 @@ int	assign_jobs(t_main *m, t_token *t, t_env *env)
 	}
 	if (ft_redir(t, env))
 		return (4);
+	return (0);
+}
+
+int	assign_jobs(t_main *m, t_token *t, t_env *env)
+{
+	int	res;
+
+	res = 0;
+	res = check_and_proceed(m, t, env);
+	if (res == -1 || res == 4)
+		return (res);
 	res = which_path(m, m->t);
 	if (res == 127)
 		return (127);
@@ -77,17 +88,11 @@ int	job(t_main *m)
 	res = 0;
 	while (m->t)
 	{
-		if (!ft_check_if_not_valid_pipes(m->line, -1, false)
-			|| !ft_check_if_not_valid_redir(m->line, -1, false))
-			return (0);
-		else
-		{
-			res = assign_jobs(m, m->t, m->env);
-			if (res == 4)
-				break ;
-			if (res != 0 && res != 127)
-				return (-1);
-		}
+		res = assign_jobs(m, m->t, m->env);
+		if (res == 4)
+			break ;
+		if (res != 0 && res != 127)
+			return (-1);
 		m->t = m->t->next;
 	}
 	m->t = list_cmd;

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 19:52:45 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:45:20 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,49 +91,33 @@ int	fill_token_list(t_parse *p, t_main *m, char *tmp)
 	return (0);
 }
 
-t_token	*parser(t_main *m)
+void	parser(t_main *m)
 {
-	t_parse	p;
 	int		res;
 	char	*tmp;
 
-	if (!m->line)
-		return (NULL);
-	p = init_parser();
-	tmp = NULL;
-	tmp = ft_strtrim(m->line, " \f\t\n\r\v");
-	if (!tmp)
-		return (NULL);
-	if (!ft_check_if_not_valid_pipes(tmp, -1, true)
-		|| !ft_check_if_not_valid_redir(tmp, -1, true)
-		|| !check_quotes_is_valid(tmp))
+	tmp = lexer(m);
+	while (tmp[m->p.i])
 	{
-		free(tmp);
-		return (p.list);
-	}
-	while (tmp[p.i])
-	{
-		res = fill_token_list(&p, m, tmp);
+		res = fill_token_list(&m->p, m, tmp);
 		if (res == 1)
 		{
-			if (tmp[p.i] == '?' && tmp[p.i - 1]
-				&& tmp[p.i - 1] == '$')
-				p.i++;
+			if (tmp[m->p.i] == '?' && tmp[m->p.i - 1] && tmp[m->p.i - 1] == '$')
+				m->p.i++;
 			continue ;
 		}
 		if (res > 1)
 		{
 			free(tmp);
-			ft_flush(p.list);
-			return (NULL);
+			ft_flush(m->p.list);
+			return ;
 		}
-		if (tmp[p.i])
-			p.read = ft_strdupcat(p.read, tmp + p.i++, 1);
+		if (tmp[m->p.i])
+			m->p.read = ft_strdupcat(m->p.read, tmp + m->p.i++, 1);
 	}
-	fill_args(&p.read, &p.type, p.cursor, &p.is_quote);
-	if (p.cursor->cmds_av == NULL && p.cursor->file == NULL)
-		return (NULL);
+	fill_args(&m->p.read, &m->p.type, m->p.cursor, &m->p.is_quote);
+	if (m->p.cursor->cmds_av == NULL && m->p.cursor->file == NULL)
+		return ;
 	free(tmp);
-	count_ac(p.list);
-	return (p.list);
+	count_ac(m->p.list);
 }
