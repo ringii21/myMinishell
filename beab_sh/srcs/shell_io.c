@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 16:08:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:17:26 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ int	ft_input(t_token *t, t_env *env)
 		}
 		else if (tmp->type == R_REDIR_IN)
 		{
+			printf("C est nimp\n");
 			heredoc(t, tmp, env);
 			if (g_status >= 128)
 				return (1);
-			return (0);
+			//return (0);
 		}
 		tmp = tmp->next;
 	}

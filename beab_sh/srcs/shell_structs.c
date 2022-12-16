@@ -6,16 +6,40 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:47:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 15:45:59 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:12:38 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	return_value_nb_heredoc(t_token *t)
+{
+	t_token	*tmp;
+	t_redir	*tmp2;
+	int		i;
+
+	i = 0;
+	tmp = t;
+	while (tmp->prev)
+		tmp = tmp->prev;
+	while (tmp)
+	{
+		tmp2 = tmp->file;
+		while (tmp2)
+		{
+			i++;
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
 void	fill_redir(t_token *t, char *str, t_type type, bool *is_quote)
 {
 	t_redir	*new;
 	t_redir	*tmp;
+
 
 	new = malloc(sizeof(t_redir));
 	if (!new)
@@ -37,6 +61,7 @@ void	fill_redir(t_token *t, char *str, t_type type, bool *is_quote)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
+	new->nb_heredoc = return_value_nb_heredoc(t);
 }
 
 void	fill_args(char **str, t_type *type, t_token *t, bool *is_quote)

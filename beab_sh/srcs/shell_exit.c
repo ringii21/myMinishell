@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 14:38:31 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 18:22:22 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_mini_exit(int status, t_token *t, t_env *env)
 	free_env(env);
 	exit(status);
 }
-
 
 int	ft_exit(t_token *t, bool is_forked, t_env *env)
 {

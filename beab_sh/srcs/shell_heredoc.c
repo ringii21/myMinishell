@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/16 15:03:43 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:20:40 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,13 @@ int	heredoc(t_token *t, t_redir *r, t_env *env)
 	pid_t	pid;
 	int		fd;
 	char	*cwd;
+	char	*nb;
 
 	cwd = getcwd(NULL, 0);
 	r->file_name = ft_strjoin(cwd, HERE_DOC);
+	nb = ft_itoa(r->nb_heredoc);
+	r->file_name = ft_strjoin_free(r->file_name, nb);
+	free(nb);
 	free(cwd);
 	fd = open(r->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd < 0)

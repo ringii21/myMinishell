@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 15:00:19 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 18:53:11 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_redir
 	int					fd;
 	struct s_redir		*next;
 	bool				is_quote;
+	int					nb_heredoc;
 }	t_redir;
 
 typedef struct s_token

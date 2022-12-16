@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 21:12:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 18:34:23 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	dup_fd(t_token *t)
 		{
 			if (tmp->type == REDIR_IN)
 				dup2(tmp->fd, 0);
-			if (tmp->type == R_REDIR_IN)
+			if (tmp->type == R_REDIR_IN && tmp->next == NULL)
 			{
 				tmp->fd = open(tmp->file_name, O_RDONLY | O_CREAT, 0644);
 				if (tmp->fd < 0)
