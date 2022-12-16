@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 19:02:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 20:54:00 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_parse	init_parser(void);
 t_token	*init_token(void);
 
 //		shell_flush.c
+void	ft_free_nodes(t_token *t);
 void	ft_flush(t_token *t);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
@@ -101,7 +102,7 @@ void	interrupt_heredoc(int sig);
 void	ignore_sig(int sig);
 
 //		shell_pipes.c
-int		child_process(t_token *t, t_env *env, bool builtin);
+int		child_process(t_token *t, t_env *env);
 void	close_pipes(t_token *t);
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::BUILTINS::

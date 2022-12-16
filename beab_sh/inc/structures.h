@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 19:30:16 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 20:10:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_token
 	bool			is_pipe;
 	bool			is_error;
 	bool			is_parent;
+	bool			is_builtin;
 	int				is_pipe_open;
 	int				pipe_fd[2];
 	char			**cmds_av;

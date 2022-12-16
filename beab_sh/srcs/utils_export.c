@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:45:35 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/15 22:27:43 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 20:57:58 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_print_declare(t_env *env, bool is_forked)
 	tmp = env;
 	if (!is_forked)
 		return ;
-	ft_sort_env(&tmp);
+	//ft_sort_env(&tmp);
 	while (tmp)
 	{
 		i = 0;

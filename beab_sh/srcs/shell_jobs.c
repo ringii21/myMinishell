@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 19:11:47 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 20:12:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_hold_exec(t_token *t, t_env *env)
 	return (res);
 }
 
-int	assign_jobs(t_main *m, t_token *t, t_env *env, bool builtin)
+int	assign_jobs(t_main *m, t_token *t, t_env *env)
 {
 	int	res;
 
@@ -61,7 +61,7 @@ int	assign_jobs(t_main *m, t_token *t, t_env *env, bool builtin)
 	if (t->pid == 0)
 	{
 		t->is_parent = false;
-		child_process(t, env, builtin);
+		child_process(t, env);
 	}
 	close_pipes(t);
 	t->is_parent = true;
@@ -82,8 +82,7 @@ int	job(t_main *m)
 			return (0);
 		else
 		{
-			res = assign_jobs(m, m->t, m->env, m->t->bin_path
-					&& m->t->bin_path[0] == '\0');
+			res = assign_jobs(m, m->t, m->env);
 			if (res == 4)
 				break ;
 			if (res != 0 && res != 127)

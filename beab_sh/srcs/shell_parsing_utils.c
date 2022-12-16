@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:15 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/16 17:10:22 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 20:34:27 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ void	check_quotes(char c, int *b_quote, int *quotes)
 //Checking quotes functions
 int	check_quotes_is_valid(char *line)
 {
-	int	i;
-	int	quotes;
-	int	b_quote;
+	int		i;
+	int		quotes;
+	int		b_quote;
 
 	if (!line)
 		return (1);
@@ -118,7 +118,11 @@ int	check_quotes_is_valid(char *line)
 	quotes = 0;
 	b_quote = 0;
 	while (line[++i])
+	{
 		check_quotes(line[i], &b_quote, &quotes);
+		if (line[i] == '\\' && b_quote == 0)
+			return (0);
+	}
 	if (quotes % 2 != 0)
 	{
 		ft_putstr_fd(ERR_QUOTE, STDERR_FILENO);

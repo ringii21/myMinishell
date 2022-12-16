@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:19:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 19:00:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 21:08:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	get_path(t_token *t, t_main *m)
 {
 	char	**sep_path;
 
+	if (get_cont("PATH", m->env) == NULL)
+		return (return_error_cmd_nf(t));
 	t->bin_path = ft_strdup(get_cont("PATH", m->env));
 	if (t->bin_path == NULL)
 		return (1);
@@ -65,6 +67,7 @@ int	which_path(t_main *m, t_token *t)
 			free(t->bin_path);
 		t->bin_path = NULL;
 		t->bin_path = ft_strdup("\0");
+		t->is_builtin = true;
 	}
 	else if (ft_strchr(t->cmds_av[0], '/') != 0)
 		t->bin_path = ft_strdup(t->cmds_av[0]);

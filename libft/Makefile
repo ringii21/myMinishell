@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/15 20:22:39 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/16 20:50:59 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -178,13 +178,8 @@ $(ODIR):
 	@echo "$(HIGREEN)libft objs folder:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 clean:
-ifneq ($(wildcard ./$(ODIR)),)
 	@rm -rf $(ODIR)
-	@echo "$(HIORANGE)libft objs folder:\t\t\t\t\t[RM]$(NO_COLOR)"
-else
-	@rm -f $(wildcard %.o)
-	@echo "$(HIORANGE)libft obj files:\t\t\t\t\t[RM]$(NO_COLOR)"
-endif
+	@echo "$(HIORANGE)objs folder:\t\t\t\t\t\t[RM]$(NO_COLOR)"
 
 fclean:		clean
 	@rm -f $(NAME)

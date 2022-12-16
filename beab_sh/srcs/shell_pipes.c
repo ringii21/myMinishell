@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:16:05 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 18:34:23 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 20:11:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ int	dup_pipes(t_token *t, int *is_pipe)
 	return (1);
 }
 
-int	child_process(t_token *t, t_env *env, bool builtin)
+int	child_process(t_token *t, t_env *env)
 {	
 	char	**env_tab;
 
 	if (!dup_pipes(t, &(t->is_pipe_open)))
 		ft_mini_exit(EXIT_FAILURE, t, env);
-	if (builtin)
+	if (t->is_builtin)
 		ft_mini_exit(exec_builtin(t, env, true), t, env);
 	if (t->cmds_av == NULL || t->cmds_av[0] == NULL)
 	{
