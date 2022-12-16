@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:15 by abonard           #+#    #+#             */
-/*   Updated: 2022/12/15 17:55:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:10:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 int	ft_check_if_not_valid_pipes(char *line, int i, bool err)
 {
-	if (line[0] == '|' || line[ft_strlen(line) - 1] == '|')
+	size_t	len;
+
+	if (!line)
+		return (0);
+	len = ft_strlen(line);
+	if (!len)
+		return (0);
+	if (line[0] == '|' || line[len - 1] == '|')
 	{
 		if (err == true)
 			ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
@@ -41,7 +48,14 @@ int	ft_check_if_not_valid_pipes(char *line, int i, bool err)
 
 int	ft_check_if_not_valid_redir(char *line, int i, bool err)
 {	
-	if (line[ft_strlen(line) - 1] == '>' || line[ft_strlen(line) - 1] == '<')
+	size_t	len;
+
+	if (!line)
+		return (0);
+	len = ft_strlen(line);
+	if (!len)
+		return (0);
+	if (line[len - 1] == '>' || line[len - 1] == '<')
 	{
 		if (err == true)
 			ft_putstr_fd(ERR_NL, STDERR_FILENO);
@@ -98,6 +112,8 @@ int	check_quotes_is_valid(char *line)
 	int	quotes;
 	int	b_quote;
 
+	if (!line)
+		return (1);
 	i = -1;
 	quotes = 0;
 	b_quote = 0;

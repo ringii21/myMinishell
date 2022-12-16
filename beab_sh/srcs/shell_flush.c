@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_flush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 15:02:04 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:09:12 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,18 @@ void	ft_flush(t_token *t)
 {
 	t_token	*next;
 
-	while (t->prev && t)
-		t = t->prev;
-	while (t)
+	if (t)
 	{
-		next = t->next;
-		ft_free_nodes(t);
-		t->cmd_ac = 0;
-//		ft_close_fd(t);
-		free(t);
-		t = next;
+		while (t->prev && t)
+			t = t->prev;
+		while (t)
+		{
+			next = t->next;
+			ft_free_nodes(t);
+			t->cmd_ac = 0;
+	//		ft_close_fd(t);
+			free(t);
+			t = next;
+		}
 	}
 }

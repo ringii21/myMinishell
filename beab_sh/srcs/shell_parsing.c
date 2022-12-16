@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 15:59:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:09:52 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_token	*parser(t_main *m)
 	p = init_parser();
 	tmp = NULL;
 	tmp = ft_strtrim(m->line, " \f\t\n\r\v");
+	if (!tmp)
+		return (NULL);
 	if (!ft_check_if_not_valid_pipes(tmp, -1, true)
 		|| !ft_check_if_not_valid_redir(tmp, -1, true)
 		|| !check_quotes_is_valid(tmp))
