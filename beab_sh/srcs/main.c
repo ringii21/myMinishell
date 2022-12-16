@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 16:36:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:40:06 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	minishell(t_main *m)
 		m->prompt = ft_strjoin(cwd, "$ ");
 		free(cwd);
 		m->line = readline(m->prompt);
-		printf("%s\n", m->line);
+//		printf("%s\n", m->line);
 		free(m->prompt);
 		if (!m->line)
 		{
