@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 22:37:12 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:36:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	minishell(t_main *m)
 		m->prompt = ft_strjoin(cwd, "$ ");
 		free(cwd);
 		m->line = readline(m->prompt);
+		printf("%s\n", m->line);
 		free(m->prompt);
 		if (!m->line)
 		{
@@ -45,7 +46,8 @@ void	minishell(t_main *m)
 			break ;
 		}
 		ft_check_line(m);
-		add_history(m->line);
+		if (ft_isprint(m->line[0]))
+			add_history(m->line);
 		free(m->line);
 		m->line = NULL;
 		m->t = NULL;
