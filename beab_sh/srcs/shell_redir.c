@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:10:36 by root              #+#    #+#             */
-/*   Updated: 2022/12/10 09:48:55 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 23:59:20 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	find_redir(char *is_out, char *is_in)
 	return (1);
 }
 
-int	redir_manager(t_parse *p, char *str)
+int	redir_manager(t_main *m, t_parse *p, char *str)
 {
 	if (str[p->i] == '<' || str[p->i] == '>')
 	{
-		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
+		fill_args(&p->read, &p->type, m->cursor, &p->is_quote);
 		if (p->type != DEFAULT)
 			return (3);
 		if (find_redir(str + p->i, "<<") && ++p->i)

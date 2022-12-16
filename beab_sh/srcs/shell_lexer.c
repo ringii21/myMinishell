@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 22:27:20 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 22:54:31 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/17 00:26:13 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,16 @@ char	*lexer(t_main *m)
 		return (NULL);
 	len = ft_strlen(tmp);
 	if (!len)
+	{
+		free(tmp);
 		return (NULL);
+	}
 	if (!ft_check_if_not_valid_pipes(tmp, -1, true, len)
 		|| !ft_check_if_not_valid_redir(tmp, -1, true, len)
 		|| !check_quotes_is_valid(tmp))
+	{
 		free(tmp);
+		return (NULL);
+	}
 	return (tmp);
 }

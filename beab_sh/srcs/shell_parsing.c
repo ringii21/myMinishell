@@ -3,38 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:11 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 22:45:20 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/17 00:19:53 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	count_ac(t_token *t)
-{
-	while (t != NULL)
-	{
-		if (t->cmds_av)
-			t->cmd_ac = ft_tablen(t->cmds_av);
-		t = t->next;
-	}
-}
-
-void	next_token(t_token **cursor, int is_pipe)
-{
-	t_token	*tmp;
-
-	tmp = *cursor;
-	if (is_pipe)
-		(*cursor)->is_pipe = is_pipe;
-	(*cursor)->next = init_token();
-	*cursor = (*cursor)->next;
-	(*cursor)->prev = tmp;
-}
-
-int	quote_manager(t_parse *p, char *str, t_env *env, int u)
+int	quote_manager(t_main *m, t_parse *p, char *str, t_env *env)
 {
 	char	*name;
 
@@ -50,11 +28,11 @@ int	quote_manager(t_parse *p, char *str, t_env *env, int u)
 	}
 	else if (str[p->i] == '$' && p->type != R_REDIR_IN)
 	{
-		name = pull_varname(str + p->i, &u);
+		name = pull_varname(str + p->i, &m->u);
 		if (ft_strlen(name) > 0)
 		{
-			p->i += u;
-			var_lector(p->cursor, name, &p->read, env);
+			p->i += m->u;
+			var_lector(m->cursor, name, &p->read, env);
 			free(name);
 			return (1);
 		}
@@ -69,55 +47,69 @@ int	fill_token_list(t_parse *p, t_main *m, char *tmp)
 
 	while (tmp[p->i] == ' ')
 	{
-		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
+		fill_args(&p->read, &p->type, m->cursor, &p->is_quote);
 		p->i++;
 	}
 	if (tmp[p->i] == '\\')
 		return (5);
 	if (tmp[p->i] == '|')
 	{
-		fill_args(&p->read, &p->type, p->cursor, &p->is_quote);
-		if (p->cursor->cmds_av == NULL && p->cursor->file == NULL)
+		fill_args(&p->read, &p->type, m->cursor, &p->is_quote);
+		if (m->cursor->cmds_av == NULL && m->cursor->file == NULL)
 			return (4);
-		next_token(&p->cursor, tmp[p->i++] == '|');
+		next_token(&m->cursor, tmp[p->i++] == '|');
 		return (1);
 	}
-	res = redir_manager(p, tmp);
+	res = redir_manager(m, p, tmp);
 	if (res != 0)
 		return (res);
-	res = quote_manager(p, tmp, m->env, 0);
+	res = quote_manager(m, p, tmp, m->env);
 	if (res != 0)
 		return (res);
 	return (0);
 }
 
-void	parser(t_main *m)
+int	parse_flush(t_main *m, char *tmp, int res)
+{
+	if (res == 1)
+	{
+		if (tmp[m->p->i] == '?' && tmp[m->p->i - 1] && tmp[m->p->i - 1] == '$')
+			m->p->i++;
+		return (2);
+	}
+	if (res > 1)
+	{
+		free(tmp);
+		ft_flush(m->t);
+		return (0);
+	}
+	return (3);
+}
+
+t_token	*parser(t_main *m)
 {
 	int		res;
 	char	*tmp;
 
 	tmp = lexer(m);
-	while (tmp[m->p.i])
-	{
-		res = fill_token_list(&m->p, m, tmp);
-		if (res == 1)
-		{
-			if (tmp[m->p.i] == '?' && tmp[m->p.i - 1] && tmp[m->p.i - 1] == '$')
-				m->p.i++;
-			continue ;
-		}
-		if (res > 1)
-		{
-			free(tmp);
-			ft_flush(m->p.list);
-			return ;
-		}
-		if (tmp[m->p.i])
-			m->p.read = ft_strdupcat(m->p.read, tmp + m->p.i++, 1);
+	if (!tmp)
+		return (NULL);
+	m->t = init_token();
+	m->cursor = m->t;
+	while (tmp[m->p->i])
+	{	
+		m->u = 0;
+		res = fill_token_list(m->p, m, tmp);
+		res = parse_flush(m, tmp, res);
+		if (res == 0)
+			return (NULL);
+		else if (res != 2 && tmp[m->p->i])
+			m->p->read = ft_strdupcat(m->p->read, tmp + m->p->i++, 1);
 	}
-	fill_args(&m->p.read, &m->p.type, m->p.cursor, &m->p.is_quote);
-	if (m->p.cursor->cmds_av == NULL && m->p.cursor->file == NULL)
-		return ;
+	fill_args(&m->p->read, &m->p->type, m->cursor, &m->p->is_quote);
+	if (m->cursor->cmds_av == NULL && m->cursor->file == NULL)
+		return (NULL);
 	free(tmp);
-	count_ac(m->p.list);
+	count_ac(m->t);
+	return (m->t);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 22:57:07 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 23:59:35 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,22 @@ char	**ft_env_to_tab(t_env *env);
 void	shlvl_up(t_main *m);
 
 //		shell_init.c
-t_parse	init_parser(void);
+t_parse	*init_parser(void);
 t_token	*init_token(void);
 
 //		shell_flush.c
-void	ft_free_nodes(t_token *t);
+void	free_tokens(t_token *t);
+void	free_parser(t_parse *p);
 void	ft_flush(t_token *t);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
 //		shell_parsing.c
-void	parser(t_main *m);
+t_token	*parser(t_main *m);
+
+//		shell_parsing_utils.c
+void	count_ac(t_token *t);
+void	next_token(t_token **cursor, int is_pipe);
 
 //		shell_lexer.c
 char	*lexer(t_main *m);
@@ -61,7 +66,7 @@ int		ft_check_if_not_valid_pipes(char *line, int i, bool err, size_t len);
 int		check_quotes_is_valid(char *line);
 
 //		shell_redir.c
-int		redir_manager(t_parse *p, char *str);
+int		redir_manager(t_main *m, t_parse *p, char *str);
 int		expand_var(t_env *env, char **token, int *i, char *str);
 char	*pull_varname(char *str, int *cursor);
 void	var_lector(t_token *cursor, char *var, char **reading, t_env *env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_flush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 21:39:55 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/17 00:34:50 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_redir(t_redir *r, bool is_parent)
 	}
 }
 
-void	ft_free_nodes(t_token *t)
+void	free_tokens(t_token *t)
 {
 	if (t->bin_path)
 		free(t->bin_path);
@@ -43,6 +43,13 @@ void	ft_free_nodes(t_token *t)
 		ft_free_stab(t->cmds_av);
 	if (t->file)
 		free_redir(t->file, t->is_parent);
+}
+
+void	free_parser(t_parse *p)
+{
+	if (p->read)
+		free(p->read);
+	free(p);
 }
 
 void	ft_flush(t_token *t)
@@ -56,7 +63,7 @@ void	ft_flush(t_token *t)
 		while (t)
 		{
 			next = t->next;
-			ft_free_nodes(t);
+			free_tokens(t);
 			t->cmd_ac = 0;
 			free(t);
 			t = next;

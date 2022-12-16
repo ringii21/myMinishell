@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 22:30:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 23:54:15 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ typedef struct s_parse
 	int				i;
 	char			*read;
 	char			*var;
-	t_token			*list;
-	t_token			*cursor;
 	enum e_type		type;
 	bool			is_quote;
 }	t_parse;
@@ -85,7 +83,9 @@ typedef struct s_main
 	char			*cwd;
 	char			*prompt;
 	char			*line;
-	t_parse			p;
+	int				u;
+	t_parse			*p;	
+	t_token			*cursor;
 	t_token			*t;
 	t_env			*env;
 }	t_main;

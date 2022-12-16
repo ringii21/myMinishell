@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_init.c                                       :+:      :+:    :+:   */
+/*   shell_parsing_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 20:38:15 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 23:56:03 by abonard          ###   ########.fr       */
+/*   Created: 2022/12/16 22:55:51 by abonard           #+#    #+#             */
+/*   Updated: 2022/12/17 00:01:54 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_token	*init_token(void)
+void	count_ac(t_token *t)
 {
-	t_token	*new_token;
-
-	new_token = ft_calloc(1, sizeof(t_token));
-	if (new_token == NULL)
-		return (NULL);
-	return (new_token);
+	while (t != NULL)
+	{
+		if (t->cmds_av)
+			t->cmd_ac = ft_tablen(t->cmds_av);
+		t = t->next;
+	}
 }
 
-t_parse	*init_parser(void)
+void	next_token(t_token **cursor, int is_pipe)
 {
-	t_parse	*new;
+	t_token	*tmp;
 
-	new = ft_calloc(1, sizeof(t_parse));
-	return (new);
+	tmp = *cursor;
+	if (is_pipe)
+		(*cursor)->is_pipe = is_pipe;
+	(*cursor)->next = init_token();
+	*cursor = (*cursor)->next;
+	(*cursor)->prev = tmp;
 }

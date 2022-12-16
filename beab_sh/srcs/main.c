@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 22:44:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/17 00:32:20 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_check_line(t_main *m)
 {
 	if (m->line && m->line[0] != '\0')
 	{
-		parser(m);
+		m->t = parser(m);
+		free_parser(m->p);
 		if (!m->t)
 			ft_mini_exit(1, NULL, m->env);
 		else
