@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/16 22:46:18 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/16 22:55:02 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ SRCS			:=	main.c \
 					shell_io.c \
 					shell_jobs.c \
 					shell_lvl.c \
-					shell_lexer_utils.c \
 					shell_lexer.c \
 					shell_parsing.c \
 					shell_path.c \

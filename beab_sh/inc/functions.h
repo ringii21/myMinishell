@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 22:45:06 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:57:07 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::INIT::
 
-//		shell_signals.c
-int		set_signals(void);
-int		shut_signals(int fork);
+//		shell_sig_set.c
 int		set_signals(void);
 int		set_sig(void);
+
+//		shell_signals.c
+int		shut_signals(int fork);
 void	ft_cntlc(int sig);
 void	ft_cntl_slsh(int sig);
 
@@ -55,10 +56,8 @@ void	parser(t_main *m);
 
 //		shell_lexer.c
 char	*lexer(t_main *m);
-
-//		shell_lexer_utils.c
-int		ft_check_if_not_valid_redir(char *line, int i, bool err);
-int		ft_check_if_not_valid_pipes(char *line, int i, bool err);
+int		ft_check_if_not_valid_redir(char *line, int i, bool err, size_t len);
+int		ft_check_if_not_valid_pipes(char *line, int i, bool err, size_t len);
 int		check_quotes_is_valid(char *line);
 
 //		shell_redir.c
@@ -72,10 +71,8 @@ char	*pull_varvalue(char *varname, t_env *env, int *is_free);
 char	*make_token(char *str, int *cursor, char c, t_env *env);
 
 //		shell_structures.c
-void	fill_args(char **str, t_type *type, t_token *t,
-			bool *is_quote);
-void	fill_redir(t_token *t, char *str, t_type type,
-			bool *is_quote);
+void	fill_args(char **str, t_type *type, t_token *t, bool *is_quote);
+void	fill_redir(t_token *t, char *str, t_type type, bool *is_quote);
 
 //		utils.c
 void	split_args(t_token *t, char *str);

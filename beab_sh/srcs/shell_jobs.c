@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 21:45:53 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:59:48 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,13 @@ int	ft_hold_exec(t_token *t, t_env *env)
 
 int	check_and_proceed(t_main *m, t_token *t, t_env *env)
 {
-	if (!ft_check_if_not_valid_pipes(m->line, -1, false)
-		|| !ft_check_if_not_valid_redir(m->line, -1, false))
+	size_t	len;
+
+	len = ft_strlen(m->line);
+	if (!len)
+		return (-1);
+	if (!ft_check_if_not_valid_pipes(m->line, -1, false, len)
+		|| !ft_check_if_not_valid_redir(m->line, -1, false, len))
 		return (-1);
 	t->is_pipe_open = 0;
 	if (t->is_pipe == 1 || (t->prev && t->prev->is_pipe == 1))
