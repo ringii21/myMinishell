@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   shell_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 22:48:27 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 14:45:23 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*pull_varvalue(char *varname, t_env *env)
+char	*pull_varvalue(char *varname, t_env *env, int *is_free)
 {
 	char	*path;
 
 	if (varname[0] == '?' && !varname[1])
 	{
 		path = ft_itoa(g_status);
+		*is_free = 1;
 		return (path);
 	}
 	path = get_cont(varname, env);
@@ -32,8 +33,10 @@ void	var_lector(t_token *cursor, char *var, char **reading, t_env *env)
 	int		i;
 	char	*str;
 	char	*r;
+	int		is_free;
 
-	str = pull_varvalue(var, env);
+	is_free = 0;
+	str = pull_varvalue(var, env, &is_free);
 	i = 0;
 	r = *reading;
 	while (str[i])
@@ -47,7 +50,8 @@ void	var_lector(t_token *cursor, char *var, char **reading, t_env *env)
 			r = ft_strdupcat(r, str + i++, 1);
 	}
 	*reading = r;
-	free(str);
+	if (is_free == 1)
+		free(str);
 }
 
 char	*pull_varname(char *str, int *cursor)
@@ -83,7 +87,9 @@ int	expand_var(t_env *env, char **token, int *i, char *str)
 	char	*varname;
 	char	*cont;
 	int		j;
+	int		is_free;
 
+	is_free = 0;
 	if (str[*i] == '$')
 	{
 		j = 0;
@@ -91,7 +97,7 @@ int	expand_var(t_env *env, char **token, int *i, char *str)
 		if (ft_strlen(varname) > 0)
 		{
 			*i += j;
-			cont = pull_varvalue(varname, env);
+			cont = pull_varvalue(varname, env, &is_free);
 			free(varname);
 			*token = ft_strdupcat(*token, cont, (int)ft_strlen(cont));
 			return (1);

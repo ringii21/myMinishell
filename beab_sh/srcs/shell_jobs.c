@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 22:06:30 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 15:03:07 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ int	assign_jobs(t_token *t, t_env *env, bool builtin)
 	if (t->pid == -1)
 		return (1);
 	if (t->pid == 0)
+	{
+		t->is_parent = false;
 		child_process(t, env, builtin);
+	}
 	close_pipes(t);
+	t->is_parent = true;
 	return (res);
 }
 

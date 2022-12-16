@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 14:08:25 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 15:00:19 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_token
 	size_t			cmd_ac;
 	bool			is_pipe;
 	bool			is_error;
+	bool			is_parent;
 	int				is_pipe_open;
 	int				pipe_fd[2];
 	char			**cmds_av;

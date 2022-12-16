@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_flush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:13:55 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/15 21:26:37 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 15:02:04 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	free_redir(t_redir *r)
+void	free_redir(t_redir *r, bool is_parent)
 {
 	t_redir	*tmp;
 
@@ -21,7 +21,7 @@ void	free_redir(t_redir *r)
 		tmp = r->next;
 		if (r->file_path)
 			free(r->file_path);
-		if (r->type == R_REDIR_IN)
+		if (r->type == R_REDIR_IN && is_parent == true)
 		{
 			if (r->file_name != NULL)
 				unlink(r->file_name);
@@ -41,7 +41,7 @@ void	ft_free_nodes(t_token *t)
 	if (t->cmds_av != NULL)
 		ft_free_stab(t->cmds_av);
 	if (t->file)
-		free_redir(t->file);
+		free_redir(t->file, t->is_parent);
 }
 
 void	ft_flush(t_token *t)

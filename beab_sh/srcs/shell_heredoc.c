@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:24:20 by ringii            #+#    #+#             */
-/*   Updated: 2022/12/15 21:27:24 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 15:03:43 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,13 @@ int	heredoc(t_token *t, t_redir *r, t_env *env)
 		return (-1);
 	}
 	else if (pid == 0)
+	{
+		t->is_parent = false;
 		ft_heredoc_loop(t, env, r, fd);
+	}
 	ignore_sig(SIGQUIT);
 	ignore_sig(SIGINT);
+	t->is_parent = true;
 	wait_function(pid);
 	set_signals();
 	set_sig();

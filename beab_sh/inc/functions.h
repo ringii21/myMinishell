@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/15 21:22:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 14:44:17 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		redir_manager(t_parse *p, char *str);
 int		expand_var(t_env *env, char **token, int *i, char *str);
 char	*pull_varname(char *str, int *cursor);
 void	var_lector(t_token *cursor, char *var, char **reading, t_env *env);
-char	*pull_varvalue(char *varname, t_env *env);
+char	*pull_varvalue(char *varname, t_env *env, int *is_free);
 
 //		shell_expansion.c
 char	*make_token(char *str, int *cursor, char c, t_env *env);
