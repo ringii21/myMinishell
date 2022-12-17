@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/16 23:54:15 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/17 00:50:10 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_main
 	int				u;
 	t_parse			*p;	
 	t_token			*cursor;
+	bool			quotes_empty;
 	t_token			*t;
 	t_env			*env;
 }	t_main;

@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/17 00:32:20 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/17 00:58:56 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_check_line(t_main *m)
 	{
 		m->t = parser(m);
 		free_parser(m->p);
-		if (!m->t)
+		if (!m->t && m->quotes_empty == false)
 			ft_mini_exit(1, NULL, m->env);
 		else
 		{

@@ -6,7 +6,7 @@
 #    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/16 23:20:13 by abonard          ###   ########.fr        #
+#    Updated: 2022/12/17 01:09:57 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS			:=	main.c \
 					shell_unset.c \
 					utils.c \
 					utils_export.c \
+					utils_quotes.c \
 					utils_env.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:26:51 by root              #+#    #+#             */
-/*   Updated: 2022/12/16 23:59:35 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/17 01:10:53 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ void	next_token(t_token **cursor, int is_pipe);
 char	*lexer(t_main *m);
 int		ft_check_if_not_valid_redir(char *line, int i, bool err, size_t len);
 int		ft_check_if_not_valid_pipes(char *line, int i, bool err, size_t len);
-int		check_quotes_is_valid(char *line);
+
+//		utils_quotes.c
+int		check_empty_quotes(t_main *m, char *tmp);
+int		check_quotes_is_valid(t_main *m, char *line);
+void	check_quotes(char c, int *b_quote, int *quotes);
 
 //		shell_redir.c
 int		redir_manager(t_main *m, t_parse *p, char *str);
